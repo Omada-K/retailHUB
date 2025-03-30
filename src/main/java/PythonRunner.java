@@ -16,5 +16,6 @@ public class PythonRunner {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    MainWindow mainWindow = new MainWindow();
   }
 }
