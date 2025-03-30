@@ -1,2 +1,2 @@
-textString = "Geis sou omada"
+textString = "Geia sou omada"
 print(textString)
