@@ -42,6 +42,6 @@ df = pd.read_csv(io.StringIO(second_response.text))
 print(df)
 
 
-df.to_csv("raw_data_salesforce.csv") #works fine
+df.to_csv("../data/raw_data_salesforce.csv") #works fine
 
 
