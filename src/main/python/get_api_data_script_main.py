@@ -18,6 +18,7 @@ username = "CAPSTONE@UOM.integration"
 password = "capstone@2025ul2MnLZyLm9yeJ4hHk5eOHUGh"
 
 ###dictonary parameters
+#the header is for authentication
 header_dic = {
     "Content-Type":"application/x-www-form-urlencoded"
 }
@@ -30,12 +31,13 @@ parameters = {
 }
 
 ## from requests library we are using .post method to get our data
-response = requests.post(url=api_url,params=parameters,headers=header_dic)
+response = requests.post(url=api_url,params=parameters,headers=header_dic) #post method sends our data to get some response in our case we get the authentication data
 response.raise_for_status() #ignore - checks for success response
 data = response.json() #saves data to json in the memory
 
-access_token = data['access_token'] #takes a specific data from the json data
-instance_url = data['instance_url'] #same
+#takes a specific data from the json data
+access_token = data['access_token'] #takes the authentication token from the first API
+instance_url = data['instance_url'] #takes the URL to access the next API
 
 ###second api
 second_api_URL = f"{instance_url}/services/apexrest/capstone/" #using url from the first API
