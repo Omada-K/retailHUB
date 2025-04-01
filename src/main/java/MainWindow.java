@@ -16,7 +16,7 @@ public class MainWindow extends JFrame {
     //Labels contain text or/and images
     ImageIcon icon = new ImageIcon("C:\\ESD\\retailHUB\\src\\main\\resources\\images\\mastoras_san.png");
 
-    JLabel label = new JLabel("Welcome to Retail HUB");
+    JLabel label = new JLabel("Welcome to ESD25");
     label.setIcon(icon);
 
     label.setHorizontalTextPosition(JLabel.CENTER);
