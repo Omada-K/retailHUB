@@ -1,6 +1,8 @@
+package com.ui;
+
 import javax.swing.*;
 
-public class MainFrame {
+public class MainFrame{
   private JButton logOutButton;
   private JButton viewInvoicesButton;
   private JButton viewUsersButton;

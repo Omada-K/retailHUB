@@ -1,10 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame{
 
-
-  MainWindow() {
+  MainWindow(){
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes on X
     setTitle("Retail HUB ");
     //setSize(600, 600);
@@ -31,5 +30,4 @@ public class MainWindow extends JFrame {
     add(label);
     pack();
   }
-
 }

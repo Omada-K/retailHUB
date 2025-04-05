@@ -52,3 +52,5 @@ __pycache__/
 
 #themis
 notes.md
+database/
+*.csv

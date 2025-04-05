@@ -14,4 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+<dependencies>
+    <!-- HSQLDB Database -->
+    <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>2.7.2</version> <!-- Check for the latest version -->
+        <scope>runtime</scope>
+    </dependency>
+</dependencies>
+
 </project>

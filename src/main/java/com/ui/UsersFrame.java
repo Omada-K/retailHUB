@@ -1,6 +1,8 @@
+package com.ui;
+
 import javax.swing.*;
 
-public class UsersFrame {
+public class UsersFrame{
   private JTable mainTable;
   private JPanel panel1;
   private JScrollBar scrollBar1;
