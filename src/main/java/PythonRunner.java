@@ -1,4 +1,5 @@
 import com.controler.DataBaseConfig;
+import com.ui.LoginFrame;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -24,8 +25,9 @@ public class PythonRunner{
     }catch(Exception e){
       e.printStackTrace();
     }
-    
-    MainWindow mainWindow = new MainWindow();
+
+    //    MainWindow mainWindow = new MainWindow();
+    LoginFrame loginFrame = new LoginFrame();
 
     //Database related stuff
     // Initialize
