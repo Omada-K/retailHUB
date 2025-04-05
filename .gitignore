@@ -54,3 +54,7 @@ __pycache__/
 notes.md
 database/
 *.csv
+
+data/
+*.csv
+
