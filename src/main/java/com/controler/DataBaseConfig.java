@@ -19,18 +19,17 @@ public class DataBaseConfig{
 
   // create atable
   public static void createUserTable() throws SQLException{
+
+    String createTableSQL = "CREATE TABLE IF NOT EXISTS users (" +
+            "id INTEGER IDENTITY PRIMARY KEY, " +
+            "name VARCHAR(60) NOT NULL, " +
+            "email VARCHAR(60) UNIQUE NOT NULL," +
+            "user_password VARCHAR(60) UNIQUE NOT NULL)";
+
+    //is_manager? BOOLEAN
     try(Connection conn = getConnection();
         Statement stmt = conn.createStatement()){
-
-      String createTableSQL = "CREATE TABLE IF NOT EXISTS users (" +
-              "id INTEGER IDENTITY PRIMARY KEY, " +
-              "name VARCHAR(60) NOT NULL, " +
-              "email VARCHAR(60) UNIQUE NOT NULL," +
-              "user_password VARCHAR(60) UNIQUE NOT NULL)";
-      //is_manager? BOOLEAN
-
       stmt.executeUpdate(createTableSQL);// run the above query
-
       System.out.println("Database initialized successfully.");
       System.out.println("users table created.");
     }catch(SQLException e){

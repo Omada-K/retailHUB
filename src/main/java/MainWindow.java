@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class MainWindow extends JFrame{
 
@@ -12,8 +13,10 @@ public class MainWindow extends JFrame{
     getContentPane().setBackground(new Color(58, 97, 127));
     // setLayout(null);// border layout by default.
 
+    //this way to get the path from the resources folder
+    URL mastorasImage = getClass().getResource("/images/mastoras_san.png");
     //Labels contain text or/and images
-    ImageIcon icon = new ImageIcon("C:\\ESD\\retailHUB\\src\\main\\resources\\images\\mastoras_san.png");
+    ImageIcon icon = new ImageIcon(mastorasImage);
 
     JLabel label = new JLabel("Welcome to ESD25");
     label.setIcon(icon);
