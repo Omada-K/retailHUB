@@ -1,11 +1,15 @@
 import com.controler.DataBaseConfig;
+import com.model.User;
 import com.ui.LoginFrame;
 import com.ui.MainFrame;
 import com.ui.TableFrame;
+import com.ui.TableModel;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
+
   public static void main (String[] args) throws SQLException {
     System.out.println("Starting application...");
 
@@ -13,8 +17,15 @@ public class Main {
     // Initialize
     DataBaseConfig.createUserTable();
 
+    ArrayList<User> exampleList = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      exampleList.add(new User(i + 1, "Takis", "takaros@retailhub.com", "123456"));
+    }
+    String[] columns = {"id", "name", "email", "password"};
+    TableModel userTableModel = new TableModel(exampleList, columns);
+
     //GUI related stuff
-    TableFrame tableFrame = new TableFrame();
+    TableFrame tableFrame = new TableFrame(userTableModel);
     MainFrame mainFrame = new MainFrame(tableFrame);
     LoginFrame loginFrame = new LoginFrame(mainFrame);
   }
