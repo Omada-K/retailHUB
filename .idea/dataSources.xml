@@ -6,7 +6,7 @@
       <synchronize>true</synchronize>
       <remarks>retailDb</remarks>
       <jdbc-driver>org.hsqldb.jdbc.JDBCDriver</jdbc-driver>
-      <jdbc-url>jdbc:hsqldb:file:$PROJECT_DIR$/database/mydb;ifexists=true</jdbc-url>
+      <jdbc-url>jdbc:hsqldb:file:$PROJECT_DIR$/database/retailDB;ifexists=true</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>
