@@ -55,6 +55,7 @@ salvage/
 database/
 *.csv
 
-data/
+/src/data/
+/src/main/data/
 *.csv
 
