@@ -42,3 +42,9 @@ String sql = "SELECT id, name, email, \"password\" FROM users";
             e.printStackTrace();
         }
 ```
+```java
+//this way to get the path from the resources folder
+URL mastorasImage = getClass().getResource("/images/mastoras_san.png");
+//Labels contain text or/and images
+ImageIcon icon = new ImageIcon(mastorasImage);
+```

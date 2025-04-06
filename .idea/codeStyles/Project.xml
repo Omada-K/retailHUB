@@ -1,6 +1,9 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
+    <JavaCodeStyleSettings>
+      <option name="SPACE_BEFORE_DECONSTRUCTION_LIST" value="true" />
+    </JavaCodeStyleSettings>
     <Markdown>
       <option name="MAX_LINES_AROUND_HEADER" value="0" />
       <option name="MAX_LINES_AROUND_BLOCK_ELEMENTS" value="0" />
@@ -20,33 +23,21 @@
       <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
       <option name="KEEP_BLANK_LINES_BETWEEN_PACKAGE_DECLARATION_AND_HEADER" value="1" />
       <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
-      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+      <option name="ALIGN_MULTILINE_METHOD_BRACKETS" value="true" />
       <option name="SPACE_AROUND_LAMBDA_ARROW" value="false" />
-      <option name="SPACE_BEFORE_IF_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_WHILE_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_FOR_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_TRY_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_CATCH_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_SWITCH_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_SYNCHRONIZED_PARENTHESES" value="false" />
-      <option name="SPACE_BEFORE_CLASS_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_METHOD_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_IF_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_ELSE_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_WHILE_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_FOR_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_DO_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_SWITCH_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_TRY_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_CATCH_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_FINALLY_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_SYNCHRONIZED_LBRACE" value="false" />
-      <option name="SPACE_BEFORE_ELSE_KEYWORD" value="false" />
-      <option name="SPACE_BEFORE_WHILE_KEYWORD" value="false" />
-      <option name="SPACE_BEFORE_CATCH_KEYWORD" value="false" />
-      <option name="SPACE_BEFORE_FINALLY_KEYWORD" value="false" />
+      <option name="SPACE_WITHIN_PARENTHESES" value="true" />
+      <option name="SPACE_WITHIN_BRACES" value="true" />
+      <option name="SPACE_WITHIN_EMPTY_ARRAY_INITIALIZER_BRACES" value="true" />
+      <option name="SPACE_BEFORE_METHOD_PARENTHESES" value="true" />
+      <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true" />
+      <option name="CALL_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_LPAREN_ON_NEXT_LINE" value="true" />
+      <option name="METHOD_PARAMETERS_RPAREN_ON_NEXT_LINE" value="true" />
+      <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_LAMBDAS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
+      <option name="SPACE_BEFORE_ANOTATION_PARAMETER_LIST" value="true" />
       <indentOptions>
         <option name="INDENT_SIZE" value="2" />
       </indentOptions>

@@ -50,8 +50,8 @@ __pycache__/
 *.pyd
 *.env
 
-#themis
-notes.md
+# Data
+salvage/
 database/
 *.csv
 
