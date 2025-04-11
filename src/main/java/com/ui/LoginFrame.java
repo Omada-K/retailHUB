@@ -5,7 +5,7 @@ import com.model.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 public class LoginFrame extends JFrame {
   private JPanel loginPanel;
@@ -13,8 +13,8 @@ public class LoginFrame extends JFrame {
   private JTextField inputPassword;
   private JButton btnLogin;
   private JButton cancelButton;
-  private ArrayList<User> usernameList; //NADOUME AUTO - alex
-  private ArrayList<User> passwordList;//NADOUME AUTO - alex
+
+
 
   public LoginFrame (MainFrame mainFrame) {
     setContentPane(loginPanel);// don't forget this, the window will be empty
@@ -28,18 +28,27 @@ public class LoginFrame extends JFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         //TASK work here to create auth logic
-        String username = getInputUsername().getText();
+        String useremail = getInputUsername().getText();
         String password = getInputPassword().getText();
-        System.out.println("Username: " + username);
+        System.out.println("Username: " + useremail);
         System.out.println("Password: " + password);
-        Auth creds = new Auth(username,password,usernameList,passwordList); //NADOUME AUTO - alex
 
-        dispose();//this makes THIS frame not visible
-        if (creds.Checker())
+        Auth_arrays creds = new Auth_arrays(useremail,password); //gets userinput and password input
+
+        User user1 = new User("admin2","admin@","2524"); //creates a user from the User class
+        //adds a user in the username list and password list - hard code
+        creds.auth_add_user_in_list("admin","123");
+        creds.auth_add_user_in_list("pa","ff");
+        //adds a user (name,password) in the username list and password list in the AUTH class, using the User class
+        creds.auth_add_user_in_list(user1.getEmail(),user1.getUserPassword());
+
+
+        if (creds.auth_check()) {
           mainFrame.setVisible(true);
-        else
-          System.out.println("Ti kaneis ekei atimouli?");
-        creds.authentication_message();
+          dispose();//this makes THIS frame not visible
+        }
+        else {
+          System.out.println("Ti kaneis ekei atimouli?"); }
       }
     };
     //connect listener to the button
