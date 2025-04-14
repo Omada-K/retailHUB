@@ -54,6 +54,8 @@ __pycache__/
 salvage/
 database/
 *.csv
+*.log
+*.logs
 
 /src/data/
 /src/main/data/
