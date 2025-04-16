@@ -5,7 +5,7 @@ import com.model.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
   private JPanel loginPanel;
@@ -13,8 +13,11 @@ public class LoginFrame extends JFrame {
   private JTextField inputPassword;
   private JButton btnLogin;
   private JButton cancelButton;
-
-
+  //new auth
+  private ArrayList<User> users = new ArrayList<User>();
+  private User user1 = new User("Mitsos", "mitsos@gmail.com", "123456");
+  private User user2 = new User("Anna", "anna@gmail.com", "000000");
+  private User user3 = new User("Mastoras", "mastoras@gmail.com", "aaabbb");
 
   public LoginFrame (MainFrame mainFrame) {
     setContentPane(loginPanel);// don't forget this, the window will be empty
@@ -23,32 +26,33 @@ public class LoginFrame extends JFrame {
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+    users.add(user1);
+    users.add(user2);
+    users.add(user3);
+
     //create a listener
     ActionListener OnClick = new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
         //TASK work here to create auth logic
-        String useremail = getInputUsername().getText();
+        String userEmail = getInputUsername().getText();
         String password = getInputPassword().getText();
-        System.out.println("Username: " + useremail);
+        System.out.println("Username: " + userEmail);
         System.out.println("Password: " + password);
 
-        Auth_arrays creds = new Auth_arrays(useremail,password); //gets userinput and password input
-
-        User user1 = new User("admin2","admin@","2524"); //creates a user from the User class
-        //adds a user in the username list and password list - hard code
-        creds.auth_add_user_in_list("admin","123");
-        creds.auth_add_user_in_list("pa","ff");
-        //adds a user (name,password) in the username list and password list in the AUTH class, using the User class
-        creds.auth_add_user_in_list(user1.getEmail(),user1.getUserPassword());
-
-
-        if (creds.auth_check()) {
-          mainFrame.setVisible(true);
-          dispose();//this makes THIS frame not visible
+        //new auth
+        for (User user : users) {
+          if (user.getEmail().equals(userEmail)) {
+            if (user.getUserPassword().equals(password)) {
+              mainFrame.setVisible(true);
+              dispose();//this makes THIS frame not visible
+            } else {
+              System.out.println("Wrong password");
+            }
+          } else {
+            System.out.println("User doesn't match");
+          }
         }
-        else {
-          System.out.println("Ti kaneis ekei atimouli?"); }
       }
     };
     //connect listener to the button
@@ -64,6 +68,7 @@ public class LoginFrame extends JFrame {
     return inputUsername;
 
   }
+
   public JTextField getInputPassword () {
     return inputPassword;
   }
