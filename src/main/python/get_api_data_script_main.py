@@ -11,10 +11,50 @@ import io
 import pandas as pd
 import requests
 
-## TASK use try-except block for api calls(post and/or get)
-## TASK insert multiple print logs(on start on end when a block success), so java can know what is happening
-## TASK remain apis to something that discribes there function not second_api
-## TASK CHANGE OUTPUT DIRECTORY
+## TASK1 use try-except block for api calls(post and/or get) --DONE
+import requests
+print("Date script starts")
+## Παίρνουμε όλα τα δεδομένα από το API
+url = "http://egov.dai.uom.gr:5001/data"
+
+try:
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        print("all data was successfully downloaded.")
+        print(data[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
+    else:
+        print("API returned an error. Status code: {response.status_code}")
+
+except requests.exceptions.RequestException as e:
+    print("Connection or response error from API:", e)
+
+## TASK2 insert multiple print logs(on start on end when a block success), so java can know what is happening
+import requests
+
+url = "http://egov.dai.uom.gr:5001/data"
+
+print("START: Fetching all data from API")  ## Εκκίνηση block
+
+try:
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        print("SUCCESS: Data fetched successfully")  ## Επιτυχία
+        print(data[:2])  ## Εκτύπωσε μόνο τα πρώτα 2 για προεπισκόπηση προαιρετικά
+    else:
+        print(f"ERROR: API returned status code {response.status_code}")  # Αν δεν είναι 200
+
+except requests.exceptions.RequestException as e:
+    print("ERROR: Something went wrong while calling the API:", e)  ## Σφάλμα σύνδεσης ή αιτήματος
+
+finally:
+    print("END: Finished API call block")  ##Τέλος block — είτε πέτυχε είτε όχι
+
+## TASK3 remain apis to something that describes there function not second_api
+## TASK4 CHANGE OUTPUT DIRECTORY
 ##API requirements see API documentation
 api_url = "https://login.salesforce.com/services/oauth2/token"
 client_id = "3MVG9dAEux2v1sLvxtmY6Z_yz1e8.CJKTAx0varvs97mY_jMn_TaXhdOXnw13wSDg7t3PO0xSEIuMCpAnTksN"
@@ -62,3 +102,5 @@ df = pd.read_csv(io.StringIO(
 print(df)  # prints the data for validation
 
 df.to_csv("../../../salvage/raw_data_salesforce.csv")  # creates a csv file with our data
+
+print("Data script is done !")
