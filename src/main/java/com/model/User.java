@@ -1,5 +1,10 @@
 package com.model;
 
+/**
+ * This is the data model of the user.
+ * It holds all the field relevant to the user of the retaiHUB app.
+ * In python it would be a dictionary
+ */
 public class User {
   private int id;
   private String name;

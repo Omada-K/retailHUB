@@ -5,8 +5,12 @@ import com.model.User;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
+/**
+ * This model converts an array list of User
+ * into something that the JTable understands
+ * and can show.
+ */
 public class TableModel extends AbstractTableModel {
-
   private String[] columnNames;
   private List<User> users;
 

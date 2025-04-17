@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-//all the communication between users and db is here
+/**
+ * This is the data access object of the user.
+ * It holds all the methods that "talk" to the DB.
+ * Get all, delete, create etc...
+ */
 public class UserDAO {
 
   public static ArrayList<User> getUsers () throws SQLException {

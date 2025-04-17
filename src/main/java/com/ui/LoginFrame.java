@@ -14,6 +14,7 @@ public class LoginFrame extends JFrame {
   private JButton btnLogin;
   private JButton cancelButton;
   //new auth
+  //TASK replace the lines below with database fetch method.
   private ArrayList<User> users = new ArrayList<User>();
   private User user1 = new User("Mitsos", "mitsos@gmail.com", "123456");
   private User user2 = new User("Anna", "anna@gmail.com", "000000");
@@ -64,10 +65,7 @@ public class LoginFrame extends JFrame {
     return loginPanel;
   }
 
-  public JTextField getInputUsername () {
-    return inputUsername;
-
-  }
+  public JTextField getInputUsername () { return inputUsername; }
 
   public JTextField getInputPassword () {
     return inputPassword;
