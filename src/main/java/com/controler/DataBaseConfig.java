@@ -1,9 +1,6 @@
 package com.controler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * This is where the DB is created.
@@ -42,6 +39,35 @@ public class DataBaseConfig {
     }
     System.out.println("Database initialized successfully.");
   }
+  // Adding users to the DB using PreparedStatement for security
+  public static void insertUserIfNotExists(String name, String email, String password) {
+    String checkSql = "SELECT COUNT(*) FROM user WHERE email = ?";
+    String insertSql = "INSERT INTO user (name, email, user_password) VALUES (?, ?, ?)";
+
+    try (Connection conn = getConnection();
+         PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+
+      checkStmt.setString(1, email); //Replaces the first ? in the checkSql with the actual email.
+      var rs = checkStmt.executeQuery(); //Runs the SELECT COUNT(*) query and stores the result in rs (a ResultSet).
+      rs.next(); //Moves to the first (and only) row in the result set.
+      int count = rs.getInt(1); //Gets the value from the first column — the number of users with that email.
+
+      //if the user does not exist aka count = 0
+      if (count == 0) {
+        insertStmt.setString(1, name);
+        insertStmt.setString(2, email);
+        insertStmt.setString(3, password);
+        insertStmt.executeUpdate();
+        System.out.println("Inserted user: " + name);
+      } else {
+        System.out.println("User with email " + email + " already exists.");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
 
   //TASK add more table creation methods eg createCustomerTable()
 }

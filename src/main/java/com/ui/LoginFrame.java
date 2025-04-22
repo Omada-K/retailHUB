@@ -16,7 +16,7 @@ public class LoginFrame extends JFrame {
   //new auth
   //TASK replace the lines below with database fetch method.
   private ArrayList<User> users = new ArrayList<User>();
-  private User user1 = new User("Mitsos", "mitsos@gmail.com", "123456");
+  private User user1 = new User("Mitsos", "123", "123");
   private User user2 = new User("Anna", "anna@gmail.com", "000000");
   private User user3 = new User("Mastoras", "mastoras@gmail.com", "aaabbb");
 

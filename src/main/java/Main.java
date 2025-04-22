@@ -16,6 +16,8 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createUserTable();
+    DataBaseConfig.insertUserIfNotExists("admin1","admin1@example.com","pass123");//adds users to user table in db
+    DataBaseConfig.insertUserIfNotExists("admin2","admin2@example.com","2312");
 
     //this code create a DUMMY array list of User to show on the table
     //it is temporary, just to show how the Table Models work
