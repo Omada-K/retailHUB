@@ -47,6 +47,11 @@ public class TableModel extends AbstractTableModel {
     };
   }
 
+  //get the whole user
+  public User getUser (int rowIndex) {
+    return users.get(rowIndex);
+  }
+
   //Delete an item
   public void removeRow (int rowIndex) {
     users.remove(rowIndex);

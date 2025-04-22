@@ -1,5 +1,7 @@
 package com.ui;
 
+import com.model.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +53,23 @@ public class TableFrame extends JFrame {
           if (confirm == JOptionPane.YES_OPTION) {
             ( (TableModel) mainTable.getModel() ).removeRow(selectedRow);
           }
+        } else {
+          JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
+        }
+      }
+    });
+
+    //Edit
+    updateButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        // get the selected row
+        int selectedRow = mainTable.getSelectedRow();
+        User selectedUser = (User) content.getUser(selectedRow);
+        if (selectedRow != -1) {
+
+          //state.userForm.setVisible(true);
+          UserForm userForm = new UserForm(state, selectedUser);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }

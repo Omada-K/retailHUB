@@ -56,7 +56,7 @@
         </constraints>
         <properties>
           <margin top="8" left="8" bottom="8" right="8"/>
-          <text value="Update?"/>
+          <text value="Update"/>
         </properties>
       </component>
       <component id="cab95" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
