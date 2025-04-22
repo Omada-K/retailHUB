@@ -47,4 +47,10 @@ public class TableModel extends AbstractTableModel {
     };
   }
 
+  //Delete an item
+  public void removeRow (int rowIndex) {
+    users.remove(rowIndex);
+    fireTableRowsDeleted(rowIndex, rowIndex); //this updates the visuals
+  }
+
 }

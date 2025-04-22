@@ -19,7 +19,6 @@ public class TableFrame extends JFrame {
     setVisible(false);
     setResizable(true);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
-    //    setSize(1000, 800);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
 
@@ -32,6 +31,29 @@ public class TableFrame extends JFrame {
         state.tableFrame.setVisible(false);
         state.mainFrame.setVisible(true);
 
+      }
+    });
+    // delete button
+    deleteButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        // get the selected row
+        int selectedRow = mainTable.getSelectedRow();
+        //check if there is selection
+        if (selectedRow != -1) {
+          //throw confirm message
+          int confirm = JOptionPane.showConfirmDialog(
+                  TableFrame.this,
+                  "Are you sure you want to delete this row?",
+                  "Confirm Delete",
+                  JOptionPane.YES_NO_OPTION
+                                                     );
+          if (confirm == JOptionPane.YES_OPTION) {
+            ( (TableModel) mainTable.getModel() ).removeRow(selectedRow);
+          }
+        } else {
+          JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
+        }
       }
     });
   }
