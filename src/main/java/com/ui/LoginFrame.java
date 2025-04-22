@@ -1,10 +1,12 @@
 package com.ui;
 
+import com.dao.UserDAO;
 import com.model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
@@ -15,21 +17,14 @@ public class LoginFrame extends JFrame {
   private JButton cancelButton;
   //new auth
   //TASK replace the lines below with database fetch method.
-  private ArrayList<User> users = new ArrayList<User>();
-  private User user1 = new User("Mitsos", "123", "123");
-  private User user2 = new User("Anna", "anna@gmail.com", "000000");
-  private User user3 = new User("Mastoras", "mastoras@gmail.com", "aaabbb");
+  private ArrayList<User> DBUsers = UserDAO.getUsers();
 
-  public LoginFrame (MainFrame mainFrame) {
+  public LoginFrame (MainFrame mainFrame) throws SQLException {
     setContentPane(loginPanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-    users.add(user1);
-    users.add(user2);
-    users.add(user3);
 
     //create a listener
     ActionListener OnClick = new ActionListener() {
@@ -42,7 +37,7 @@ public class LoginFrame extends JFrame {
         System.out.println("Password: " + password);
 
         //new auth
-        for (User user : users) {
+        for (User user : DBUsers) {
           if (user.getEmail().equals(userEmail)) {
             if (user.getUserPassword().equals(password)) {
               mainFrame.setVisible(true);
