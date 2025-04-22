@@ -1,6 +1,8 @@
 package com.ui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TableFrame extends JFrame {
   private JPanel tablePanel;
@@ -12,14 +14,25 @@ public class TableFrame extends JFrame {
   private JButton createButton;
   private JButton backButton;
 
-  public TableFrame (TableModel content) {
+  public TableFrame (AppState state, TableModel content) {
     setContentPane(tablePanel);// don't forget this, the window will be empty
     setVisible(false);
     setResizable(true);
-    setSize(1000, 800);
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    //    setSize(1000, 800);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
 
     mainTable.setModel(content);
+
+    //Back button
+    backButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        state.tableFrame.setVisible(false);
+        state.mainFrame.setVisible(true);
+
+      }
+    });
   }
 }

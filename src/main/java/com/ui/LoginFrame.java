@@ -20,7 +20,7 @@ public class LoginFrame extends JFrame {
   private User user2 = new User("Anna", "anna@gmail.com", "000000");
   private User user3 = new User("Mastoras", "mastoras@gmail.com", "aaabbb");
 
-  public LoginFrame (MainFrame mainFrame) {
+  public LoginFrame (AppState state) {
     setContentPane(loginPanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
@@ -45,7 +45,7 @@ public class LoginFrame extends JFrame {
         for (User user : users) {
           if (user.getEmail().equals(userEmail)) {
             if (user.getUserPassword().equals(password)) {
-              mainFrame.setVisible(true);
+              state.mainFrame.setVisible(true);
               dispose();//this makes THIS frame not visible
             } else {
               System.out.println("Wrong password");
