@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserForm extends JFrame {
+public class UserForm extends BaseForm {
   private JButton cancelButton;
   private JButton saveButton;
   private JTextField emailInput;
@@ -17,36 +17,43 @@ public class UserForm extends JFrame {
   private JPanel formPanel;
 
   //Edit form(needs user)
-  public UserForm (AppState appState, User user) {
+  public UserForm (TableModel content, User user) {
+    super();
+    setupCancelButton(cancelButton);
     setContentPane(formPanel);
-    setVisible(true);
-    setResizable(true);
-    setSize(480, 320);
-    setLocationRelativeTo(null);
 
     nameInput.setText(user.getName());
     emailInput.setText(user.getEmail());
     passwordInput.setText(user.getUserPassword());
     confirmPasswordInput.setText(user.getUserPassword());
 
-    cancelButton.addActionListener(new ActionListener() {
+    saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        dispose();
       }
     });
   }
 
   //Create user(no user required)
-  public UserForm (AppState appState) {
-    setVisible(false);
-    setResizable(true);
-    setSize(480, 320);
+  public UserForm (TableModel content) {
+    super();
+    setupCancelButton(cancelButton);
+    setContentPane(formPanel);
 
-    cancelButton.addActionListener(new ActionListener() {
+    saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        dispose();
+
+        if (passwordInput.getText() != null &&//validation
+                confirmPasswordInput.getText() != null &&
+                nameInput.getText() != null &&
+                emailInput.getText() != null &&
+                passwordInput.getText().equals(confirmPasswordInput.getText())) {
+          int itemsCount = content.getRowCount() + 1;
+          User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
+          content.addUser(itemsCount, inputUser);
+          dispose();
+        }
       }
     });
   }

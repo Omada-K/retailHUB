@@ -35,6 +35,7 @@ public class TableFrame extends JFrame {
 
       }
     });
+
     // delete button
     deleteButton.addActionListener(new ActionListener() {
       @Override
@@ -67,12 +68,18 @@ public class TableFrame extends JFrame {
         int selectedRow = mainTable.getSelectedRow();
         User selectedUser = (User) content.getUser(selectedRow);
         if (selectedRow != -1) {
-
-          //state.userForm.setVisible(true);
-          UserForm userForm = new UserForm(state, selectedUser);
+          UserForm userForm = new UserForm(content, selectedUser);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }
+      }
+    });
+
+    //Create
+    createButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        UserForm userForm = new UserForm(content);
       }
     });
   }

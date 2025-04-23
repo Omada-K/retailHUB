@@ -58,4 +58,10 @@ public class TableModel extends AbstractTableModel {
     fireTableRowsDeleted(rowIndex, rowIndex); //this updates the visuals
   }
 
+  //add a user
+  public void addUser (int rowIndex, User user) {
+    users.addLast(user);
+    fireTableRowsInserted(rowIndex, rowIndex);
+  }
+
 }
