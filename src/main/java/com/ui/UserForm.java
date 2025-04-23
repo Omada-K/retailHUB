@@ -22,6 +22,7 @@ public class UserForm extends BaseForm {
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
 
+    int id = user.getId();
     nameInput.setText(user.getName());
     emailInput.setText(user.getEmail());
     passwordInput.setText(user.getUserPassword());
@@ -30,6 +31,16 @@ public class UserForm extends BaseForm {
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
+
+        if (passwordInput.getText() != null &&//validation
+                confirmPasswordInput.getText() != null &&
+                nameInput.getText() != null &&
+                emailInput.getText() != null &&
+                passwordInput.getText().equals(confirmPasswordInput.getText())) {
+          User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
+          content.editUser(id, inputUser);
+          dispose();
+        }
       }
     });
   }

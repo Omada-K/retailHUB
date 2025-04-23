@@ -64,4 +64,10 @@ public class TableModel extends AbstractTableModel {
     fireTableRowsInserted(rowIndex, rowIndex);
   }
 
+  //update a user
+  public void editUser (int rowIndex, User user) {
+    users.set(rowIndex, user);
+    fireTableRowsUpdated(rowIndex, rowIndex);
+  }
+
 }
