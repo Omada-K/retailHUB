@@ -76,8 +76,21 @@ parameters = {
 }
 
 ## from requests library we are using .post method to get our data
+try:
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        print("all data was successfully downloaded.")
+        print(data[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
+    else:
+        print("API returned an error. Status code: {response.status_code}")
+
+except requests.exceptions.RequestException as e:
+    print("Connection or response error from API:", e)
 response = requests.post(url=api_url, params=parameters,
                          headers=header_dic)  # post method sends our data to get some response in our case we get the authentication data
+
 response.raise_for_status()  # ignore - checks for success response
 data = response.json()  # saves data to json in the memory
 
@@ -86,14 +99,25 @@ access_token = data['access_token']  # takes the authentication token from the f
 instance_url = data['instance_url']  # takes the URL to access the next API
 
 ###second api
-second_api_URL = f"{instance_url}/services/apexrest/capstone/"  # using url from the first API
+second_api_URL = f"{instance_url}/services/apexrest/salesforce-sales-data/"  # using url from the first API
 
 # same
 second_api_header = {
-    "Authorization": f"Bearer {access_token}",
-    "Content-Type": "Application/json"
+    "Authorization": f"Bearer {access_token}", "Content-Type": "Application/json"
 }
 
+try:
+    second_response = requests.post(url=second_api_URL, headers=second_api_header)
+
+    if second_response.status_code == 200:
+        df = pd.read_csv(io.StringIO(second_response.text))
+        print("Salesforce data was successfully downloaded.")
+        print(df.head(:2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
+    else:
+        print("Salesforce API returned an error. Status code: {second_response.status_code}")
+
+except requests.exceptions.RequestException as e:
+    print("Connection or response error from Salesforce data API:", e)
 second_response = requests.post(url=second_api_URL, headers=second_api_header)  # post method from request
 second_response.raise_for_status()  # ignore
 
