@@ -17,7 +17,7 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createUserTable();
-    DataBaseConfig.insertUserIfNotExists("admin1","admin1@example.com","pass123");//adds users to user table in db
+    DataBaseConfig.insertUserIfNotExists("admin1","admin1@example.com","123");//adds users to user table in db
     DataBaseConfig.insertUserIfNotExists("admin2","admin2@example.com","2312");
 
 
