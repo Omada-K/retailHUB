@@ -15,5 +15,5 @@ public class Discount {
   public void setOrderId (int orderId) { this.orderId = orderId; }
 
   public double getAmount () { return amount; }
-  void setAmount (double amount) { this.amount = amount; }
+  public void setAmount (double amount) { this.amount = amount; }
 }
