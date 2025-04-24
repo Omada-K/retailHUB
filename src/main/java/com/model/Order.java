@@ -1,10 +1,7 @@
-package com.model;
-
 import java.time.LocalDate;
 
 public class Order {
   private int orderId;
-  private String invoiceId;
   private LocalDate orderDate;
   private int quantity;
   private double amount;
@@ -12,9 +9,8 @@ public class Order {
   private int productId;
 
   //Constructor
-  public Order (int orderId, String invoiceId, LocalDate date, int quantity, double amount, int customerId, int productId) {
+  public Order (int orderId, LocalDate date, int quantity, double amount, int customerId, int productId) {
     this.orderId = orderId;
-    this.invoiceId = invoiceId;
     this.orderDate = date;
     this.quantity = quantity;
     this.amount = amount;
@@ -26,10 +22,6 @@ public class Order {
   public int getOrderId () { return orderId; }
 
   public void setOrderId (int orderId) { this.orderId = orderId; }
-
-  public String getInvoiceId () { return invoiceId; }
-
-  public void setInvoiceId (String invoiceId) { this.invoiceId = invoiceId; }
 
   public LocalDate getOrderDate () { return orderDate; }
 
@@ -51,3 +43,4 @@ public class Order {
 
   public void setProductId (int productId) { this.productId = productId; }
 }
+
