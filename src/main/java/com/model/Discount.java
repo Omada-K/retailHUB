@@ -1,19 +1,24 @@
 package com.model;
 
 public class Discount {
-  private int orderId;
+  private int customerId;
   private double amount;
+  private double discountPercentage;
 
   //Constructor
-  public Discount (int orderId, double amount) {
-    this.orderId = orderId;
+  public Discount (int customerId, double amount, double discountPercentage) {
+    this.customerId = customerId;
     this.amount = amount;
+    this.discountPercentage = discountPercentage;
   }
 
-  //Getters & Setters
-  public int getOrderId () { return orderId; }
-  public void setOrderId (int orderId) { this.orderId = orderId; }
+  //getters setters
+  public int getCustomerId () { return customerId; }
+  public void setCustomerId (int CustomerId) { this.customerId = CustomerId; }
 
   public double getAmount () { return amount; }
-  public void setAmount (double amount) { this.amount = amount; }
+  public void setAmount (double Amount) { this.amount = Amount; }
+
+  public double getDiscountPercentage () { return discountPercentage; }
+  public void setDiscountPercentage (double DiscountPercentage) { this.discountPercentage = DiscountPercentage; }
 }
