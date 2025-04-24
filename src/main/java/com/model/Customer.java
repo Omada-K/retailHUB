@@ -1,26 +1,26 @@
 package com.model;
 
 public class Customer {
-private int CustomerId;
+private int customerId;
   private String name;
   private String address;
   private String phone;
   private String email;
-  private int UserId;
+  private int userId;
 
   //Constructor
-  public Customer (int CustomerId, String name, String address, String phone, String email, int UserId) {
-    this.CustomerId = CustomerId;
+  public Customer (int customerId, String name, String address, String phone, String email, int userId) {
+    this.customerId = customerId;
     this.name = name;
     this.address = address;
     this.phone = phone;
     this.email = email;
-    this.UserId = UserId;
+    this.userId = userId;
   }
 
   //Getters & Setters
-  public int getCustomerId () { return CustomerId; }
-  public void setCustomerId (int CustomerId) { this.CustomerId = CustomerId; }
+  public int getCustomerId () { return customerId; }
+  public void setCustomerId (int customerId) { this.customerId = customerId; }
 
   public String getName () { return name; }
   public void setName (String name) { this.name = name; }
@@ -34,6 +34,6 @@ private int CustomerId;
   public String getEmail () { return email; }
   public void setEmail (String email) { this.email = email; }
 
-  public int getUserId () { return UserId; }
-  public void setUserId (int UserId) { this.UserId = UserId; }
+  public int getUserId () { return userId; }
+  public void setUserId (int userId) { this.userId = userId; }
 }
