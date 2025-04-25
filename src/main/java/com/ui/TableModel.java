@@ -47,4 +47,27 @@ public class TableModel extends AbstractTableModel {
     };
   }
 
+  //get the whole user
+  public User getUser (int rowIndex) {
+    return users.get(rowIndex);
+  }
+
+  //Delete an item
+  public void removeRow (int rowIndex) {
+    users.remove(rowIndex);
+    fireTableRowsDeleted(rowIndex, rowIndex); //this updates the visuals
+  }
+
+  //add a user
+  public void addUser (int rowIndex, User user) {
+    users.addLast(user);
+    fireTableRowsInserted(rowIndex, rowIndex);
+  }
+
+  //update a user
+  public void editUser (int rowIndex, User user) {
+    users.set(rowIndex, user);
+    fireTableRowsUpdated(rowIndex, rowIndex);
+  }
+
 }

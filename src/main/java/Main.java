@@ -1,10 +1,7 @@
 import com.controler.DataBaseConfig;
 import com.dao.UserDAO;
 import com.model.User;
-import com.ui.LoginFrame;
-import com.ui.MainFrame;
-import com.ui.TableFrame;
-import com.ui.TableModel;
+import com.ui.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,9 +25,10 @@ public class Main {
     TableModel userTableModel = new TableModel(exampleList, columns);
 
     //GUI related stuff
-    TableFrame tableFrame = new TableFrame(userTableModel);
-    MainFrame mainFrame = new MainFrame(tableFrame);
-    LoginFrame loginFrame = new LoginFrame(mainFrame);
+    AppState uiState = new AppState();//All frames initialized in this obj
+    uiState.tableFrame = new TableFrame(uiState, userTableModel);
+    uiState.mainFrame = new MainFrame(uiState);
+    uiState.loginFrame = new LoginFrame(uiState);
   }
 
 }

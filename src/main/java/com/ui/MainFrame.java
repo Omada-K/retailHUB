@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
   private JPanel mainFramePanel;
   private JButton salvageDataFromOldButton;
 
-  public MainFrame (TableFrame tableFrame) {
+  public MainFrame (AppState state) {
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
     setVisible(false);
     setResizable(true);
@@ -29,8 +29,8 @@ public class MainFrame extends JFrame {
     viewCustomersButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        dispose();
-        tableFrame.setVisible(true);
+        state.mainFrame.setVisible(true);
+        state.tableFrame.setVisible(true);
       }
     });
     //view users OnClick event listener
