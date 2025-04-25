@@ -1,4 +1,5 @@
-import com.controller.DataBaseConfig;
+import com.controler.DataBaseConfig;
+import com.dao.UserDAO;
 import com.model.User;
 import com.ui.LoginFrame;
 import com.ui.MainFrame;
@@ -31,4 +32,5 @@ public class Main {
     MainFrame mainFrame = new MainFrame(tableFrame);
     LoginFrame loginFrame = new LoginFrame(mainFrame);
   }
+
 }
