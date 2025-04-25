@@ -1,6 +1,5 @@
 package com.dao;
-
-import com.controler.DataBaseConfig;
+import com.controller.DataBaseConfig;
 import com.model.User;
 
 import java.sql.Connection;
