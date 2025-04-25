@@ -1,5 +1,4 @@
 import com.controler.DataBaseConfig;
-import com.dao.UserDAO;
 import com.model.User;
 import com.ui.*;
 
@@ -14,6 +13,7 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createUserTable();
+    DataBaseConfig.insertUserIfNotExists("test", "t@test.gr", "123456");
 
     //this code create a DUMMY array list of User to show on the table
     //it is temporary, just to show how the Table Models work
