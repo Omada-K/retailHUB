@@ -10,6 +10,7 @@ public class ProductCategory {
     this.description = description;
     this.quantity = quantity;
     this.priceAmount = priceAmount;
+
   }
 
   public int getCategoryId () { return categoryId; }
