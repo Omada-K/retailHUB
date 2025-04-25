@@ -1,4 +1,6 @@
-import com.model;
+package com.model;
+
+import java.time.LocalDate;
 
 public class Order {
   private int orderId;
