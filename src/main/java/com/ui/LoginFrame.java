@@ -19,7 +19,7 @@ public class LoginFrame extends JFrame {
   //TASK replace the lines below with database fetch method.
   private ArrayList<User> DBUsers = UserDAO.getUsers();
 
-  public LoginFrame (MainFrame mainFrame) throws SQLException {
+  public LoginFrame (AppState appState) throws SQLException {
     setContentPane(loginPanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
@@ -40,7 +40,7 @@ public class LoginFrame extends JFrame {
         for (User user : DBUsers) {
           if (user.getEmail().equals(userEmail)) {
             if (user.getUserPassword().equals(password)) {
-              mainFrame.setVisible(true);
+              appState.mainFrame.setVisible(true);
               dispose();//this makes THIS frame not visible
             } else {
               System.out.println("Wrong password");
