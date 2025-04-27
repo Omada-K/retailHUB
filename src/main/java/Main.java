@@ -1,4 +1,4 @@
-import com.controler.DataBaseConfig;
+import com.controller.DataBaseConfig;
 import com.model.User;
 import com.ui.*;
 

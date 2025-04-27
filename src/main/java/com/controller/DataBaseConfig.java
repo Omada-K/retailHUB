@@ -1,14 +1,7 @@
 package com.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-/**
- * This is where the DB is created.
- * It holds all the methods that create the SQL tables.
- */
 public class DataBaseConfig {
   private static final String JDBC_URL = "jdbc:hsqldb:file:./database/retailDB;shutdown=true";
   private static final String JDBC_USER = "SA";
@@ -36,7 +29,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createCustomersTable() throws SQLException {
+  public static void createCustomersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS customers (" +
             "customer_id INTEGER IDENTITY PRIMARY KEY, " +
             "name VARCHAR(100), " +
@@ -49,7 +42,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createProductsTable() throws SQLException {
+  public static void createProductsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS products (" +
             "product_id INTEGER IDENTITY PRIMARY KEY, " +
             "product_category INTEGER, " +
@@ -62,7 +55,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createOrdersTable() throws SQLException {
+  public static void createOrdersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS orders (" +
             "order_id INTEGER IDENTITY PRIMARY KEY, " +
             "date DATE, " +
@@ -76,7 +69,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createProductCategoryTable() throws SQLException {
+  public static void createProductCategoryTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS product_category (" +
             "category_id INTEGER IDENTITY PRIMARY KEY, " +
             "description VARCHAR(200), " +
@@ -88,7 +81,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createDiscountTable() throws SQLException {
+  public static void createDiscountTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS discount (" +
             "customer_id INTEGER, " +
             "amount DOUBLE, " +
@@ -99,7 +92,7 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createAllTables() throws SQLException {
+  public static void createAllTables () throws SQLException {
     createUserTable();
     createCustomersTable();
     createProductsTable();
@@ -107,5 +100,34 @@ public class DataBaseConfig {
     createProductCategoryTable();
     createDiscountTable();
     System.out.println("✅ All tables created successfully.");
+  }
+
+  // Adding users to the DB using PreparedStatement for security
+  public static void insertUserIfNotExists (String name, String email, String password) {
+    String checkSql = "SELECT COUNT(*) FROM user WHERE email = ?";
+    String insertSql = "INSERT INTO user (name, email, user_password) VALUES (?, ?, ?)";
+
+    try (Connection conn = getConnection();
+         PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+
+      checkStmt.setString(1, email); //Replaces the first ? in the checkSql with the actual email.
+      var rs = checkStmt.executeQuery(); //Runs the SELECT COUNT(*) query and stores the result in rs (a ResultSet).
+      rs.next(); //Moves to the first (and only) row in the result set.
+      int count = rs.getInt(1); //Gets the value from the first column — the number of users with that email.
+
+      //if the user does not exist aka count = 0
+      if (count == 0) {
+        insertStmt.setString(1, name);
+        insertStmt.setString(2, email);
+        insertStmt.setString(3, password);
+        insertStmt.executeUpdate();
+        System.out.println("Inserted user: " + name);
+      } else {
+        System.out.println("User with email " + email + " already exists.");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }
