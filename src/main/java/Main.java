@@ -1,4 +1,5 @@
 import com.controller.DataBaseConfig;
+import com.formFactory.UserFormFactory;
 import com.model.User;
 import com.ui.*;
 
@@ -25,8 +26,9 @@ public class Main {
     TableModel userTableModel = new TableModel(exampleList, columns);
 
     //GUI related stuff
+    UserFormFactory userFormFactory = new UserFormFactory();
     AppState uiState = new AppState();//All frames initialized in this obj
-    uiState.tableFrame = new TableFrame(uiState, userTableModel);
+    uiState.tableFrame = new TableFrame(uiState, userTableModel, userFormFactory);
     uiState.mainFrame = new MainFrame(uiState);
     uiState.loginFrame = new LoginFrame(uiState);
   }

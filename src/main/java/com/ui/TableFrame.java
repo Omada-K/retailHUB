@@ -1,7 +1,5 @@
 package com.ui;
 
-import com.model.User;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -9,7 +7,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TableFrame extends JFrame {
+public class TableFrame<T> extends JFrame {
   private JPanel tablePanel;
   private JTable mainTable;
   private JButton deleteButton;
@@ -19,7 +17,7 @@ public class TableFrame extends JFrame {
   private JButton backButton;
   private JTextField queryField;
 
-  public TableFrame (AppState state, TableModel content) {
+  public TableFrame (AppState state, TableModel content, FormFactory formFactory) {
     setContentPane(tablePanel);// don't forget this, the window will be empty
     setVisible(false);
     setResizable(true);
@@ -71,9 +69,9 @@ public class TableFrame extends JFrame {
       public void actionPerformed (ActionEvent e) {
         // get the selected row
         int selectedRow = mainTable.getSelectedRow();
-        User selectedUser = (User) content.getUser(selectedRow);
+        T selectedItem = (T) content.getItem(selectedRow);
         if (selectedRow != -1) {
-          UserForm userForm = new UserForm(content, selectedUser);
+          formFactory.createForm(content, selectedItem);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }

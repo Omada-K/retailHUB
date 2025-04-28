@@ -48,7 +48,7 @@ public class TableModel extends AbstractTableModel {
   }
 
   //get the whole user
-  public User getUser (int rowIndex) {
+  public User getItem (int rowIndex) {
     return users.get(rowIndex);
   }
 
