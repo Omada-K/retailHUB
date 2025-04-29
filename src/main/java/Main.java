@@ -23,7 +23,15 @@ public class Main {
       exampleList.add(new User(i + 1, "Takis", "takaros@retailhub.com", "123456"));
     }
     String[] columns = {"id", "name", "email", "password"};
-    TableModel userTableModel = new TableModel(exampleList, columns);
+    Object[][] userRows = new Object[exampleList.size()][columns.length];
+    for (int i = 0; i < exampleList.size(); i++) {
+      User user = exampleList.get(i);
+      userRows[i][0] = user.getId();
+      userRows[i][1] = user.getName();
+      userRows[i][2] = user.getEmail();
+      userRows[i][3] = user.getUserPassword();
+    }
+    TableModel userTableModel = new TableModel(exampleList, columns, userRows);
 
     //GUI related stuff
     UserFormFactory userFormFactory = new UserFormFactory();
@@ -32,5 +40,4 @@ public class Main {
     uiState.mainFrame = new MainFrame(uiState);
     uiState.loginFrame = new LoginFrame(uiState);
   }
-
 }

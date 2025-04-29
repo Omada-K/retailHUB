@@ -1,9 +1,6 @@
 package com.ui;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,8 +23,6 @@ public class TableFrame<T> extends JFrame {
     setLocationRelativeTo(null);
 
     mainTable.setModel(content);
-    TableRowSorter<TableModel> sorter = new TableRowSorter<>(content);
-    mainTable.setRowSorter(sorter);
 
     //Back button
     backButton.addActionListener(new ActionListener() {
@@ -87,62 +82,6 @@ public class TableFrame<T> extends JFrame {
     });
 
     //search
-    queryField.getDocument().addDocumentListener(new DocumentListener() {
-      @Override
-      public void insertUpdate (DocumentEvent e) {
-        //get text user entered
-        String query = queryField.getText().trim();
-        searchTable(query);
-      }
-
-      @Override
-      public void removeUpdate (DocumentEvent e) {
-        //get text user entered
-        String query = queryField.getText().trim();
-        searchTable(query);
-      }
-
-      @Override
-      public void changedUpdate (DocumentEvent e) {
-        //get text user entered
-        String query = queryField.getText().trim();
-        searchTable(query);
-      }
-
-      private void searchTable (String query) {
-
-        // Get the sorter associated with the table
-        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) mainTable.getRowSorter();
-
-        // if no filter
-        if (query.isEmpty()) {
-          sorter.setRowFilter(null);
-          return;
-        }
-
-        // apply a custom filter
-        sorter.setRowFilter(new RowFilter<TableModel, Integer>() {
-          @Override
-          public boolean include (Entry<? extends TableModel, ? extends Integer> entry) {
-            int columnCount = entry.getValueCount();
-
-            for (int col = 0; col < columnCount; col++) {
-              Object cellValue = entry.getValue(col);
-
-              if (cellValue != null) {
-                String cellText = String.valueOf(cellValue);
-
-                if (cellText.contains(query)) {
-                  System.out.println("Searching for: " + query);
-
-                  return true; // at least one cell matches the query
-                }
-              }
-            }
-            return false;
-          }
-        });
-      }
-    });
+    //TODO
   }
 }

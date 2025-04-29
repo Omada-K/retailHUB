@@ -1,7 +1,5 @@
 package com.ui;
 
-import com.model.User;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -10,19 +8,21 @@ import java.util.List;
  * into something that the JTable understands
  * and can show.
  */
-public class TableModel extends AbstractTableModel {
-  private String[] columnNames;
-  private List<User> users;
+public class TableModel<T> extends AbstractTableModel {
+  private final String[] columnNames;
+  private final List<T> data;
+  private final Object[][] rowData;
 
   //constructor
-  public TableModel (List<User> content, String[] columnNames) {
-    this.users = content;
+  public TableModel (List<T> data, String[] columnNames, Object[][] rowData) {
+    this.data = data;
     this.columnNames = columnNames;
+    this.rowData = rowData;
   }
 
   @Override
   public int getRowCount () {
-    return users.size();
+    return data.size();
   }
 
   @Override
@@ -37,36 +37,29 @@ public class TableModel extends AbstractTableModel {
 
   @Override
   public Object getValueAt (int rowIndex, int columnIndex) {
-    User selectedUser = users.get(rowIndex);
-    return switch (columnIndex) {
-      case 0 -> selectedUser.getId();
-      case 1 -> selectedUser.getName();
-      case 2 -> selectedUser.getEmail();
-      case 3 -> selectedUser.getUserPassword();
-      default -> null;
-    };
+    return rowData[rowIndex][columnIndex];
   }
 
   //get the whole user
-  public User getItem (int rowIndex) {
-    return users.get(rowIndex);
+  public T getItem (int rowIndex) {
+    return data.get(rowIndex);
   }
 
   //Delete an item
   public void removeRow (int rowIndex) {
-    users.remove(rowIndex);
+    data.remove(rowIndex);
     fireTableRowsDeleted(rowIndex, rowIndex); //this updates the visuals
   }
 
-  //add a user
-  public void addUser (int rowIndex, User user) {
-    users.addLast(user);
+  //add an item
+  public void addItem (int rowIndex, T item) {
+    data.addLast(item);
     fireTableRowsInserted(rowIndex, rowIndex);
   }
 
   //update a user
-  public void editUser (int rowIndex, User user) {
-    users.set(rowIndex, user);
+  public void editItem (int rowIndex, T item) {
+    data.set(rowIndex, item);
     fireTableRowsUpdated(rowIndex, rowIndex);
   }
 

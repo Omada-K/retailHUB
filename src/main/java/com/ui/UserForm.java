@@ -38,7 +38,7 @@ public class UserForm extends BaseForm {
                 emailInput.getText() != null &&
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
           User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
-          content.editUser(id, inputUser);
+          content.editItem(id, inputUser);
           dispose();
         }
       }
@@ -62,7 +62,7 @@ public class UserForm extends BaseForm {
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
           int itemsCount = content.getRowCount() + 1;
           User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
-          content.addUser(itemsCount, inputUser);
+          content.addItem(itemsCount, inputUser);
           dispose();
         }
       }

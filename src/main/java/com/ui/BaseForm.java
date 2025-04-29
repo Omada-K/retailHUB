@@ -10,6 +10,7 @@ public abstract class BaseForm extends JFrame {
     setResizable(true);
     setSize(480, 320);
     setLocationRelativeTo(null);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
   }
 
   protected void setupCancelButton (JButton cancelButton) {
@@ -21,6 +22,7 @@ public abstract class BaseForm extends JFrame {
         }
       });
     } else {
+      //debug msg
       System.out.println("Cancel button is null. Cannot add listener.");
     }
   }
