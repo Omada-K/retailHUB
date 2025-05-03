@@ -16,7 +16,7 @@ public class CustomersDAO {
 
   public CustomersDAO () throws SQLException {
     this.customers = this.getData();
-    this.columns = new String[] {"id", "name", "email", "password"};
+    this.columns = new String[] {"id", "name", "address", "telephone", "email"};
     this.customerRows = new Object[customers.size()][columns.length];
     for (int i = 0; i < customers.size(); i++) {
       Customer customer = customers.get(i);
@@ -74,7 +74,7 @@ public class CustomersDAO {
       insertStmt.setString(2, customer.getAddress());
       insertStmt.setString(3, customer.getPhone());
       insertStmt.setString(4, customer.getEmail());
-      insertStmt.setInt(4, customer.getCustomerId());
+      insertStmt.setInt(5, customer.getCustomerId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

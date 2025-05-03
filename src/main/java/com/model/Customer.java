@@ -7,7 +7,7 @@ public class Customer {
   private String phone;
   private String email;
 
-  //Constructor
+  //Constructors
   public Customer (int CustomerId, String name, String address, String phone, String email) {
     this.CustomerId = CustomerId;
     this.name = name;
@@ -16,19 +16,31 @@ public class Customer {
     this.email = email;
   }
 
+  public Customer (String name, String address, String phone, String email) {
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+    this.email = email;
+  }
+
   //Getters & Setters
   public int getCustomerId () { return CustomerId; }
+
   public void setCustomerId (int CustomerId) { this.CustomerId = CustomerId; }
 
   public String getName () { return name; }
+
   public void setName (String name) { this.name = name; }
 
   public String getAddress () { return address; }
+
   public void setAddress (String address) { this.address = address; }
 
   public String getPhone () { return phone; }
+
   public void setPhone (String phone) { this.phone = phone; }
 
   public String getEmail () { return email; }
+
   public void setEmail (String email) { this.email = email; }
 }

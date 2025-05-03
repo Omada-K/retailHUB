@@ -1,6 +1,8 @@
 package com.ui;
 
+import com.dao.CustomersDAO;
 import com.dao.UserDAO;
+import com.model.Customer;
 import com.model.User;
 
 import javax.swing.*;
@@ -56,9 +58,16 @@ public class TableFrame<T> extends JFrame {
                                                      );
           if (confirm == JOptionPane.YES_OPTION) {
             try {
-              UserDAO.deleteItem(selectedItem);
-              var updatedData = UserDAO.getData();
-              content.refreshTable(updatedData);
+              if (selectedItem instanceof User) {
+                UserDAO.deleteItem(selectedItem);
+                var updatedData = UserDAO.getData();
+                content.refreshTable(updatedData);
+              }
+              if (selectedItem instanceof Customer) {
+                CustomersDAO.deleteItem(selectedItem);
+                var updatedData = CustomersDAO.getData();
+                content.refreshTable(updatedData);
+              }
             } catch (SQLException ex) {
               throw new RuntimeException(ex);
             }
@@ -78,7 +87,10 @@ public class TableFrame<T> extends JFrame {
         if (selectedRow != -1) {
           T selectedItem = (T) content.getItem(selectedRow);
           if (selectedItem instanceof User) {
-            UserForm userForm = new UserForm(content, selectedItem);
+            new UserForm(content, selectedItem);
+          }
+          if (selectedItem instanceof Customer) {
+            new CustomerForm(content, selectedItem);
           }
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
@@ -90,7 +102,17 @@ public class TableFrame<T> extends JFrame {
     createButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        UserForm userForm = new UserForm(content);
+        if (content.getRowCount() > 0) {
+          Object firstItem = content.getItem(0);
+          if (firstItem instanceof User) {
+            new UserForm(content);
+          } else if (firstItem instanceof Customer) {
+            new CustomerForm(content);
+          }
+        } else {
+          //if the sql returns null....
+          JOptionPane.showMessageDialog(TableFrame.this, "No existing data");
+        }
       }
     });
 

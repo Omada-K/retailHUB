@@ -34,7 +34,6 @@ public class UserForm extends BaseForm {
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-
         if (passwordInput.getText() != null &&//validation
                 confirmPasswordInput.getText() != null &&
                 nameInput.getText() != null &&
