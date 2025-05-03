@@ -1,5 +1,4 @@
 import com.controller.DataBaseConfig;
-import com.formFactory.UserFormFactory;
 import com.model.User;
 import com.ui.*;
 
@@ -13,13 +12,13 @@ public class Main {
 
     //Database related stuff
     // Initialize
-    DataBaseConfig.createUserTable();
+    DataBaseConfig.createAllTables();
     DataBaseConfig.insertUserIfNotExists("test", "t@test.gr", "123456");
 
     //this code create a DUMMY array list of User to show on the table
     //it is temporary, just to show how the Table Models work
     ArrayList<User> exampleList = new ArrayList<>();
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       exampleList.add(new User(i + 1, "Takis", "takaros@retailhub.com", "123456"));
     }
     String[] columns = {"id", "name", "email", "password"};
@@ -34,9 +33,8 @@ public class Main {
     TableModel userTableModel = new TableModel(exampleList, columns, userRows);
 
     //GUI related stuff
-    UserFormFactory userFormFactory = new UserFormFactory();
     AppState uiState = new AppState();//All frames initialized in this obj
-    uiState.tableFrame = new TableFrame(uiState, userTableModel, userFormFactory);
+    uiState.tableFrame = new TableFrame(uiState, userTableModel);
     uiState.mainFrame = new MainFrame(uiState);
     uiState.loginFrame = new LoginFrame(uiState);
   }

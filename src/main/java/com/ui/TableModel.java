@@ -1,5 +1,7 @@
 package com.ui;
 
+import com.model.User;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -37,7 +39,18 @@ public class TableModel<T> extends AbstractTableModel {
 
   @Override
   public Object getValueAt (int rowIndex, int columnIndex) {
-    return rowData[rowIndex][columnIndex];
+    T item = data.get(rowIndex);
+    // Return fields based on columnIndex
+    if (item instanceof User user) {
+      return switch (columnIndex) {
+        case 0 -> user.getId();
+        case 1 -> user.getName();
+        case 2 -> user.getEmail();
+        case 3 -> user.getUserPassword();
+        default -> null;
+      };
+    }
+    return null;
   }
 
   //get the whole user

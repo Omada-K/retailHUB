@@ -17,10 +17,11 @@ public class UserForm extends BaseForm {
   private JPanel formPanel;
 
   //Edit form(needs user)
-  public UserForm (TableModel content, User user) {
+  public UserForm (TableModel content, Object userInput, int index) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
+    User user = (User) userInput; //force generic object to be User
 
     int id = user.getId();
     nameInput.setText(user.getName());
@@ -37,8 +38,9 @@ public class UserForm extends BaseForm {
                 nameInput.getText() != null &&
                 emailInput.getText() != null &&
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
+
           User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
-          content.editItem(id, inputUser);
+          content.editItem(index, inputUser);
           dispose();
         }
       }

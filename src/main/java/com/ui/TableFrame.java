@@ -14,7 +14,7 @@ public class TableFrame<T> extends JFrame {
   private JButton backButton;
   private JTextField queryField;
 
-  public TableFrame (AppState state, TableModel content, FormFactory formFactory) {
+  public TableFrame (AppState state, TableModel content) {
     setContentPane(tablePanel);// don't forget this, the window will be empty
     setVisible(false);
     setResizable(true);
@@ -40,6 +40,7 @@ public class TableFrame<T> extends JFrame {
       public void actionPerformed (ActionEvent e) {
         // get the selected row
         int selectedRow = mainTable.getSelectedRow();
+        System.out.println(selectedRow);
         //check if there is selection
         if (selectedRow != -1) {
           //throw confirm message
@@ -66,7 +67,7 @@ public class TableFrame<T> extends JFrame {
         int selectedRow = mainTable.getSelectedRow();
         T selectedItem = (T) content.getItem(selectedRow);
         if (selectedRow != -1) {
-          formFactory.createForm(content, selectedItem);
+          UserForm userForm = new UserForm(content, selectedItem, selectedRow);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }
