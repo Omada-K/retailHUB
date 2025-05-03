@@ -19,7 +19,7 @@ public class UserForm extends BaseForm {
   private JPanel formPanel;
 
   //Edit form(needs user)
-  public UserForm (TableModel content, Object userInput, int index) {
+  public UserForm (TableModel content, Object userInput) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
@@ -42,7 +42,13 @@ public class UserForm extends BaseForm {
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
 
           User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
-          content.editItem(index, inputUser);
+          try {
+            UserDAO.updateItem(inputUser);
+            var updatedUsers = UserDAO.getData();
+            content.refreshTable(updatedUsers);
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
           dispose();
         }
       }

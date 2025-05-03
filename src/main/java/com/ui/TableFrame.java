@@ -1,8 +1,11 @@
 package com.ui;
 
+import com.dao.UserDAO;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class TableFrame<T> extends JFrame {
   private JPanel tablePanel;
@@ -40,9 +43,9 @@ public class TableFrame<T> extends JFrame {
       public void actionPerformed (ActionEvent e) {
         // get the selected row
         int selectedRow = mainTable.getSelectedRow();
-        System.out.println(selectedRow);
         //check if there is selection
         if (selectedRow != -1) {
+          T selectedItem = (T) content.getItem(selectedRow);
           //throw confirm message
           int confirm = JOptionPane.showConfirmDialog(
                   TableFrame.this,
@@ -51,7 +54,13 @@ public class TableFrame<T> extends JFrame {
                   JOptionPane.YES_NO_OPTION
                                                      );
           if (confirm == JOptionPane.YES_OPTION) {
-            ( (TableModel) mainTable.getModel() ).removeRow(selectedRow);
+            try {
+              UserDAO.deleteItem(selectedItem);
+              var updatedData = UserDAO.getData();
+              content.refreshTable(updatedData);
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
           }
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
@@ -67,7 +76,7 @@ public class TableFrame<T> extends JFrame {
         int selectedRow = mainTable.getSelectedRow();
         if (selectedRow != -1) {
           T selectedItem = (T) content.getItem(selectedRow);
-          UserForm userForm = new UserForm(content, selectedItem, selectedRow);
+          UserForm userForm = new UserForm(content, selectedItem);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }

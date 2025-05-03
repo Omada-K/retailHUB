@@ -56,6 +56,34 @@ public class UserDAO {
     }
   }
 
+  public static void updateItem (User user) throws SQLException {
+
+    String updateSql = "UPDATE user SET name = ?, email = ?, user_password = ? WHERE id = ?";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
+      insertStmt.setString(1, user.getName());
+      insertStmt.setString(2, user.getEmail());
+      insertStmt.setString(3, user.getUserPassword());
+      insertStmt.setInt(4, user.getId());
+      insertStmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void deleteItem (Object selectedUser) throws SQLException {
+    String deleteSql = "DELETE FROM user WHERE id = ?";
+    User user = (User) selectedUser;
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
+      insertStmt.setInt(1, user.getId());
+      insertStmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public static ArrayList<User> getData () throws SQLException {
     ArrayList<User> users = new ArrayList<User>();
     String query = "select id, name, email, user_password from user";

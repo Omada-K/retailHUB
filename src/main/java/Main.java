@@ -1,4 +1,6 @@
 import com.controller.DataBaseConfig;
+import com.dao.UserDAO;
+import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
 import com.ui.MainFrame;
@@ -13,7 +15,7 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();
-    DataBaseConfig.insertUserIfNotExists("test", "t@test.gr", "123456");
+    UserDAO.insertUserIfNotExists(new User("test", "test", "1234"));
 
     //GUI related stuff
     AppState uiState = new AppState();//All frames initialized in this obj
