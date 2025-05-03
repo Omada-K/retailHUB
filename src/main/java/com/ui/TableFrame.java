@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.dao.UserDAO;
+import com.model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -76,7 +77,9 @@ public class TableFrame<T> extends JFrame {
         int selectedRow = mainTable.getSelectedRow();
         if (selectedRow != -1) {
           T selectedItem = (T) content.getItem(selectedRow);
-          UserForm userForm = new UserForm(content, selectedItem);
+          if (selectedItem instanceof User) {
+            UserForm userForm = new UserForm(content, selectedItem);
+          }
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }

@@ -30,8 +30,8 @@ public class UserDAO {
   }
 
   public static void insertUserIfNotExists (User user) throws SQLException {
-    String checkSql = "SELECT COUNT(*) FROM user WHERE email = ?";
-    String insertSql = "INSERT INTO user (name, email, user_password) VALUES (?, ?, ?)";
+    String checkSql = "SELECT COUNT(*) FROM users WHERE email = ?";
+    String insertSql = "INSERT INTO users (name, email, user_password) VALUES (?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement checkStmt = conn.prepareStatement(checkSql);
@@ -57,9 +57,7 @@ public class UserDAO {
   }
 
   public static void updateItem (User user) throws SQLException {
-
-    String updateSql = "UPDATE user SET name = ?, email = ?, user_password = ? WHERE id = ?";
-
+    String updateSql = "UPDATE users SET name = ?, email = ?, user_password = ? WHERE id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, user.getName());
@@ -73,7 +71,7 @@ public class UserDAO {
   }
 
   public static void deleteItem (Object selectedUser) throws SQLException {
-    String deleteSql = "DELETE FROM user WHERE id = ?";
+    String deleteSql = "DELETE FROM users WHERE id = ?";
     User user = (User) selectedUser;
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
@@ -86,7 +84,7 @@ public class UserDAO {
 
   public static ArrayList<User> getData () throws SQLException {
     ArrayList<User> users = new ArrayList<User>();
-    String query = "select id, name, email, user_password from user";
+    String query = "select id, name, email, user_password from users";
     try (
             Connection conn = DataBaseConfig.getConnection();
             Statement statement = conn.createStatement();

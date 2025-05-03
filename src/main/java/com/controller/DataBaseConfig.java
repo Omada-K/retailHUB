@@ -17,8 +17,8 @@ public class DataBaseConfig {
     return con;
   }
 
-  public static void createUserTable () throws SQLException {
-    String createTableDdl = "CREATE TABLE IF NOT EXISTS user (" +
+  public static void createUsersTable () throws SQLException {
+    String createTableDdl = "CREATE TABLE IF NOT EXISTS users (" +
             "id INTEGER IDENTITY PRIMARY KEY, " +
             "name VARCHAR(60) NOT NULL, " +
             "email VARCHAR(60) UNIQUE NOT NULL," +
@@ -26,7 +26,7 @@ public class DataBaseConfig {
     try (Connection conn = getConnection();
          Statement statement = conn.createStatement()) {
       statement.executeUpdate(createTableDdl);
-      System.out.println("user table created.");
+      System.out.println("users table created.");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -72,36 +72,36 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createProductCategoryTable () throws SQLException {
-    String ddl = "CREATE TABLE IF NOT EXISTS product_category (" +
+  public static void createProductsCategoryTable () throws SQLException {
+    String ddl = "CREATE TABLE IF NOT EXISTS products_category (" +
             "category_id INTEGER IDENTITY PRIMARY KEY, " +
             "description VARCHAR(200), " +
             "quantity INTEGER, " +
             "price_amount DOUBLE)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("product_category table created.");
+      System.out.println("products_category table created.");
     }
   }
 
-  public static void createDiscountTable () throws SQLException {
-    String ddl = "CREATE TABLE IF NOT EXISTS discount (" +
+  public static void createDiscountsTable () throws SQLException {
+    String ddl = "CREATE TABLE IF NOT EXISTS discounts (" +
             "customer_id INTEGER, " +
             "amount DOUBLE, " +
             "discount_percentage DOUBLE)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("discount table created.");
+      System.out.println("discounts table created.");
     }
   }
 
   public static void createAllTables () throws SQLException {
-    createUserTable();
+    createUsersTable();
     createCustomersTable();
     createProductsTable();
     createOrdersTable();
-    createProductCategoryTable();
-    createDiscountTable();
+    createProductsCategoryTable();
+    createDiscountsTable();
     System.out.println("✅ All tables created successfully.");
   }
 

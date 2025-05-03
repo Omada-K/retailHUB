@@ -11,7 +11,6 @@ public class Main {
 
   public static void main (String[] args) throws SQLException {
     System.out.println("Starting application...");
-
     //Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();

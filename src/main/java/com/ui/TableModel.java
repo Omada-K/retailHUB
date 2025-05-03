@@ -1,5 +1,6 @@
 package com.ui;
 
+import com.model.Customer;
 import com.model.User;
 
 import javax.swing.table.AbstractTableModel;
@@ -50,30 +51,22 @@ public class TableModel<T> extends AbstractTableModel {
         default -> null;
       };
     }
+    if (item instanceof Customer customer) {
+      return switch (columnIndex) {
+        case 0 -> customer.getCustomerId();
+        case 1 -> customer.getName();
+        case 2 -> customer.getAddress();
+        case 3 -> customer.getPhone();
+        case 4 -> customer.getEmail();
+        default -> null;
+      };
+    }
     return null;
   }
 
   //get the whole user
   public T getItem (int rowIndex) {
     return data.get(rowIndex);
-  }
-
-  //Delete an item
-  public void removeRow (int rowIndex) {
-    data.remove(rowIndex);
-    fireTableRowsDeleted(rowIndex, rowIndex); //this updates the visuals
-  }
-
-  //add an item
-  public void addItem (int rowIndex, T item) {
-    data.addLast(item);
-    fireTableRowsInserted(rowIndex, rowIndex);
-  }
-
-  //update a user
-  public void editItem (int rowIndex, T item) {
-    data.set(rowIndex, item);
-    fireTableRowsUpdated(rowIndex, rowIndex);
   }
 
   //refresh visuals
