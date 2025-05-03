@@ -1,8 +1,13 @@
 package com.ui;
 
+import com.dao.UserDAO;
+import com.model.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
   //ui
@@ -30,14 +35,23 @@ public class MainFrame extends JFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         state.mainFrame.setVisible(true);
-        state.tableFrame.setVisible(true);
+        //state.tableFrame.setVisible(true);
       }
     });
     //view users OnClick event listener
     viewUsersButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //TASK make click show the table.
+        ArrayList<User> users = null;
+        //it forces me to use try/catch....
+        UserDAO userDao = null;
+        try {
+          userDao = new UserDAO();
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
+        TableModel userTableModel = new TableModel(userDao.users, userDao.columns, userDao.userRows);
+        TableFrame userFrame = new TableFrame<>(state, userTableModel);
       }
     });
     //invoices OnClick event listener

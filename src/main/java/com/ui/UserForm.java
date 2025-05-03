@@ -1,10 +1,12 @@
 package com.ui;
 
+import com.dao.UserDAO;
 import com.model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class UserForm extends BaseForm {
   private JButton cancelButton;
@@ -64,7 +66,13 @@ public class UserForm extends BaseForm {
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
           int itemsCount = content.getRowCount() + 1;
           User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
-          content.addItem(itemsCount, inputUser);
+          try {
+            UserDAO.insertUserIfNotExists(inputUser);
+            var updatedUsers = UserDAO.getData();
+            content.refreshTable(updatedUsers);
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
           dispose();
         }
       }

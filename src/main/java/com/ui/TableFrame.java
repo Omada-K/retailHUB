@@ -16,7 +16,7 @@ public class TableFrame<T> extends JFrame {
 
   public TableFrame (AppState state, TableModel content) {
     setContentPane(tablePanel);// don't forget this, the window will be empty
-    setVisible(false);
+    setVisible(true);
     setResizable(true);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -65,8 +65,8 @@ public class TableFrame<T> extends JFrame {
       public void actionPerformed (ActionEvent e) {
         // get the selected row
         int selectedRow = mainTable.getSelectedRow();
-        T selectedItem = (T) content.getItem(selectedRow);
         if (selectedRow != -1) {
+          T selectedItem = (T) content.getItem(selectedRow);
           UserForm userForm = new UserForm(content, selectedItem, selectedRow);
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");

@@ -11,8 +11,8 @@ import java.util.List;
  * and can show.
  */
 public class TableModel<T> extends AbstractTableModel {
-  private final String[] columnNames;
   private final List<T> data;
+  private final String[] columnNames;
   private final Object[][] rowData;
 
   //constructor
@@ -76,4 +76,10 @@ public class TableModel<T> extends AbstractTableModel {
     fireTableRowsUpdated(rowIndex, rowIndex);
   }
 
+  //refresh visuals
+  public void refreshTable (List<T> newData) {
+    data.clear();
+    data.addAll(newData);
+    fireTableDataChanged();
+  }
 }

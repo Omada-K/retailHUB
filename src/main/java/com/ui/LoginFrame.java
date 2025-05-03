@@ -10,14 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
+  //new auth
+  //TASK replace the lines below with database fetch method.
+  UserDAO userDAO = new UserDAO();
   private JPanel loginPanel;
   private JTextField inputUsername;
   private JTextField inputPassword;
   private JButton btnLogin;
   private JButton cancelButton;
-  //new auth
-  //TASK replace the lines below with database fetch method.
-  private ArrayList<User> DBUsers = UserDAO.getUsers();
+  private ArrayList<User> DBUsers = userDAO.users;
 
   public LoginFrame (AppState appState) throws SQLException {
     setContentPane(loginPanel);// don't forget this, the window will be empty
