@@ -1,8 +1,10 @@
 import com.controller.DataBaseConfig;
 import com.dao.CustomersDAO;
+import com.dao.OrdersDAO;
 import com.dao.ProductsDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
+import com.model.Order;
 import com.model.Product;
 import com.model.User;
 import com.ui.AppState;
@@ -10,6 +12,7 @@ import com.ui.LoginFrame;
 import com.ui.MainFrame;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Main {
 
@@ -30,6 +33,7 @@ public class Main {
     CustomersDAO.insertCustomer(new Customer("meiSung", "here", "dsd", "d@d"));
     ProductsDAO.insertProduct(new Product("electronics", "plug", "fdsfdsfsdfs", 555));
     UserDAO.insertUser(new User("test", "test", "1234"));
+    OrdersDAO.insertOrder(new Order(LocalDate.now(), 12, 34.6, 0, 0));
 
     //GUI related stuff
     AppState uiState = new AppState();//All frames initialized in this obj

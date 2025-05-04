@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.dao.CustomersDAO;
+import com.dao.OrdersDAO;
 import com.dao.ProductsDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
@@ -9,6 +10,7 @@ import com.model.Product;
 import com.model.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -31,6 +33,7 @@ public class TableFrame<T> extends JFrame {
     setResizable(true);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    setMinimumSize(new Dimension(800, 600));
     setLocationRelativeTo(null);
     this.content = content;
 
@@ -74,6 +77,10 @@ public class TableFrame<T> extends JFrame {
                 ProductsDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
+              if (selectedItem instanceof Order) {
+                OrdersDAO.deleteItem(selectedItem);
+                content.refreshTable();
+              }
             } catch (SQLException ex) {
               throw new RuntimeException(ex);
             }
@@ -99,7 +106,7 @@ public class TableFrame<T> extends JFrame {
             new CustomerForm(content, selectedItem);
           }
           if (selectedItem instanceof Order) {
-            //new OrderForm(content, selectedItem);
+            new OrderForm(content, selectedItem);
           }
           if (selectedItem instanceof Product) {
             new ProductForm(content, selectedItem);
@@ -123,7 +130,7 @@ public class TableFrame<T> extends JFrame {
             new CustomerForm(content);
           }
           if (firstItem instanceof Order) {
-            //new OrderForm(content);
+            new OrderForm(content);
           }
           if (firstItem instanceof Product) {
             new ProductForm(content);

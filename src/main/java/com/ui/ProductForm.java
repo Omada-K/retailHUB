@@ -22,6 +22,8 @@ public class ProductForm extends BaseForm {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
     Product product = (Product) productInput; //force generic object to be customer
 
     int id = product.getProductId();
@@ -61,6 +63,8 @@ public class ProductForm extends BaseForm {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {

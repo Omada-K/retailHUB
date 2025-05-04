@@ -20,6 +20,14 @@ public class Order {
     this.productId = productId;
   }
 
+  public Order (LocalDate date, int quantity, double amount, int customerId, int productId) {
+    this.orderDate = date;
+    this.quantity = quantity;
+    this.amount = amount;
+    this.customerId = customerId;
+    this.productId = productId;
+  }
+
   //Getters & Setters
   public int getOrderId () { return orderId; }
 

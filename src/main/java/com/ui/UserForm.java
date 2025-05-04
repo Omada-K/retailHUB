@@ -23,6 +23,8 @@ public class UserForm extends BaseForm {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
     User user = (User) userInput; //force generic object to be User
 
     int id = user.getId();
@@ -58,6 +60,7 @@ public class UserForm extends BaseForm {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     saveButton.addActionListener(new ActionListener() {
       @Override
