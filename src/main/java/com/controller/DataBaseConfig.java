@@ -17,6 +17,16 @@ public class DataBaseConfig {
     return con;
   }
 
+  public static void shutdownDatabase () {
+    try (Connection conn = getConnection();
+         Statement stmt = conn.createStatement()) {
+      stmt.execute("SHUTDOWN");
+      System.out.println("Database shutdown successfully.");
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void createUsersTable () throws SQLException {
     String createTableDdl = "CREATE TABLE IF NOT EXISTS users (" +
             "id INTEGER IDENTITY PRIMARY KEY, " +

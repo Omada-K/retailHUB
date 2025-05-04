@@ -2,11 +2,14 @@ package com.ui;
 
 import com.dao.CustomersDAO;
 import com.dao.UserDAO;
+import com.model.Customer;
+import com.model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MainFrame extends JFrame {
   //ui
@@ -33,33 +36,26 @@ public class MainFrame extends JFrame {
     viewCustomersButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //it forces me to use try/catch....
-        CustomersDAO customerDao = null;
         try {
-          customerDao = new CustomersDAO();
+          List<Customer> customers = CustomersDAO.getData();
+          CustomerTableModel model = new CustomerTableModel(customers);
+          new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
         }
-        TableModel customerTableModel = new TableModel(
-                customerDao.customers,
-                customerDao.columns,
-                customerDao.customerRows);
-        TableFrame CustomerFrame = new TableFrame<>(state, customerTableModel);
       }
     });
     //view users OnClick event listener
     viewUsersButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //it forces me to use try/catch....
-        UserDAO userDao = null;
         try {
-          userDao = new UserDAO();
+          List<User> users = UserDAO.getData();
+          UserTableModel model = new UserTableModel(users);
+          new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
         }
-        TableModel userTableModel = new TableModel(userDao.users, userDao.columns, userDao.userRows);
-        TableFrame userFrame = new TableFrame<>(state, userTableModel);
       }
     });
     //invoices OnClick event listener

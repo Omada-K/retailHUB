@@ -47,7 +47,7 @@ Switch to dev, create an empty dev branch:
     git checkout dev 
 ```
 
-Download and 'fill' the local dev branch with data from github.
+Download and 'fill' the local dev branch with customers from github.
 
 ```bash
     git pull origin/dev

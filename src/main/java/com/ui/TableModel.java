@@ -1,26 +1,20 @@
 package com.ui;
 
-import com.model.Customer;
-import com.model.User;
-
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This model converts an array list of User
- * into something that the JTable understands
- * and can show.
+ * A generic abstract table model to be extended by specific models like UserTableModel or CustomerTableModel.
  */
-public class TableModel<T> extends AbstractTableModel {
-  private final List<T> data;
-  private final String[] columnNames;
-  private final Object[][] rowData;
+public abstract class TableModel<T> extends AbstractTableModel {
 
-  //constructor
-  public TableModel (List<T> data, String[] columnNames, Object[][] rowData) {
-    this.data = data;
+  protected List<T> data;
+  protected String[] columnNames;
+
+  public TableModel (List<T> data, String[] columnNames) {
+    this.data = new ArrayList<>(data);
     this.columnNames = columnNames;
-    this.rowData = rowData;
   }
 
   @Override
@@ -39,40 +33,11 @@ public class TableModel<T> extends AbstractTableModel {
   }
 
   @Override
-  public Object getValueAt (int rowIndex, int columnIndex) {
-    T item = data.get(rowIndex);
-    // Return fields based on columnIndex
-    if (item instanceof User user) {
-      return switch (columnIndex) {
-        case 0 -> user.getId();
-        case 1 -> user.getName();
-        case 2 -> user.getEmail();
-        case 3 -> user.getUserPassword();
-        default -> null;
-      };
-    }
-    if (item instanceof Customer customer) {
-      return switch (columnIndex) {
-        case 0 -> customer.getCustomerId();
-        case 1 -> customer.getName();
-        case 2 -> customer.getAddress();
-        case 3 -> customer.getPhone();
-        case 4 -> customer.getEmail();
-        default -> null;
-      };
-    }
-    return null;
-  }
+  public abstract Object getValueAt (int rowIndex, int columnIndex);
 
-  //get the whole user
   public T getItem (int rowIndex) {
     return data.get(rowIndex);
   }
 
-  //refresh visuals
-  public void refreshTable (List<T> newData) {
-    data.clear();
-    data.addAll(newData);
-    fireTableDataChanged();
-  }
+  public abstract void refreshTable ();
 }

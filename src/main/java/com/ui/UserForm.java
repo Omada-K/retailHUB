@@ -43,8 +43,7 @@ public class UserForm extends BaseForm {
           User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
           try {
             UserDAO.updateItem(inputUser);
-            var updatedUsers = UserDAO.getData();
-            content.refreshTable(updatedUsers);
+            content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
@@ -73,8 +72,7 @@ public class UserForm extends BaseForm {
           User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
           try {
             UserDAO.insertUserIfNotExists(inputUser);
-            var updatedUsers = UserDAO.getData();
-            content.refreshTable(updatedUsers);
+            content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }

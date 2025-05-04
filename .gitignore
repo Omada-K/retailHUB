@@ -59,6 +59,6 @@ database/
 *.log
 *.logs
 
-/src/data/
-/src/main/data/
+/src/customers/
+/src/main/customers/
 

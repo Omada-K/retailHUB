@@ -12,28 +12,15 @@ import java.util.ArrayList;
 public class CustomersDAO {
   public ArrayList<Customer> customers;
   public String[] columns;
-  public Object[][] customerRows;
-
-  public CustomersDAO () throws SQLException {
-    this.customers = this.getData();
-    this.columns = new String[] {"id", "name", "address", "telephone", "email"};
-    this.customerRows = new Object[customers.size()][columns.length];
-    for (int i = 0; i < customers.size(); i++) {
-      Customer customer = customers.get(i);
-      customerRows[i][0] = customer.getCustomerId();
-      customerRows[i][1] = customer.getName();
-      customerRows[i][2] = customer.getAddress();
-      customerRows[i][3] = customer.getPhone();
-      customerRows[i][4] = customer.getEmail();
-    }
-  }
 
   public static ArrayList<Customer> getData () throws SQLException {
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    String query = "SELECT * FROM customers";
-    try (Connection conn = DataBaseConfig.getConnection();
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(query)) {
+    String query = "SELECT CUSTOMER_ID,NAME,ADDRESS,PHONE,EMAIL FROM CUSTOMERS";
+    System.out.println("fetching customers from database");
+    try (
+            Connection conn = DataBaseConfig.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query)) {
 
       while (rs.next()) {
         Customer c = new Customer(
@@ -45,6 +32,8 @@ public class CustomersDAO {
         );
         customers.add(c);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return customers;
   }

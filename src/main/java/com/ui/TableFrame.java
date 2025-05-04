@@ -20,13 +20,16 @@ public class TableFrame<T> extends JFrame {
   private JButton backButton;
   private JTextField queryField;
 
-  public TableFrame (AppState state, TableModel content) {
+  private TableModel<T> content;
+
+  public TableFrame (AppState state, TableModel<T> content) {
     setContentPane(tablePanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setLocationRelativeTo(null);
+    this.content = content;
 
     mainTable.setModel(content);
 
@@ -34,9 +37,7 @@ public class TableFrame<T> extends JFrame {
     backButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        state.tableFrame.setVisible(false);
-        state.mainFrame.setVisible(true);
-
+        dispose();
       }
     });
 
@@ -60,13 +61,11 @@ public class TableFrame<T> extends JFrame {
             try {
               if (selectedItem instanceof User) {
                 UserDAO.deleteItem(selectedItem);
-                var updatedData = UserDAO.getData();
-                content.refreshTable(updatedData);
+                content.refreshTable();
               }
               if (selectedItem instanceof Customer) {
                 CustomersDAO.deleteItem(selectedItem);
-                var updatedData = CustomersDAO.getData();
-                content.refreshTable(updatedData);
+                content.refreshTable();
               }
             } catch (SQLException ex) {
               throw new RuntimeException(ex);

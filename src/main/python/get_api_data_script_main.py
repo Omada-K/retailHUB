@@ -2,8 +2,8 @@
 1)Authentication & Token Retrieval – The script connects to Salesforce's OAuth2 authentication endpoint
 to obtain an access token using client credentials.
 2)Data Request & Retrieval – Using the access token, the script makes an authenticated request to a
-REST API endpoint to fetch CSV-formatted data.
-3)Data Processing & Storage – The retrieved CSV data is processed using Pandas, displayed for verification,
+REST API endpoint to fetch CSV-formatted customers.
+3)Data Processing & Storage – The retrieved CSV customers is processed using Pandas, displayed for verification,
 and saved as a local file for further analysis.
 '''
 # Ignore if you have red lines. try to run it. Packages are installed.
@@ -15,15 +15,15 @@ import requests
 import requests
 print("Date script starts")
 ## Παίρνουμε όλα τα δεδομένα από το API
-url = "http://egov.dai.uom.gr:5001/data"
+url = "http://egov.dai.uom.gr:5001/customers"
 
 try:
     response = requests.get(url)
 
     if response.status_code == 200:
-        data = response.json()
-        print("all data was successfully downloaded.")
-        print(data[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
+        customers = response.json()
+        print("all customers was successfully downloaded.")
+        print(customers[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
         print("API returned an error. Status code: {response.status_code}")
 
@@ -33,17 +33,17 @@ except requests.exceptions.RequestException as e:
 ## TASK2 insert multiple print logs(on start on end when a block success), so java can know what is happening
 import requests
 
-url = "http://egov.dai.uom.gr:5001/data"
+url = "http://egov.dai.uom.gr:5001/customers"
 
-print("START: Fetching all data from API")  ## Εκκίνηση block
+print("START: Fetching all customers from API")  ## Εκκίνηση block
 
 try:
     response = requests.get(url)
 
     if response.status_code == 200:
-        data = response.json()
+        customers = response.json()
         print("SUCCESS: Data fetched successfully")  ## Επιτυχία
-        print(data[:2])  ## Εκτύπωσε μόνο τα πρώτα 2 για προεπισκόπηση προαιρετικά
+        print(customers[:2])  ## Εκτύπωσε μόνο τα πρώτα 2 για προεπισκόπηση προαιρετικά
     else:
         print(f"ERROR: API returned status code {response.status_code}")  # Αν δεν είναι 200
 
@@ -75,31 +75,31 @@ parameters = {
     "password": password
 }
 
-## from requests library we are using .post method to get our data
+## from requests library we are using .post method to get our customers
 try:
     response = requests.get(url)
 
     if response.status_code == 200:
-        data = response.json()
-        print("all data was successfully downloaded.")
-        print(data[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
+        customers = response.json()
+        print("all customers was successfully downloaded.")
+        print(customers[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
         print("API returned an error. Status code: {response.status_code}")
 
 except requests.exceptions.RequestException as e:
     print("Connection or response error from API:", e)
 response = requests.post(url=api_url, params=parameters,
-                         headers=header_dic)  # post method sends our data to get some response in our case we get the authentication data
+                         headers=header_dic)  # post method sends our customers to get some response in our case we get the authentication customers
 
 response.raise_for_status()  # ignore - checks for success response
-data = response.json()  # saves data to json in the memory
+customers = response.json()  # saves customers to json in the memory
 
-# takes a specific data from the json data
-access_token = data['access_token']  # takes the authentication token from the first API
-instance_url = data['instance_url']  # takes the URL to access the next API
+# takes a specific customers from the json customers
+access_token = customers['access_token']  # takes the authentication token from the first API
+instance_url = customers['instance_url']  # takes the URL to access the next API
 
 ###second api
-second_api_URL = f"{instance_url}/services/apexrest/salesforce-sales-data/"  # using url from the first API
+second_api_URL = f"{instance_url}/services/apexrest/salesforce-sales-customers/"  # using url from the first API
 
 # same
 second_api_header = {
@@ -111,20 +111,20 @@ try:
 
     if second_response.status_code == 200:
         df = pd.read_csv(io.StringIO(second_response.text))
-        print("Salesforce data was successfully downloaded.")
+        print("Salesforce customers was successfully downloaded.")
         print(df.head(:2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
         print("Salesforce API returned an error. Status code: {second_response.status_code}")
 
 except requests.exceptions.RequestException as e:
-    print("Connection or response error from Salesforce data API:", e)
+    print("Connection or response error from Salesforce customers API:", e)
 second_response = requests.post(url=second_api_URL, headers=second_api_header)  # post method from request
 second_response.raise_for_status()  # ignore
 
 df = pd.read_csv(io.StringIO(
     second_response.text))  # StringIO:creates an in-memory file-like object from that string - pandas reads the CSV
-print(df)  # prints the data for validation
+print(df)  # prints the customers for validation
 
-df.to_csv("../../../salvage/raw_data_salesforce.csv")  # creates a csv file with our data
+df.to_csv("../../../salvage/raw_data_salesforce.csv")  # creates a csv file with our customers
 
 print("Data script is done !")

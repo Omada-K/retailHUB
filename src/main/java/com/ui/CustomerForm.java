@@ -50,8 +50,7 @@ public class CustomerForm extends BaseForm {
           );
           try {
             CustomersDAO.updateItem(inputCustomer);
-            var updatedCustomers = CustomersDAO.getData();
-            content.refreshTable(updatedCustomers);
+            content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
@@ -83,9 +82,8 @@ public class CustomerForm extends BaseForm {
                   emailInput.getText()
           );
           try {
-            CustomersDAO.updateItem(inputCustomer);
-            var updatedCustomers = CustomersDAO.getData();
-            content.refreshTable(updatedCustomers);
+            CustomersDAO.insertCustomer(inputCustomer);
+            content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }

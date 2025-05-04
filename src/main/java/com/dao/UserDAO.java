@@ -14,20 +14,6 @@ import java.util.ArrayList;
 public class UserDAO {
   public ArrayList<User> users;
   public String[] columns;
-  public Object[][] userRows;
-
-  public UserDAO () throws SQLException {
-    this.users = this.getData();
-    this.columns = new String[] {"id", "name", "email", "password"};
-    this.userRows = new Object[users.size()][columns.length];
-    for (int i = 0; i < users.size(); i++) {
-      User user = users.get(i);
-      userRows[i][0] = user.getId();
-      userRows[i][1] = user.getName();
-      userRows[i][2] = user.getEmail();
-      userRows[i][3] = user.getUserPassword();
-    }
-  }
 
   public static void insertUserIfNotExists (User user) throws SQLException {
     String checkSql = "SELECT COUNT(*) FROM users WHERE email = ?";

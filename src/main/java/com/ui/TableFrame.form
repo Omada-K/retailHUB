@@ -31,7 +31,7 @@
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Available data"/>
+          <text value="Available customers"/>
         </properties>
       </component>
       <component id="2d11f" class="javax.swing.JButton" binding="updateButton" default-binding="true">
@@ -83,7 +83,9 @@
       </vspacer>
       <scrollpane id="a201b">
         <constraints>
-          <grid row="3" column="1" row-span="4" col-span="2" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="4" col-span="2" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="800" height="600"/>
+          </grid>
         </constraints>
         <properties/>
         <border type="none"/>
