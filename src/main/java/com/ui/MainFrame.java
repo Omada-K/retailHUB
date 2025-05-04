@@ -2,9 +2,11 @@ package com.ui;
 
 import com.dao.CustomersDAO;
 import com.dao.OrdersDAO;
+import com.dao.ProductsDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
 import com.model.Order;
+import com.model.Product;
 import com.model.User;
 
 import javax.swing.*;
@@ -16,10 +18,10 @@ import java.util.List;
 public class MainFrame extends JFrame {
   //ui
   private JButton logoutButton;
-  private JButton viewInvoicesButton;
+  private JButton viewOrdersButton;
   private JButton viewUsersButton;
   private JButton viewCustomersButton;
-  private JButton viewKatiAlloButton;
+  private JButton viewProductsButton;
   private JCheckBox prediction1CheckBox;
   private JCheckBox prediction2CheckBox;
   private JCheckBox prediction3CheckBox;
@@ -61,7 +63,7 @@ public class MainFrame extends JFrame {
       }
     });
     //orders OnClick event listener
-    viewInvoicesButton.addActionListener(new ActionListener() {
+    viewOrdersButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
         try {
@@ -73,18 +75,35 @@ public class MainFrame extends JFrame {
         }
       }
     });
+    //View Products here
+    viewProductsButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        try {
+          List<Product> products = ProductsDAO.getData();
+          ProductTableModel model = new ProductTableModel(products);
+          new TableFrame<>(state, model);
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
     //logout OnClick event listener
     logoutButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //TASK make button open login frame and close current frame
+        try {
+          new LoginFrame(state);
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
+        dispose();
       }
     });
     //OnClick calls python cleaner
     salvageDataFromOldButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //TASK call the python script that calls the API
         //Hint look in /service
       }
     });

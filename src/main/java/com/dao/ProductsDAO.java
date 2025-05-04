@@ -52,4 +52,34 @@ public class ProductsDAO {
       e.printStackTrace();
     }
   }
+
+  //edit item
+  public static void updateItem (Product product) throws SQLException {
+    String updateSql = "UPDATE PRODUCTS SET PRODUCT_CATEGORY = ?, NAME = ?, DESCRIPTION = ? , PRICE = ? WHERE " +
+            "PRODUCT_ID = ?";
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
+      insertStmt.setString(1, product.getProductCategory());
+      insertStmt.setString(2, product.getProductName());
+      insertStmt.setString(3, product.getProductDescription());
+      insertStmt.setDouble(4, product.getProductPrice());
+      insertStmt.setInt(5, product.getProductId());
+      insertStmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  //delete item
+  public static void deleteItem (Object selectedProduct) throws SQLException {
+    String deleteSql = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
+    Product product = (Product) selectedProduct;
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
+      insertStmt.setInt(1, product.getProductId());
+      insertStmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

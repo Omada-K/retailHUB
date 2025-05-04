@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
   //new auth
-  //TASK replace the lines below with database fetch method.
   UserDAO userDAO = new UserDAO();
   private JPanel loginPanel;
   private JTextField inputUsername;
@@ -20,7 +19,6 @@ public class LoginFrame extends JFrame {
   private JButton cancelButton;
 
   public LoginFrame (AppState appState) throws SQLException {
-
     setContentPane(loginPanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
@@ -29,7 +27,6 @@ public class LoginFrame extends JFrame {
 
     //create a listener
     ActionListener OnClick = new ActionListener() {
-
       @Override
       public void actionPerformed (ActionEvent e) {
         ArrayList<User> users = null;
@@ -37,9 +34,6 @@ public class LoginFrame extends JFrame {
           users = UserDAO.getData();
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
-        }
-        if (users.isEmpty()) {
-          System.out.println("dasd");
         }
         //TASK work here to create auth logic
         String userEmail = inputUsername.getText();

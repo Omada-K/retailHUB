@@ -1,8 +1,11 @@
 package com.ui;
 
 import com.dao.CustomersDAO;
+import com.dao.ProductsDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
+import com.model.Order;
+import com.model.Product;
 import com.model.User;
 
 import javax.swing.*;
@@ -67,6 +70,10 @@ public class TableFrame<T> extends JFrame {
                 CustomersDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
+              if (selectedItem instanceof Product) {
+                ProductsDAO.deleteItem(selectedItem);
+                content.refreshTable();
+              }
             } catch (SQLException ex) {
               throw new RuntimeException(ex);
             }
@@ -91,6 +98,12 @@ public class TableFrame<T> extends JFrame {
           if (selectedItem instanceof Customer) {
             new CustomerForm(content, selectedItem);
           }
+          if (selectedItem instanceof Order) {
+            //new OrderForm(content, selectedItem);
+          }
+          if (selectedItem instanceof Product) {
+            new ProductForm(content, selectedItem);
+          }
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
         }
@@ -105,8 +118,15 @@ public class TableFrame<T> extends JFrame {
           Object firstItem = content.getItem(0);
           if (firstItem instanceof User) {
             new UserForm(content);
-          } else if (firstItem instanceof Customer) {
+          }
+          if (firstItem instanceof Customer) {
             new CustomerForm(content);
+          }
+          if (firstItem instanceof Order) {
+            //new OrderForm(content);
+          }
+          if (firstItem instanceof Product) {
+            new ProductForm(content);
           }
         } else {
           //if the sql returns null....

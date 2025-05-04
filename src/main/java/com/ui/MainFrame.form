@@ -61,14 +61,14 @@
                   <text value="View Users"/>
                 </properties>
               </component>
-              <component id="2c5dd" class="javax.swing.JButton" binding="viewInvoicesButton" default-binding="true">
+              <component id="2c5dd" class="javax.swing.JButton" binding="viewOrdersButton">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="36"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="View Invoices"/>
+                  <text value="View Orders"/>
                 </properties>
               </component>
               <component id="e115f" class="javax.swing.JButton" binding="viewCustomersButton" default-binding="true">
@@ -81,14 +81,14 @@
                   <text value="View Customers"/>
                 </properties>
               </component>
-              <component id="e82dd" class="javax.swing.JButton" binding="viewKatiAlloButton" default-binding="true">
+              <component id="e82dd" class="javax.swing.JButton" binding="viewProductsButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="36"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="View kati allo"/>
+                  <text value="View Products"/>
                 </properties>
               </component>
             </children>
