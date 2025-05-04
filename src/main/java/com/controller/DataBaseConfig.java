@@ -58,7 +58,7 @@ public class DataBaseConfig {
   public static void createProductsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS products (" +
             "product_id INTEGER IDENTITY PRIMARY KEY, " +
-            "product_category INTEGER, " +
+            "product_category VARCHAR(100), " +
             "name VARCHAR(100), " +
             "description VARCHAR(300), " +
             "price DOUBLE)";
@@ -82,18 +82,6 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createProductsCategoryTable () throws SQLException {
-    String ddl = "CREATE TABLE IF NOT EXISTS products_category (" +
-            "category_id INTEGER IDENTITY PRIMARY KEY, " +
-            "description VARCHAR(200), " +
-            "quantity INTEGER, " +
-            "price_amount DOUBLE)";
-    try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
-      stmt.executeUpdate(ddl);
-      System.out.println("products_category table created.");
-    }
-  }
-
   public static void createDiscountsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS discounts (" +
             "customer_id INTEGER, " +
@@ -110,7 +98,6 @@ public class DataBaseConfig {
     createCustomersTable();
     createProductsTable();
     createOrdersTable();
-    createProductsCategoryTable();
     createDiscountsTable();
     System.out.println("✅ All tables created successfully.");
   }

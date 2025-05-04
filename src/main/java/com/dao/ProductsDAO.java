@@ -3,10 +3,7 @@ package com.dao;
 import com.controller.DataBaseConfig;
 import com.model.Product;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +17,7 @@ public class ProductsDAO {
    * @return list of Products
    * @throws SQLException if database access error occurs
    */
-  public static ArrayList<Product> getProducts () throws SQLException {
+  public static ArrayList<Product> getData () throws SQLException {
     ArrayList<Product> products = new ArrayList<>();
     String query = "SELECT * FROM products";
 
@@ -39,5 +36,20 @@ public class ProductsDAO {
       }
     }
     return products;
+  }
+
+  public static void insertProduct (Product product) throws SQLException {
+    String insertSql = "INSERT INTO PRODUCTS (PRODUCT_CATEGORY,NAME,DESCRIPTION, PRICE ) VALUES (?, ?, ?, ?)";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+      insertStmt.setString(1, product.getProductCategory());
+      insertStmt.setString(2, product.getProductName());
+      insertStmt.setString(3, product.getProductDescription());
+      insertStmt.setDouble(4, product.getProductPrice());
+      insertStmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

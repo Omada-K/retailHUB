@@ -16,6 +16,13 @@ public class Product {
     this.productPrice = productPrice;
   }
 
+  public Product (String productCategory, String productName, String productDescription, double productPrice) {
+    this.productCategory = productCategory;
+    this.productName = productName;
+    this.productDescription = productDescription;
+    this.productPrice = productPrice;
+  }
+
   //Getters & Setters
 
   public int getProductId () { return productId; }

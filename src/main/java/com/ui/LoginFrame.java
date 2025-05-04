@@ -18,9 +18,9 @@ public class LoginFrame extends JFrame {
   private JTextField inputPassword;
   private JButton btnLogin;
   private JButton cancelButton;
-  private ArrayList<User> DBUsers = userDAO.users;
 
   public LoginFrame (AppState appState) throws SQLException {
+
     setContentPane(loginPanel);// don't forget this, the window will be empty
     setVisible(true);
     setResizable(true);
@@ -29,16 +29,26 @@ public class LoginFrame extends JFrame {
 
     //create a listener
     ActionListener OnClick = new ActionListener() {
+
       @Override
       public void actionPerformed (ActionEvent e) {
+        ArrayList<User> users = null;
+        try {
+          users = UserDAO.getData();
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
+        if (users.isEmpty()) {
+          System.out.println("dasd");
+        }
         //TASK work here to create auth logic
-        String userEmail = getInputUsername().getText();
-        String password = getInputPassword().getText();
+        String userEmail = inputUsername.getText();
+        String password = inputPassword.getText();
         System.out.println("Username: " + userEmail);
         System.out.println("Password: " + password);
 
         //new auth
-        for (User user : DBUsers) {
+        for (User user : users) {
           if (user.getEmail().equals(userEmail)) {
             if (user.getUserPassword().equals(password)) {
               appState.mainFrame.setVisible(true);
@@ -55,17 +65,5 @@ public class LoginFrame extends JFrame {
     //connect listener to the button
     btnLogin.addActionListener(OnClick);
   }
-
-  //getters and setters
-  public JPanel getLoginPanel () {
-    return loginPanel;
-  }
-
-  public JTextField getInputUsername () { return inputUsername; }
-
-  public JTextField getInputPassword () {
-    return inputPassword;
-  }
-
 }
 

@@ -71,7 +71,7 @@ public class UserForm extends BaseForm {
           int itemsCount = content.getRowCount() + 1;
           User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
           try {
-            UserDAO.insertUserIfNotExists(inputUser);
+            UserDAO.insertUser(inputUser);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

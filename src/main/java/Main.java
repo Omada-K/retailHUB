@@ -1,7 +1,9 @@
 import com.controller.DataBaseConfig;
 import com.dao.CustomersDAO;
+import com.dao.ProductsDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
+import com.model.Product;
 import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
@@ -13,7 +15,6 @@ public class Main {
 
   public static void main (String[] args) throws SQLException {
     System.out.println("Starting application...");
-
     //this shuts the db down before exiting
     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
       @Override
@@ -25,8 +26,10 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();
-    UserDAO.insertUserIfNotExists(new User("test", "test", "1234"));
+
     CustomersDAO.insertCustomer(new Customer("meiSung", "here", "dsd", "d@d"));
+    ProductsDAO.insertProduct(new Product("electronics", "plug", "fdsfdsfsdfs", 555));
+    UserDAO.insertUser(new User("test", "test", "1234"));
 
     //GUI related stuff
     AppState uiState = new AppState();//All frames initialized in this obj

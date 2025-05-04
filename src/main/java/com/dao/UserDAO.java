@@ -15,31 +15,19 @@ public class UserDAO {
   public ArrayList<User> users;
   public String[] columns;
 
-  public static void insertUserIfNotExists (User user) throws SQLException {
-    String checkSql = "SELECT COUNT(*) FROM users WHERE email = ?";
-    String insertSql = "INSERT INTO users (name, email, user_password) VALUES (?, ?, ?)";
+  public static void insertUser (User user) throws SQLException {
+    String insertSql = "INSERT INTO USERS (name, email, user_password) VALUES (?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement checkStmt = conn.prepareStatement(checkSql);
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-
-      checkStmt.setString(1, user.getEmail()); //Replaces the first ? in the checkSql with the actual email.
-      var rs = checkStmt.executeQuery(); //Runs the SELECT COUNT(*) query and stores the result in rs (a ResultSet).
-      rs.next(); //Moves to the first (and only) row in the result set.
-      int count = rs.getInt(1); //Gets the value from the first column — the number of users with that email.
-
-      //if the user does not exist aka count = 0
-      if (count == 0) {
-        insertStmt.setString(1, user.getName());
-        insertStmt.setString(2, user.getEmail());
-        insertStmt.setString(3, user.getUserPassword());
-        insertStmt.executeUpdate();
-      } else {
-        System.out.println("User with email " + user.getEmail() + " already exists.");
-      }
+      insertStmt.setString(1, user.getName());
+      insertStmt.setString(2, user.getEmail());
+      insertStmt.setString(3, user.getUserPassword());
+      insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    System.out.println("user inserted");
   }
 
   public static void updateItem (User user) throws SQLException {

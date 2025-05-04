@@ -1,8 +1,10 @@
 package com.ui;
 
 import com.dao.CustomersDAO;
+import com.dao.OrdersDAO;
 import com.dao.UserDAO;
 import com.model.Customer;
+import com.model.Order;
 import com.model.User;
 
 import javax.swing.*;
@@ -58,11 +60,17 @@ public class MainFrame extends JFrame {
         }
       }
     });
-    //invoices OnClick event listener
+    //orders OnClick event listener
     viewInvoicesButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //TASK make button show table
+        try {
+          List<Order> orders = OrdersDAO.getData();
+          OrderTableModel model = new OrderTableModel(orders);
+          new TableFrame<>(state, model);
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     //logout OnClick event listener
