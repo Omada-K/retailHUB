@@ -1,14 +1,13 @@
 package com.ui;
 
-import com.dao.OrdersDAO;
 import com.model.Order;
+import com.model.Product;
+import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class OrderForm extends BaseForm {
   private JPanel formPanel;
@@ -20,72 +19,52 @@ public class OrderForm extends BaseForm {
   private JComboBox comboCustomer;
   private JButton addButton;
 
-  //Edit form(needs order)
-  public OrderForm (TableModel content, Object OrderInput) {
+  // Edit form (requires an Order)
+  public OrderForm (ProductTableModel content, Object OrderInput) {
     super();
+    setContentPane(formPanel); // set the main panel
     setupCancelButton(exitButton);
-    setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-    Order order = (Order) OrderInput; //force generic object to be customer
-
+    Order order = (Order) OrderInput; // cast input to Order
     int id = order.getOrderId();
     inputQuantity.setText(String.valueOf(order.getAmount()));
 
     deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
+        int selectedRow = productsTable.getSelectedRow();
+        if (selectedRow != -1) {
+          Product selectedItem = content.getItem(selectedRow);
 
-        if (inputQuantity.getText() != null //validation
-        ) {
-          Order inputOrder = new Order(
-                  id,
-                  LocalDate.now(),
-                  Integer.parseInt(inputQuantity.getText()),
-                  0,
-                  0,
-                  0
-          );
-          try {
-            OrdersDAO.updateItem(inputOrder);
-            content.refreshTable();
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+          int confirm = JOptionPane.showConfirmDialog(
+                  OrderForm.this,
+                  "Are you sure you want to delete this row?",
+                  "Confirm Delete",
+                  JOptionPane.YES_NO_OPTION
+                                                     );
+
+          if (confirm == JOptionPane.YES_OPTION) {
+            // remove from table model
+
           }
-          dispose();
         }
       }
     });
   }
 
-  //Create form(needs user)
+  // Create form (for new orders)
   public OrderForm (TableModel content) {
     super();
-    setupCancelButton(exitButton);
+    setContentPane(formPanel); // set the main panel
     setContentPane(formPanel);
+    setupCancelButton(exitButton);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
     deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-
-        if (inputQuantity.getText() != null //validation
-        ) {
-          Order inputOrder = new Order(
-                  LocalDate.now(),
-                  Integer.parseInt(inputQuantity.getText()),
-                  0,
-                  0,
-                  0
-          );
-          try {
-            OrdersDAO.insertOrder(inputOrder);
-            content.refreshTable();
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          dispose();
-        }
+        // Similar deletion logic could go here
       }
     });
   }

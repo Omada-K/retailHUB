@@ -82,4 +82,30 @@ public class ProductsDAO {
       e.printStackTrace();
     }
   }
+
+  public static ArrayList<Product> getProductsOfOrder (int orderId) throws SQLException {
+    ArrayList<Product> products = new ArrayList<>();
+    String query = "SELECT p.* " +
+            "FROM products p " +
+            "JOIN orders_products op ON p.product_id = op.product_id " +
+            "WHERE op.order_id = ?;";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+      stmt.setInt(1, orderId); // bind the orderId to the query
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+          products.add(new Product(
+                  rs.getInt("product_id"),
+                  rs.getString("product_category"),
+                  rs.getString("name"),
+                  rs.getString("description"),
+                  rs.getDouble("price")
+          ));
+        }
+      }
+    }
+    return products;
+  }
 }

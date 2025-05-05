@@ -8,6 +8,7 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TableFrame<T> extends JFrame {
   private JPanel tablePanel;
@@ -106,8 +108,24 @@ public class TableFrame<T> extends JFrame {
           if (selectedItem instanceof Customer) {
             new CustomerForm(content, selectedItem);
           }
+
+          //Edit order
           if (selectedItem instanceof Order) {
-            new OrderForm(content, selectedItem);
+            Order selectedOrder = (Order) content.getItem(selectedRow);
+            int id = selectedOrder.getOrderId();
+            ArrayList<Product> products = new ArrayList<>();
+            try {
+              products = ProductsDAO.getProductsOfOrder(id);
+            } catch (SQLException ex) {
+              JOptionPane.showMessageDialog(
+                      null,
+                      "Database error occurred: " + ex.getMessage(),
+                      "Error",
+                      JOptionPane.ERROR_MESSAGE
+                                           );
+            }
+            ProductTableModel t = new ProductTableModel(products);
+            new OrderForm(t, selectedItem);
           }
           if (selectedItem instanceof Product) {
             new ProductForm(content, selectedItem);

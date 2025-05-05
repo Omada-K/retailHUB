@@ -72,10 +72,24 @@ public class DataBaseConfig {
     String ddl = "CREATE TABLE IF NOT EXISTS orders (" +
             "order_id INTEGER IDENTITY PRIMARY KEY, " +
             "date DATE, " +
-            "quantity INTEGER, " +
-            "amount DOUBLE, " +
             "customer_id INTEGER, " +
-            "product_id INTEGER)";
+            "product_id INTEGER," +
+            "FOREIGN KEY (customer_id) REFERENCES customers(customer_id))";
+    try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+      stmt.executeUpdate(ddl);
+      System.out.println("orders table created.");
+    }
+  }
+
+  public static void createOrdersProductsTable () throws SQLException {
+    String ddl = "CREATE TABLE IF NOT EXISTS orders_products (" +
+            "order_id INTEGER, " +
+            "product_id INTEGER," +
+            "quantity INTEGER," +
+            "PRIMARY KEY (order_id, product_id)," +
+            "FOREIGN KEY (order_id) REFERENCES orders(order_id)," +
+            "FOREIGN KEY (product_id) REFERENCES products(product_id)" +
+            ")";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("orders table created.");
@@ -99,6 +113,7 @@ public class DataBaseConfig {
     createProductsTable();
     createOrdersTable();
     createDiscountsTable();
+    createOrdersProductsTable();
     System.out.println("✅ All tables created successfully.");
   }
 

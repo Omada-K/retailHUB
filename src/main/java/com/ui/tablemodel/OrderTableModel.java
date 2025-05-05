@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderTableModel extends TableModel<Order> {
   public OrderTableModel (List<Order> orders) {
-    super(orders, new String[] {"ID", "Data", "Quantity", "Amount", "Customer", "Product"});
+    super(orders, new String[] {"ID", "Date", "Quantity", "Amount", "Customer", "Product"});
   }
 
   @Override
