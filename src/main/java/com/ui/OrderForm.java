@@ -2,6 +2,7 @@ package com.ui;
 
 import com.dao.OrdersDAO;
 import com.model.Order;
+import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,17 +12,18 @@ import java.time.LocalDate;
 
 public class OrderForm extends BaseForm {
   private JPanel formPanel;
-  private JButton saveButton;
-  private JButton cancelButton;
+  private JButton deleteButton;
+  private JButton exitButton;
   private JTextField inputQuantity;
   private JComboBox comboProduct;
+  private JTable productsTable;
   private JComboBox comboCustomer;
-  private JButton addProductButton;
+  private JButton addButton;
 
   //Edit form(needs order)
   public OrderForm (TableModel content, Object OrderInput) {
     super();
-    setupCancelButton(cancelButton);
+    setupCancelButton(exitButton);
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -30,7 +32,7 @@ public class OrderForm extends BaseForm {
     int id = order.getOrderId();
     inputQuantity.setText(String.valueOf(order.getAmount()));
 
-    saveButton.addActionListener(new ActionListener() {
+    deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
 
@@ -59,11 +61,11 @@ public class OrderForm extends BaseForm {
   //Create form(needs user)
   public OrderForm (TableModel content) {
     super();
-    setupCancelButton(cancelButton);
+    setupCancelButton(exitButton);
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    
-    saveButton.addActionListener(new ActionListener() {
+
+    deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
 

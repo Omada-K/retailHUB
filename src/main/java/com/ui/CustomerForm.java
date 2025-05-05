@@ -2,6 +2,7 @@ package com.ui;
 
 import com.dao.CustomersDAO;
 import com.model.Customer;
+import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

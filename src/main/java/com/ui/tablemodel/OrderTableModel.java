@@ -1,4 +1,4 @@
-package com.ui;
+package com.ui.tablemodel;
 
 import com.dao.OrdersDAO;
 import com.model.Order;

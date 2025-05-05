@@ -8,6 +8,10 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.ui.tablemodel.CustomerTableModel;
+import com.ui.tablemodel.OrderTableModel;
+import com.ui.tablemodel.ProductTableModel;
+import com.ui.tablemodel.UserTableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

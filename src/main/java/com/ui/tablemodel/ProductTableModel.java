@@ -1,4 +1,4 @@
-package com.ui;
+package com.ui.tablemodel;
 
 import com.dao.ProductsDAO;
 import com.model.Product;
