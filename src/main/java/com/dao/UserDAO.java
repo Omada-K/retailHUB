@@ -12,8 +12,6 @@ import java.util.ArrayList;
  * Get all, delete, create etc...
  */
 public class UserDAO {
-  public ArrayList<User> users;
-  public String[] columns;
 
   public static void insertUser (User user) throws SQLException {
     String insertSql = "INSERT INTO USERS (name, email, user_password) VALUES (?, ?, ?)";

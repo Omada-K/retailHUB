@@ -10,13 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
-  //new auth
-  UserDAO userDAO = new UserDAO();
   private JPanel loginPanel;
   private JTextField inputUsername;
   private JTextField inputPassword;
   private JButton btnLogin;
-  private JButton cancelButton;
+  private JButton exitButton;
 
   public LoginFrame (AppState appState) throws SQLException {
     setContentPane(loginPanel);// don't forget this, the window will be empty
@@ -58,6 +56,14 @@ public class LoginFrame extends JFrame {
     };
     //connect listener to the button
     btnLogin.addActionListener(OnClick);
+
+    //exit button
+    exitButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        dispose();
+      }
+    });
   }
 }
 
