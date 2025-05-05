@@ -7,6 +7,7 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.service.DataGenerator;
 import com.ui.AppState;
 import com.ui.LoginFrame;
 import com.ui.MainFrame;
@@ -18,17 +19,25 @@ public class Main {
 
   public static void main (String[] args) throws SQLException {
     System.out.println("Starting application...");
+
     //this shuts the db down before exiting
     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
       @Override
       public void run () {
         DataBaseConfig.shutdownDatabase();
+        System.out.println("Database shutdown successfully.");
       }
     }));
 
     //Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();
+
+    // Insert 50 randomly generated customers
+    DataGenerator.createDummyCustomers();
+    System.out.println("50 random customers inserted successfully!");
+    DataGenerator.createDummyProducts();
+    System.out.println("Random Products Created");
 
     CustomersDAO.insertCustomer(new Customer("meiSung", "here", "dsd", "d@d"));
     ProductsDAO.insertProduct(new Product("electronics", "plug", "fdsfdsfsdfs", 555));
