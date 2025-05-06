@@ -15,6 +15,7 @@ import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.UserTableModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
   private JButton salvageDataFromOldButton;
   private JButton aboutButton;
   private JButton generateSyntheticDataButton;
+  private JLabel welcomeLabel;
 
   public MainFrame (AppState state) {
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
@@ -42,6 +44,10 @@ public class MainFrame extends JFrame {
     setResizable(true);
     setSize(800, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    //set name of loggein user to the label
+    welcomeLabel.setText("Welcom to RetailHub " + state.loggedInUserName);
+    Font currentFont = welcomeLabel.getFont();
+    welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
 
     //View customers OnClick event listener
     viewCustomersButton.addActionListener(new ActionListener() {

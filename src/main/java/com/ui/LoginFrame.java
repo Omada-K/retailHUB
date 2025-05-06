@@ -44,6 +44,7 @@ public class LoginFrame extends JFrame {
           if (user.getEmail().equals(userEmail)) {
             if (user.getUserPassword().equals(password)) {
               appState.mainFrame.setVisible(true);
+              appState.loggedInUserName = user.getName();
               dispose();//this makes THIS frame not visible
             } else {
               System.out.println("Wrong password");

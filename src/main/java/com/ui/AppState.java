@@ -5,4 +5,5 @@ public class AppState {
   public TableFrame tableFrame;
   public LoginFrame loginFrame;
   public UserForm userForm;
+  public String loggedInUserName = "";
 }
