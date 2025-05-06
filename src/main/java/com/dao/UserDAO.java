@@ -14,13 +14,14 @@ import java.util.ArrayList;
 public class UserDAO {
 
   public static void insertUser (User user) throws SQLException {
-    String insertSql = "INSERT INTO USERS (name, email, user_password) VALUES (?, ?, ?)";
+    String insertSql = "INSERT INTO USERS (name, email, user_password, is_admin) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
       insertStmt.setString(1, user.getName());
       insertStmt.setString(2, user.getEmail());
       insertStmt.setString(3, user.getUserPassword());
+      insertStmt.setBoolean(4, user.getIsAdmin());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -29,13 +30,14 @@ public class UserDAO {
   }
 
   public static void updateItem (User user) throws SQLException {
-    String updateSql = "UPDATE users SET name = ?, email = ?, user_password = ? WHERE id = ?";
+    String updateSql = "UPDATE users SET name = ?, email = ?, user_password = ?, is_admin = ? WHERE id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, user.getName());
       insertStmt.setString(2, user.getEmail());
       insertStmt.setString(3, user.getUserPassword());
-      insertStmt.setInt(4, user.getId());
+      insertStmt.setBoolean(4, user.getIsAdmin());
+      insertStmt.setInt(5, user.getId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -56,7 +58,7 @@ public class UserDAO {
 
   public static ArrayList<User> getData () throws SQLException {
     ArrayList<User> users = new ArrayList<User>();
-    String query = "select id, name, email, user_password from users";
+    String query = "select id, name, email, user_password, is_admin from users";
     try (
             Connection conn = DataBaseConfig.getConnection();
             Statement statement = conn.createStatement();
@@ -68,7 +70,8 @@ public class UserDAO {
                 result.getInt("id"),
                 result.getString("name"),
                 result.getString("email"),
-                result.getString("user_password")
+                result.getString("user_password"),
+                result.getBoolean("is_admin")
         );
         users.add(user);
       }

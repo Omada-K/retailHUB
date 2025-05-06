@@ -43,7 +43,11 @@ public class UserForm extends BaseForm {
                 emailInput.getText() != null &&
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
 
-          User inputUser = new User(id, nameInput.getText(), emailInput.getText(), passwordInput.getText());
+          User inputUser = new User(
+                  id, nameInput.getText(),
+                  emailInput.getText(),
+                  passwordInput.getText(),
+                  isManagerCheckBox.isSelected());
           try {
             UserDAO.updateItem(inputUser);
             content.refreshTable();
@@ -73,7 +77,11 @@ public class UserForm extends BaseForm {
                 emailInput.getText() != null &&
                 passwordInput.getText().equals(confirmPasswordInput.getText())) {
           int itemsCount = content.getRowCount() + 1;
-          User inputUser = new User(itemsCount, nameInput.getText(), emailInput.getText(), passwordInput.getText());
+          User inputUser = new User(
+                  itemsCount, nameInput.getText(),
+                  emailInput.getText(),
+                  passwordInput.getText(),
+                  isManagerCheckBox.isSelected());
           try {
             UserDAO.insertUser(inputUser);
             content.refreshTable();

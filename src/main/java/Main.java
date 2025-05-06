@@ -28,7 +28,7 @@ public class Main {
     // Initialize
     DataBaseConfig.createAllTables();
 
-    UserDAO.insertUser(new User("test", "test", "1234"));
+    UserDAO.insertUser(new User("test", "test", "1234", true));
     OrdersDAO.insertOrder(new Order(LocalDate.now(), 34.6, 0, 0));
 
     //GUI related stuff

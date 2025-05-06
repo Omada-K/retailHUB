@@ -10,20 +10,23 @@ public class User {
   private String name;
   private String email;
   private String userPassword;
+  private boolean isAdmin;
 
   //No id constructor, for creating new users
-  public User (String name, String email, String userPassword) {
+  public User (String name, String email, String userPassword, boolean isAdmin) {
     this.name = name;
     this.email = email;
     this.userPassword = userPassword;
+    this.isAdmin = isAdmin;
   }
 
   //constructor with id, for reading users
-  public User (int id, String nameInput, String emailInput, String userPasswordInput) {
+  public User (int id, String nameInput, String emailInput, String userPasswordInput, boolean isAdmin) {
     this.id = id;
     this.name = nameInput;
     this.email = emailInput;
     this.userPassword = userPasswordInput;
+    this.isAdmin = isAdmin;
   }
 
   //getters setters
@@ -41,5 +44,9 @@ public class User {
 
   public String getUserPassword () {
     return userPassword;
+  }
+
+  public boolean getIsAdmin () {
+    return isAdmin;
   }
 }

@@ -143,7 +143,9 @@
       </vspacer>
       <component id="c2d3d" class="javax.swing.JLabel" binding="retailHubLabel">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="40"/>
+          </grid>
         </constraints>
         <properties>
           <text value="RetailHUB"/>
@@ -151,7 +153,9 @@
       </component>
       <component id="b6771" class="javax.swing.JLabel" binding="headLineLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="24"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Krush Team Prudly presents:"/>

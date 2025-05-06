@@ -31,8 +31,11 @@ public class DataBaseConfig {
     String createTableDdl = "CREATE TABLE IF NOT EXISTS users (" +
             "id INTEGER IDENTITY PRIMARY KEY, " +
             "name VARCHAR(60) NOT NULL, " +
-            "email VARCHAR(60) UNIQUE NOT NULL," +
-            "user_password VARCHAR(60) NOT NULL)";
+            "email VARCHAR(60) UNIQUE NOT NULL, " +
+            "user_password VARCHAR(60) NOT NULL, " +  // <-- comma, not closing the parenthesis
+            "is_admin BOOLEAN DEFAULT FALSE" +
+            ")";
+
     try (Connection conn = getConnection();
          Statement statement = conn.createStatement()) {
       statement.executeUpdate(createTableDdl);

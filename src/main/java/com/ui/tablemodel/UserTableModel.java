@@ -12,7 +12,7 @@ import java.util.List;
 public class UserTableModel extends TableModel<User> {
 
   public UserTableModel (List<User> users) {
-    super(users, new String[] {"ID", "Name", "Email", "Password"});
+    super(users, new String[] {"ID", "Name", "Email", "Password", "Is Administrator"});
   }
 
   @Override
@@ -23,6 +23,7 @@ public class UserTableModel extends TableModel<User> {
       case 1 -> user.getName();
       case 2 -> user.getEmail();
       case 3 -> user.getUserPassword();
+      case 4 -> user.getIsAdmin();
       default -> null;
     };
   }
