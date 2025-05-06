@@ -3,7 +3,6 @@ import com.dao.OrdersDAO;
 import com.dao.UserDAO;
 import com.model.Order;
 import com.model.User;
-import com.service.DataGenerator;
 import com.ui.AppState;
 import com.ui.LoginFrame;
 import com.ui.MainFrame;
@@ -28,12 +27,6 @@ public class Main {
     //Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();
-
-    // Insert 50 randomly generated customers
-    DataGenerator.createDummyCustomers();
-    System.out.println("50 random customers inserted successfully!");
-    DataGenerator.createDummyProducts();
-    System.out.println("Random Products Created");
 
     UserDAO.insertUser(new User("test", "test", "1234"));
     OrdersDAO.insertOrder(new Order(LocalDate.now(), 34.6, 0, 0));

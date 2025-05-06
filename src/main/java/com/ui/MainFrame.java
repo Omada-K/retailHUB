@@ -8,6 +8,7 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.service.DataGenerator;
 import com.ui.tablemodel.CustomerTableModel;
 import com.ui.tablemodel.OrderTableModel;
 import com.ui.tablemodel.ProductTableModel;
@@ -33,6 +34,7 @@ public class MainFrame extends JFrame {
   private JPanel mainFramePanel;
   private JButton salvageDataFromOldButton;
   private JButton aboutButton;
+  private JButton generateSyntheticDataButton;
 
   public MainFrame (AppState state) {
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
@@ -117,6 +119,16 @@ public class MainFrame extends JFrame {
       public void actionPerformed (ActionEvent e) {
         System.out.println("about");
         new AboutForm();
+      }
+    });
+    generateSyntheticDataButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        // Insert 50 randomly generated customers
+        DataGenerator.createDummyCustomers();
+        System.out.println("50 random customers inserted successfully!");
+        DataGenerator.createDummyProducts();
+        System.out.println("Random Products Created");
       }
     });
   }
