@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
   private JButton generateButton;
   private JPanel mainFramePanel;
   private JButton salvageDataFromOldButton;
+  private JButton aboutButton;
 
   public MainFrame (AppState state) {
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
@@ -109,6 +110,13 @@ public class MainFrame extends JFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         //Hint look in /service
+      }
+    });
+    aboutButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        System.out.println("about");
+        new AboutForm();
       }
     });
   }

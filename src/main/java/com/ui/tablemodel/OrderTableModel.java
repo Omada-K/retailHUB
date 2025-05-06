@@ -17,10 +17,9 @@ public class OrderTableModel extends TableModel<Order> {
     return switch (columnIndex) {
       case 0 -> order.getOrderId();
       case 1 -> order.getOrderDate();
-      case 2 -> order.getQuantity();
-      case 3 -> order.getAmount();
-      case 4 -> order.getCustomerId();
-      case 5 -> order.getProductId();
+      case 2 -> order.getAmount();
+      case 3 -> order.getCustomerId();
+      case 4 -> order.getProductId();
       default -> null;
     };
   }

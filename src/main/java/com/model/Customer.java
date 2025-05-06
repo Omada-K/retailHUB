@@ -1,15 +1,17 @@
 package com.model;
 
 public class Customer {
-  private int CustomerId;
+  private int customerId;
   private String name;
   private String address;
   private String phone;
   private String email;
+  private double customerBalance;
+  private float discountPercentage;
 
   //Constructors
-  public Customer (int CustomerId, String name, String address, String phone, String email) {
-    this.CustomerId = CustomerId;
+  public Customer (int customerId, String name, String address, String phone, String email) {
+    this.customerId = customerId;
     this.name = name;
     this.address = address;
     this.phone = phone;
@@ -23,10 +25,25 @@ public class Customer {
     this.email = email;
   }
 
-  //Getters & Setters
-  public int getCustomerId () { return CustomerId; }
+  //Customer to display
+  public Customer (
+          int customerId, String name, String address, String phone, String email, double customerBalance,
+          float discountPercentage
+                  ) {
+    this.customerId = customerId;
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+    this.email = email;
+    this.customerBalance = customerBalance;
+    this.discountPercentage = discountPercentage;
 
-  public void setCustomerId (int CustomerId) { this.CustomerId = CustomerId; }
+  }
+
+  //Getters & Setters
+  public int getCustomerId () { return customerId; }
+
+  public void setCustomerId (int CustomerId) { this.customerId = CustomerId; }
 
   public String getName () { return name; }
 
@@ -43,4 +60,12 @@ public class Customer {
   public String getEmail () { return email; }
 
   public void setEmail (String email) { this.email = email; }
+
+  public double getCustomerBalance () {
+    return customerBalance;
+  }
+
+  public float getDiscountPercentage () {
+    return discountPercentage;
+  }
 }

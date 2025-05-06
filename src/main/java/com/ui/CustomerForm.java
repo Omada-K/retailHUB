@@ -1,7 +1,9 @@
 package com.ui;
 
 import com.dao.CustomersDAO;
+import com.dao.DiscountDAO;
 import com.model.Customer;
+import com.model.Discount;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
@@ -17,7 +19,8 @@ public class CustomerForm extends BaseForm {
   private JTextField telephoneInput;
   private JTextField addressInput;
   private JTextField emailInput;
-  private JTextField textField5;
+  private JTextField discountTxtField;
+  private JLabel labelBalance;
 
   //Edit form(needs user)
   public CustomerForm (TableModel content, Object customerInput) {
@@ -32,6 +35,8 @@ public class CustomerForm extends BaseForm {
     addressInput.setText(customer.getAddress());
     telephoneInput.setText(customer.getPhone());
     emailInput.setText(customer.getEmail());
+    discountTxtField.setText(String.valueOf(customer.getDiscountPercentage()));
+    labelBalance.setText(String.valueOf(customer.getCustomerBalance()));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
@@ -40,7 +45,8 @@ public class CustomerForm extends BaseForm {
         if (nameInput.getText() != null &&//validation
                 addressInput.getText() != null &&
                 telephoneInput.getText() != null &&
-                emailInput.getText() != null
+                emailInput.getText() != null &&
+                discountTxtField.getText() != null
         ) {
 
           Customer inputCustomer = new Customer(
@@ -50,8 +56,14 @@ public class CustomerForm extends BaseForm {
                   telephoneInput.getText(),
                   emailInput.getText()
           );
+          Discount discount = new Discount(
+                  id,
+                  Double.parseDouble(labelBalance.getText()),
+                  Float.parseFloat(discountTxtField.getText())
+          );
           try {
             CustomersDAO.updateItem(inputCustomer);
+            DiscountDAO.updateItem(discount);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -85,8 +97,12 @@ public class CustomerForm extends BaseForm {
                   telephoneInput.getText(),
                   emailInput.getText()
           );
+          //          Discount discount = new Discount(
+          //                  Float.parseFloat(discountTxtField.getText()),
+          //                  Float.parseFloat(labelBalance.getText())
+          //          );
           try {
-            CustomersDAO.insertCustomer(inputCustomer);
+            CustomersDAO.createItem(inputCustomer);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

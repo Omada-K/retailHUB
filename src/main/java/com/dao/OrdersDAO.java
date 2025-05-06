@@ -29,7 +29,6 @@ public class OrdersDAO {
         orders.add(new Order(
                 rs.getInt("order_id"),
                 rs.getDate("date").toLocalDate(),
-                rs.getInt("quantity"),
                 rs.getDouble("amount"),
                 rs.getInt("customer_id"),
                 rs.getInt("product_id")
@@ -40,15 +39,14 @@ public class OrdersDAO {
   }
 
   public static void insertOrder (Order order) throws SQLException {
-    String insertSql = "INSERT INTO ORDERS (DATE,QUANTITY, AMOUNT, CUSTOMER_ID,PRODUCT_ID ) VALUES (?, ?, ?, ?,?)";
+    String insertSql = "INSERT INTO ORDERS (DATE,QUANTITY, AMOUNT, CUSTOMER_ID,PRODUCT_ID ) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
       insertStmt.setDate(1, Date.valueOf(order.getOrderDate()));
-      insertStmt.setInt(2, order.getQuantity());
-      insertStmt.setDouble(3, order.getAmount());
-      insertStmt.setInt(4, order.getCustomerId());
-      insertStmt.setInt(5, order.getProductId());
+      insertStmt.setDouble(2, order.getAmount());
+      insertStmt.setInt(3, order.getCustomerId());
+      insertStmt.setInt(4, order.getProductId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -57,16 +55,15 @@ public class OrdersDAO {
 
   //edit item
   public static void updateItem (Order order) throws SQLException {
-    String updateSql = "UPDATE ORDERS SET DATE = ?, QUANTITY = ?, AMOUNT = ? , CUSTOMER_ID = ?,PRODUCT_ID=? WHERE " +
+    String updateSql = "UPDATE ORDERS SET DATE = ?, AMOUNT = ? , CUSTOMER_ID = ?,PRODUCT_ID=? WHERE " +
             "ORDER_ID = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setDate(1, Date.valueOf(order.getOrderDate()));
-      insertStmt.setInt(2, order.getQuantity());
-      insertStmt.setDouble(3, order.getAmount());
-      insertStmt.setInt(4, order.getCustomerId());
-      insertStmt.setInt(5, order.getProductId());
-      insertStmt.setInt(6, order.getOrderId());
+      insertStmt.setDouble(2, order.getAmount());
+      insertStmt.setInt(3, order.getCustomerId());
+      insertStmt.setInt(4, order.getProductId());
+      insertStmt.setInt(5, order.getOrderId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

@@ -15,7 +15,17 @@ public class CustomersDAO {
 
   public static ArrayList<Customer> getData () throws SQLException {
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    String query = "SELECT CUSTOMER_ID,NAME,ADDRESS,PHONE,EMAIL FROM CUSTOMERS";
+    String query = """
+              SELECT c.customer_id,
+                c.name,
+                c.address,
+                c.phone,
+                c.email,
+                d.amount AS customer_balance,
+                d.discount_percentage
+              FROM customers c
+              LEFT JOIN discounts d ON c.customer_id = d.customer_id
+            """;
     System.out.println("fetching customers from database");
     try (
             Connection conn = DataBaseConfig.getConnection();
@@ -28,7 +38,9 @@ public class CustomersDAO {
                 rs.getString("name"),
                 rs.getString("address"),
                 rs.getString("phone"),
-                rs.getString("email")
+                rs.getString("email"),
+                rs.getDouble("customer_balance"),
+                rs.getFloat("discount_percentage")
         );
         customers.add(c);
       }
@@ -39,7 +51,7 @@ public class CustomersDAO {
   }
 
   //add customer
-  public static void insertCustomer (Customer customer) throws SQLException {
+  public static void createItem (Customer customer) throws SQLException {
     String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();

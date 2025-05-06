@@ -4,15 +4,16 @@ import com.dao.CustomersDAO;
 import com.dao.ProductsDAO;
 import com.model.Customer;
 import com.model.Product;
+
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.Random;
 
 public class DataGenerator {
 
-  public static void createDummyCustomers() {
+  public static void createDummyCustomers () {
     CustomersDAO customersDAO = new CustomersDAO();
     ArrayList<Customer> customers = new ArrayList<>();
     Random rand = new Random();
@@ -43,7 +44,7 @@ public class DataGenerator {
 
     try {
       for (Customer c : customers) {
-        customersDAO.insertCustomer(c);
+        CustomersDAO.createItem(c);
       }
     } catch (SQLException ex) {
       JOptionPane.showMessageDialog(
@@ -54,7 +55,7 @@ public class DataGenerator {
     }
   }
 
-  public static void createDummyProducts() {
+  public static void createDummyProducts () {
     ProductsDAO productsDAO = new ProductsDAO();
     Random rand = new Random();
 
@@ -129,11 +130,9 @@ public class DataGenerator {
   }
 }
 
-
-
-  //create dummy data
-  // create  methods for each model that creates dummy data
-  // and put it in the db using the DAO
-  //tip: in the end create a static 'mega' method that calls all the
-  //smaller methods -see createAllTables() by chris
- //all done 5/5/25
+//create dummy data
+// create  methods for each model that creates dummy data
+// and put it in the db using the DAO
+//tip: in the end create a static 'mega' method that calls all the
+//smaller methods -see createAllTables() by chris
+//all done 5/5/25

@@ -98,9 +98,10 @@ public class DataBaseConfig {
 
   public static void createDiscountsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS discounts (" +
-            "customer_id INTEGER, " +
+            "customer_id INTEGER PRIMARY KEY, " +
             "amount DOUBLE, " +
-            "discount_percentage DOUBLE)";
+            "discount_percentage FLOAT," +
+            "FOREIGN KEY (customer_id) REFERENCES customers(customer_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("discounts table created.");
