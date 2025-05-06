@@ -31,7 +31,8 @@ public class ProductsDAO {
                 rs.getString("product_category"),
                 rs.getString("name"),
                 rs.getString("description"),
-                rs.getDouble("price")
+                rs.getDouble("price"),
+                rs.getInt("amount_in_stock")
         ));
       }
     }
@@ -101,7 +102,8 @@ public class ProductsDAO {
                   rs.getString("product_category"),
                   rs.getString("name"),
                   rs.getString("description"),
-                  rs.getDouble("price")
+                  rs.getDouble("price"),
+                  rs.getInt("ammount_in_stock")
           ));
         }
       }

@@ -16,6 +16,8 @@ public class ProductForm extends BaseForm {
   private JTextField nameInput;
   private JTextField descriptionInput;
   private JTextField priceInput;
+  private JTextField inputStock;
+  private String[] categories = {"Electronics", "Beauty", "Clothing", "Books", "Furniture", "Foods"};
   private JComboBox categotyBox;
 
   //Edit form(needs user)
@@ -24,8 +26,10 @@ public class ProductForm extends BaseForm {
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
     Product product = (Product) productInput; //force generic object to be customer
+
+    categotyBox.setModel(new DefaultComboBoxModel<>(categories));
+    categotyBox.setSelectedItem(product.getProductCategory());
 
     int id = product.getProductId();
     nameInput.setText(product.getProductName());
@@ -42,10 +46,11 @@ public class ProductForm extends BaseForm {
         ) {
           Product inputProduct = new Product(
                   id,
-                  "test",
+                  (String) categotyBox.getSelectedItem(),
                   nameInput.getText(),
                   descriptionInput.getText(),
-                  Double.parseDouble(priceInput.getText())
+                  Double.parseDouble(priceInput.getText()),
+                  Integer.parseInt(inputStock.getText())
           );
           try {
             ProductsDAO.updateItem(inputProduct);
@@ -65,7 +70,9 @@ public class ProductForm extends BaseForm {
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    
+
+    categotyBox.setModel(new DefaultComboBoxModel<>(categories));
+
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
@@ -76,10 +83,12 @@ public class ProductForm extends BaseForm {
         ) {
 
           Product inputProduct = new Product(
-                  "test",
+                  (String) categotyBox.getSelectedItem(),
                   nameInput.getText(),
                   descriptionInput.getText(),
-                  Double.parseDouble(priceInput.getText())
+                  Double.parseDouble(priceInput.getText()),
+                  Integer.parseInt(inputStock.getText())
+
           );
           try {
             ProductsDAO.insertProduct(inputProduct);

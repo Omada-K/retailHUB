@@ -59,7 +59,7 @@ public class DataGenerator {
     ProductsDAO productsDAO = new ProductsDAO();
     Random rand = new Random();
 
-    String[] categories = {"Electronics", "Beauty", "Clothing"};
+    String[] categories = {"Electronics", "Beauty", "Clothing", "Books", "Furniture", "Foods"};
 
     // Electronics
     ArrayList<String> electronicsDescriptions = new ArrayList<>(List.of(
@@ -114,7 +114,7 @@ public class DataGenerator {
       }
 
       // create and insert product
-      Product product = new Product(category, productName, description, price);
+      Product product = new Product(category, productName, description, price, 100);
 
       try {
         productsDAO.insertProduct(product);

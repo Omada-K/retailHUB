@@ -20,7 +20,7 @@ public class CustomerForm extends BaseForm {
   private JTextField addressInput;
   private JTextField emailInput;
   private JTextField discountTxtField;
-  private JLabel labelBalance;
+  private JTextField balanceInput;
 
   //Edit form(needs user)
   public CustomerForm (TableModel content, Object customerInput) {
@@ -36,7 +36,7 @@ public class CustomerForm extends BaseForm {
     telephoneInput.setText(customer.getPhone());
     emailInput.setText(customer.getEmail());
     discountTxtField.setText(String.valueOf(customer.getDiscountPercentage()));
-    labelBalance.setText(String.valueOf(customer.getCustomerBalance()));
+    balanceInput.setText(String.valueOf(customer.getCustomerBalance()));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
@@ -58,7 +58,7 @@ public class CustomerForm extends BaseForm {
           );
           Discount discount = new Discount(
                   id,
-                  Double.parseDouble(labelBalance.getText()),
+                  Double.parseDouble(balanceInput.getText()),
                   Float.parseFloat(discountTxtField.getText())
           );
           try {
@@ -97,12 +97,13 @@ public class CustomerForm extends BaseForm {
                   telephoneInput.getText(),
                   emailInput.getText()
           );
-          //          Discount discount = new Discount(
-          //                  Float.parseFloat(discountTxtField.getText()),
-          //                  Float.parseFloat(labelBalance.getText())
-          //          );
+          Discount discount = new Discount(
+                  Float.parseFloat(discountTxtField.getText()),
+                  Float.parseFloat(balanceInput.getText())
+          );
           try {
-            CustomersDAO.createItem(inputCustomer);
+            int genId = CustomersDAO.createItem(inputCustomer);
+            DiscountDAO.createItem(discount, genId);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

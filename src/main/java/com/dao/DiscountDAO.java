@@ -1,7 +1,6 @@
 package com.dao;
 
 import com.controller.DataBaseConfig;
-import com.model.Customer;
 import com.model.Discount;
 
 import java.sql.Connection;
@@ -32,7 +31,7 @@ public class DiscountDAO {
       if (rs.next()) {
         return new Discount(
                 rs.getInt("customer_id"),
-                rs.getDouble("amount"),
+                rs.getDouble("balance"),
                 rs.getFloat("discount_percentage")
         );
       }
@@ -40,15 +39,13 @@ public class DiscountDAO {
     return null;
   }
 
-  public static void createItem (Customer customer) throws SQLException {
-    String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL) VALUES (?, ?, ?, ?)";
-
+  public static void createItem (Discount discount, int customerId) throws SQLException {
+    String createSql = "INSERT INTO DISCOUNTS (CUSTOMER_ID, BALANCE, DISCOUNT_PERCENTAGE) VALUES (?,?,?)";
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-      insertStmt.setString(1, customer.getName());
-      insertStmt.setString(2, customer.getAddress());
-      insertStmt.setString(3, customer.getPhone());
-      insertStmt.setString(4, customer.getEmail());
+         PreparedStatement insertStmt = conn.prepareStatement(createSql)) {
+      insertStmt.setInt(1, customerId);
+      insertStmt.setDouble(2, discount.getBalance());
+      insertStmt.setDouble(3, discount.getDiscountPercentage());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -56,10 +53,10 @@ public class DiscountDAO {
   }
 
   public static void updateItem (Discount discount) throws SQLException {
-    String updateSql = "UPDATE DISCOUNTS SET AMOUNT = ?, DISCOUNT_PERCENTAGE = ? WHERE CUSTOMER_ID = ?";
+    String updateSql = "UPDATE DISCOUNTS SET BALANCE = ?, DISCOUNT_PERCENTAGE = ? WHERE CUSTOMER_ID = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
-      insertStmt.setDouble(1, discount.getAmount());
+      insertStmt.setDouble(1, discount.getBalance());
       insertStmt.setDouble(2, discount.getDiscountPercentage());
       insertStmt.setInt(3, discount.getCustomerId());
       insertStmt.executeUpdate();

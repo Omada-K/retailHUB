@@ -8,7 +8,10 @@ public class Product {
   private double productPrice;
 
   //Constructor
-  public Product (int productId, String productCategory, String productName, String productDescription, double productPrice) {
+  public Product (
+          int productId, String productCategory, String productName, String productDescription,
+          double productPrice, int amountInStock
+                 ) {
     this.productId = productId;
     this.productCategory = productCategory;
     this.productName = productName;
@@ -16,7 +19,10 @@ public class Product {
     this.productPrice = productPrice;
   }
 
-  public Product (String productCategory, String productName, String productDescription, double productPrice) {
+  public Product (
+          String productCategory, String productName, String productDescription, double productPrice,
+          int amountInStock
+                 ) {
     this.productCategory = productCategory;
     this.productName = productName;
     this.productDescription = productDescription;

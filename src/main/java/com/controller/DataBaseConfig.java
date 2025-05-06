@@ -45,9 +45,9 @@ public class DataBaseConfig {
   public static void createCustomersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS customers (" +
             "customer_id INTEGER IDENTITY PRIMARY KEY, " +
-            "name VARCHAR(100), " +
+            "name VARCHAR(100) UNIQUE NOT NULL, " +
             "address VARCHAR(200), " +
-            "phone VARCHAR(20), " +
+            "phone VARCHAR(20) UNIQUE NOT NULL, " +
             "email VARCHAR(100))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
@@ -59,9 +59,10 @@ public class DataBaseConfig {
     String ddl = "CREATE TABLE IF NOT EXISTS products (" +
             "product_id INTEGER IDENTITY PRIMARY KEY, " +
             "product_category VARCHAR(100), " +
-            "name VARCHAR(100), " +
+            "name VARCHAR(100) UNIQUE , " +
             "description VARCHAR(300), " +
-            "price DOUBLE)";
+            "price DOUBLE," +
+            "amount_in_stock INTEGER)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("products table created.");
@@ -99,7 +100,7 @@ public class DataBaseConfig {
   public static void createDiscountsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS discounts (" +
             "customer_id INTEGER PRIMARY KEY, " +
-            "amount DOUBLE, " +
+            "balance DOUBLE, " +
             "discount_percentage FLOAT," +
             "FOREIGN KEY (customer_id) REFERENCES customers(customer_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
