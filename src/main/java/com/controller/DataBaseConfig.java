@@ -111,14 +111,34 @@ public class DataBaseConfig {
       System.out.println("discounts table created.");
     }
   }
+  public static void createCustomerOrdersTable() throws SQLException {
+    String ddl = "CREATE TABLE IF NOT EXISTS customerOrders (" +
+            "customer_id INTEGER,"+
+            "order_id INTEGER,"+
+            "PRIMARY KEY (customer_id, order_id),"+
+            "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)," +
+            "FOREIGN KEY (order_id) REFERENCES orders(order_id)" +
+            ")";
+    try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
+      stmt.executeUpdate(ddl);
+      System.out.println("Customer-Orders table created.");
+    }
+
+
+
+
+  }
 
   public static void createAllTables () throws SQLException {
+
     createUsersTable();
     createCustomersTable();
     createProductsTable();
     createOrdersTable();
     createDiscountsTable();
     createOrdersProductsTable();
+    createCustomerOrdersTable();
+
     System.out.println("✅ All tables created successfully.");
   }
 
