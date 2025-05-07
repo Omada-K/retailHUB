@@ -113,7 +113,6 @@ public class MainFrame extends JFrame {
         dispose();
       }
     });
-    //OnClick calls python cleaner
     salvageDataFromOldButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
@@ -135,6 +134,13 @@ public class MainFrame extends JFrame {
         System.out.println("50 random customers inserted successfully!");
         DataGenerator.createDummyProducts();
         System.out.println("Random Products Created");
+      }
+    });
+    //python runner
+    generateButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+
       }
     });
   }

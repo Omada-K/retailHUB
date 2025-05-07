@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 public class PythonRunner {
   //give the name of the .py
   public static void runScript (String scriptName) {
-    scriptName = "test.py";
+
     //python script runner
     try {
       //is the python my local python or the venv python?
