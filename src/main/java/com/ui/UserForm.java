@@ -33,6 +33,7 @@ public class UserForm extends BaseForm {
     emailInput.setText(user.getEmail());
     passwordInput.setText(user.getUserPassword());
     confirmPasswordInput.setText(user.getUserPassword());
+    isManagerCheckBox.setSelected(user.getIsAdmin());
 
     saveButton.addActionListener(new ActionListener() {
       @Override

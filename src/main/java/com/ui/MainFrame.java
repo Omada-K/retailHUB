@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
     setSize(800, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     //set name of loggein user to the label
-    welcomeLabel.setText("Welcom to RetailHub " + state.loggedInUserName);
+    welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
     Font currentFont = welcomeLabel.getFont();
     welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
 
