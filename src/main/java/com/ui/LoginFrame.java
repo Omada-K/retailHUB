@@ -40,8 +40,10 @@ public class LoginFrame extends JFrame {
         System.out.println("Password: " + password);
 
         //new auth
+        boolean usermatch = false;
         for (User user : users) {
           if (user.getEmail().equals(userEmail)) {
+            usermatch = true;
             if (user.getUserPassword().equals(password)) {
               appState.mainFrame.setVisible(true);
               appState.loggedInUserName = user.getName();
@@ -49,9 +51,10 @@ public class LoginFrame extends JFrame {
             } else {
               System.out.println("Wrong password");
             }
-          } else {
-            System.out.println("User doesn't match");
           }
+          }
+        if (!usermatch) {
+          System.out.println("User doesn't match");
         }
       }
     };
