@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class UserForm extends BaseForm {
+public class UserFrame extends BaseFrame {
   private JButton cancelButton;
   private JButton saveButton;
   private JTextField emailInput;
@@ -20,7 +20,7 @@ public class UserForm extends BaseForm {
   private JPanel formPanel;
 
   //Edit form(needs user)
-  public UserForm (TableModel content, Object userInput) {
+  public UserFrame (TableModel content, Object userInput) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
@@ -62,7 +62,7 @@ public class UserForm extends BaseForm {
   }
 
   //Create user(no user required)
-  public UserForm (TableModel content) {
+  public UserFrame (TableModel content) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);

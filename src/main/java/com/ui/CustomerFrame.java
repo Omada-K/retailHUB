@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class CustomerForm extends BaseForm {
+public class CustomerFrame extends BaseFrame {
   private JPanel formPanel;
   private JButton saveButton;
   private JButton cancelButton;
@@ -23,7 +23,7 @@ public class CustomerForm extends BaseForm {
   private JTextField balanceInput;
 
   //Edit form(needs user)
-  public CustomerForm (TableModel content, Object customerInput) {
+  public CustomerFrame (TableModel content, Object customerInput) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
@@ -75,7 +75,7 @@ public class CustomerForm extends BaseForm {
   }
 
   //Create form(needs user)
-  public CustomerForm (TableModel content) {
+  public CustomerFrame (TableModel content) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);

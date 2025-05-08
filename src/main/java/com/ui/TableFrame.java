@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TableFrame<T> extends JFrame {
+public class TableFrame<T> extends BaseFrame {
   private JPanel tablePanel;
   private JTable mainTable;
   private JButton deleteButton;
@@ -31,13 +31,11 @@ public class TableFrame<T> extends JFrame {
   private TableModel<T> content;
 
   public TableFrame (AppState state, TableModel<T> content) {
+    super();
     setContentPane(tablePanel);// don't forget this, the window will be empty
-    setVisible(true);
-    setResizable(true);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setMinimumSize(new Dimension(800, 600));
-    setLocationRelativeTo(null);
     this.content = content;
 
     mainTable.setModel(content);
@@ -103,10 +101,10 @@ public class TableFrame<T> extends JFrame {
         if (selectedRow != -1) {
           T selectedItem = (T) content.getItem(selectedRow);
           if (selectedItem instanceof User) {
-            new UserForm(content, selectedItem);
+            new UserFrame(content, selectedItem);
           }
           if (selectedItem instanceof Customer) {
-            new CustomerForm(content, selectedItem);
+            new CustomerFrame(content, selectedItem);
           }
 
           //Edit order
@@ -125,10 +123,10 @@ public class TableFrame<T> extends JFrame {
                                            );
             }
             ProductTableModel t = new ProductTableModel(products);
-            new OrderForm(t, selectedItem);
+            new OrderFrame(t, selectedItem);
           }
           if (selectedItem instanceof Product) {
-            new ProductForm(content, selectedItem);
+            new ProductFrame(content, selectedItem);
           }
         } else {
           JOptionPane.showMessageDialog(TableFrame.this, "Please select a row to delete.");
@@ -143,16 +141,16 @@ public class TableFrame<T> extends JFrame {
         if (content.getRowCount() > 0) {
           Object firstItem = content.getItem(0);
           if (firstItem instanceof User) {
-            new UserForm(content);
+            new UserFrame(content);
           }
           if (firstItem instanceof Customer) {
-            new CustomerForm(content);
+            new CustomerFrame(content);
           }
           if (firstItem instanceof Order) {
-            new OrderForm(content);
+            new OrderFrame(content);
           }
           if (firstItem instanceof Product) {
-            new ProductForm(content);
+            new ProductFrame(content);
           }
         } else {
           //if the sql returns null....

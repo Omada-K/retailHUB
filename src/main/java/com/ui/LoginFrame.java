@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LoginFrame extends JFrame {
+public class LoginFrame extends BaseFrame {
   private JPanel loginPanel;
   private JTextField inputUsername;
   private JTextField inputPassword;
@@ -19,12 +19,11 @@ public class LoginFrame extends JFrame {
   private JLabel welcomeLabel;
 
   public LoginFrame (AppState appState) throws SQLException {
+    super();
     setContentPane(loginPanel);// don't forget this, the window will be empty
-    setVisible(true);
-    setResizable(true);
+    setTitle("Welcome! Please Login");
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
     //by making btnLogin default btn "ENTER" activates it
     getRootPane().setDefaultButton(btnLogin);
 
@@ -59,7 +58,6 @@ public class LoginFrame extends JFrame {
     } catch (SQLException ex) {
       throw new RuntimeException(ex);
     }
-    //TASK work here to create auth logic
     String userEmail = inputUsername.getText();
     String password = inputPassword.getText();
     System.out.println("Username: " + userEmail);

@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends BaseFrame {
   //ui
   private JButton logoutButton;
   private JButton viewOrdersButton;
@@ -39,11 +39,9 @@ public class MainFrame extends JFrame {
   private JLabel welcomeLabel;
 
   public MainFrame (AppState state) {
+    super();
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
-    setVisible(false);
-    setResizable(true);
     setSize(800, 600);
-    setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     //set name of loggein user to the label
     welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
@@ -124,8 +122,7 @@ public class MainFrame extends JFrame {
     aboutButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        System.out.println("about");
-        new AboutForm();
+        new AboutFrame();
       }
     });
     generateSyntheticDataButton.addActionListener(new ActionListener() {

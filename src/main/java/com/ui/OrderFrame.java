@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OrderForm extends BaseForm {
+public class OrderFrame extends BaseFrame {
   private JPanel formPanel;
   private JButton deleteButton;
   private JButton exitButton;
@@ -20,7 +20,7 @@ public class OrderForm extends BaseForm {
   private JButton addButton;
 
   // Edit form (requires an Order)
-  public OrderForm (ProductTableModel content, Object OrderInput) {
+  public OrderFrame (ProductTableModel content, Object OrderInput) {
     super();
     setContentPane(formPanel); // set the main panel
     setupCancelButton(exitButton);
@@ -38,7 +38,7 @@ public class OrderForm extends BaseForm {
           Product selectedItem = content.getItem(selectedRow);
 
           int confirm = JOptionPane.showConfirmDialog(
-                  OrderForm.this,
+                  OrderFrame.this,
                   "Are you sure you want to delete this row?",
                   "Confirm Delete",
                   JOptionPane.YES_NO_OPTION
@@ -54,7 +54,7 @@ public class OrderForm extends BaseForm {
   }
 
   // Create form (for new orders)
-  public OrderForm (TableModel content) {
+  public OrderFrame (TableModel content) {
     super();
     setContentPane(formPanel); // set the main panel
     setContentPane(formPanel);

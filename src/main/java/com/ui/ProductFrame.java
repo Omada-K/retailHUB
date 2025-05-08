@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class ProductForm extends BaseForm {
+public class ProductFrame extends BaseFrame {
   private JPanel formPanel;
   private JButton saveButton;
   private JButton cancelButton;
@@ -21,7 +21,7 @@ public class ProductForm extends BaseForm {
   private JComboBox categotyBox;
 
   //Edit form(needs user)
-  public ProductForm (TableModel content, Object productInput) {
+  public ProductFrame (TableModel content, Object productInput) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
@@ -65,7 +65,7 @@ public class ProductForm extends BaseForm {
   }
 
   //Create form(needs user)
-  public ProductForm (TableModel content) {
+  public ProductFrame (TableModel content) {
     super();
     setupCancelButton(cancelButton);
     setContentPane(formPanel);

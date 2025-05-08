@@ -40,7 +40,7 @@ public class Main {
     UserDAO.insertUser(new User("Christina", "test", "1234", true));
 
     //GUI related stuff
-    AppState uiState = new AppState();//All frames initialized in this obj
+    AppState uiState = new AppState();//this is input for all Jframe
     new LoginFrame(uiState);
   }
 }
