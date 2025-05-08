@@ -43,6 +43,7 @@ public class MainFrame extends JFrame {
     setVisible(false);
     setResizable(true);
     setSize(800, 600);
+    setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     //set name of loggein user to the label
     welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);

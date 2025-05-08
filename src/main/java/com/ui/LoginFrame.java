@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,7 +24,11 @@ public class LoginFrame extends JFrame {
     setResizable(true);
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    //by making btnLogin default btn "ENTER" activates it
+    getRootPane().setDefaultButton(btnLogin);
 
+    //font changes
     Font currentFont = welcomeLabel.getFont();
     welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
 
@@ -39,17 +41,7 @@ public class LoginFrame extends JFrame {
     };
     //connect listener to the button
     btnLogin.addActionListener(OnClick);
-    //action listener that checks for enter
-    btnLogin.addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyTyped (KeyEvent e) {
-        super.keyTyped(e);
-        if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-          authenticate(appState);
-        }
-      }
-    });
-    
+
     //exit button
     exitButton.addActionListener(new ActionListener() {
       @Override

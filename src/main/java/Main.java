@@ -38,7 +38,7 @@ public class Main {
     // Initialize
     DataBaseConfig.createAllTables();
 
-    UserDAO.insertUser(new User("test", "test", "1234", true));
+    UserDAO.insertUser(new User("Christina", "test", "1234", true));
 
     //GUI related stuff
     AppState uiState = new AppState();//All frames initialized in this obj

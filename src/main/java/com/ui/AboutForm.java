@@ -23,6 +23,7 @@ public class AboutForm extends JFrame {
     Font currentFont = headLineLabel.getFont();
     headLineLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
     retailHubLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 32));
+    //close btn
     closeButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
