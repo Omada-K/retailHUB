@@ -107,6 +107,7 @@ public class MainFrame extends JFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         try {
+          state.resetState();
           new LoginFrame(state);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);

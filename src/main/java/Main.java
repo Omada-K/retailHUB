@@ -3,7 +3,6 @@ import com.dao.UserDAO;
 import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
-import com.ui.MainFrame;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -42,7 +41,6 @@ public class Main {
 
     //GUI related stuff
     AppState uiState = new AppState();//All frames initialized in this obj
-    uiState.loginFrame = new LoginFrame(uiState);
-    uiState.mainFrame = new MainFrame(uiState);
+    new LoginFrame(uiState);
   }
 }
