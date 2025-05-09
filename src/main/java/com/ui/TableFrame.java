@@ -113,14 +113,13 @@ public class TableFrame<T> extends BaseFrame {
             int id = selectedOrder.getOrderId();
             ArrayList<Product> products = new ArrayList<>();
             try {
-              products = ProductsDAO.getProductsOfOrder(id);
+              products = ProductsDAO.getData();
             } catch (SQLException ex) {
               JOptionPane.showMessageDialog(
                       null,
                       "Database error occurred: " + ex.getMessage(),
                       "Error",
-                      JOptionPane.ERROR_MESSAGE
-                                           );
+                      JOptionPane.ERROR_MESSAGE);
             }
             ProductTableModel t = new ProductTableModel(products);
             new OrderFrame(t, selectedItem);

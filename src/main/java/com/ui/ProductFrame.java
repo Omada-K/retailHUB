@@ -29,12 +29,11 @@ public class ProductFrame extends BaseFrame {
     Product product = (Product) productInput; //force generic object to be customer
 
     categotyBox.setModel(new DefaultComboBoxModel<>(categories));
-    categotyBox.setSelectedItem(product.getProductCategory());
+    categotyBox.setSelectedItem(product.getCategory());
 
     int id = product.getProductId();
-    nameInput.setText(product.getProductName());
-    descriptionInput.setText(product.getProductDescription());
-    priceInput.setText(String.valueOf(product.getProductPrice()));
+    nameInput.setText(product.getName());
+    priceInput.setText(String.valueOf(product.getItemPrice()));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
@@ -48,9 +47,8 @@ public class ProductFrame extends BaseFrame {
                   id,
                   (String) categotyBox.getSelectedItem(),
                   nameInput.getText(),
-                  descriptionInput.getText(),
-                  Double.parseDouble(priceInput.getText()),
-                  Integer.parseInt(inputStock.getText())
+                  Integer.parseInt(inputStock.getText()),
+                  Double.parseDouble(priceInput.getText())
           );
           try {
             ProductsDAO.updateItem(inputProduct);
@@ -81,17 +79,14 @@ public class ProductFrame extends BaseFrame {
                 descriptionInput.getText() != null &&
                 priceInput.getText() != null
         ) {
-
           Product inputProduct = new Product(
                   (String) categotyBox.getSelectedItem(),
                   nameInput.getText(),
-                  descriptionInput.getText(),
-                  Double.parseDouble(priceInput.getText()),
-                  Integer.parseInt(inputStock.getText())
-
+                  Integer.parseInt(inputStock.getText()),
+                  Double.parseDouble(priceInput.getText())
           );
           try {
-            ProductsDAO.insertProduct(inputProduct);
+            ProductsDAO.insertItem(inputProduct);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

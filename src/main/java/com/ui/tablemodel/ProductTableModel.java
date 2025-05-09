@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductTableModel extends TableModel<Product> {
   public ProductTableModel (List<Product> products) {
-    super(products, new String[] {"ID", "Category", "Name", "Description", "Price"});
+    super(products, new String[] {"ID", "Category", "Name", "Description", "Price", "Quantity"});
   }
 
   @Override
@@ -16,10 +16,10 @@ public class ProductTableModel extends TableModel<Product> {
     Product product = data.get(rowIndex);
     return switch (columnIndex) {
       case 0 -> product.getProductId();
-      case 1 -> product.getProductCategory();
-      case 2 -> product.getProductName();
-      case 3 -> product.getProductDescription();
-      case 4 -> product.getProductPrice();
+      case 1 -> product.getCategory();
+      case 2 -> product.getName();
+      case 3 -> product.getItemPrice();
+      case 4 -> product.getAmountInStock();
       default -> null;
     };
   }

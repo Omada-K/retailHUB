@@ -28,7 +28,7 @@ public class OrderFrame extends BaseFrame {
 
     Order order = (Order) OrderInput; // cast input to Order
     int id = order.getOrderId();
-    inputQuantity.setText(String.valueOf(order.getAmount()));
+    inputQuantity.setText(String.valueOf(order.getPrice()));
 
     deleteButton.addActionListener(new ActionListener() {
       @Override

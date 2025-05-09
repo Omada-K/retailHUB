@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderTableModel extends TableModel<Order> {
   public OrderTableModel (List<Order> orders) {
-    super(orders, new String[] {"ID", "Date", "Quantity", "Amount", "Customer", "Product"});
+    super(orders, new String[] {"ID", "Created At", "Updated At", "Quantity", "Price", "Number of Product"});
   }
 
   @Override
@@ -16,10 +16,10 @@ public class OrderTableModel extends TableModel<Order> {
     Order order = data.get(rowIndex);
     return switch (columnIndex) {
       case 0 -> order.getOrderId();
-      case 1 -> order.getOrderDate();
-      case 2 -> order.getAmount();
-      case 3 -> order.getCustomerId();
-      case 4 -> order.getProductId();
+      case 1 -> order.getCreatedAt();
+      case 2 -> order.getUpdateAt();
+      case 3 -> order.getPrice();
+      case 4 -> order.getProductCount();
       default -> null;
     };
   }

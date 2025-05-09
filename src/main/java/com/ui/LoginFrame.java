@@ -29,7 +29,7 @@ public class LoginFrame extends BaseFrame {
 
     //font changes
     Font currentFont = welcomeLabel.getFont();
-    welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
+    welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 32));
 
     //create a button listener
     ActionListener OnClick = new ActionListener() {

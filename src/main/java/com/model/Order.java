@@ -4,46 +4,37 @@ import java.time.LocalDate;
 
 public class Order {
   private int orderId;
-  private LocalDate orderDate;
-  private double amount;
-  private int customerId;
-  private int productId;
+  private LocalDate createdAt;
+  private LocalDate updatedAt;
+  private double price;
+  private int productCount;
 
   //Constructor
-  public Order (int orderId, LocalDate date, double amount, int customerId, int productId) {
+  public Order (int orderId, LocalDate createdAt, LocalDate updatedAt, double price, int productCount) {
     this.orderId = orderId;
-    this.orderDate = date;
-    this.amount = amount;
-    this.customerId = customerId;
-    this.productId = productId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.price = price;
+    this.productCount = productCount;
   }
 
-  public Order (LocalDate date, double amount, int customerId, int productId) {
-    this.orderDate = date;
-    this.amount = amount;
-    this.customerId = customerId;
-    this.productId = productId;
+  public Order (LocalDate createdAt, LocalDate updatedAt, double price, int productCount) {
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.price = price;
+    this.productCount = productCount;
   }
 
   //Getters & Setters
   public int getOrderId () { return orderId; }
 
-  public void setOrderId (int orderId) { this.orderId = orderId; }
+  public LocalDate getCreatedAt () { return createdAt; }
 
-  public LocalDate getOrderDate () { return orderDate; }
+  public LocalDate getUpdateAt () { return updatedAt; }
 
-  public void setOrderDate (LocalDate orderDate) { this.orderDate = orderDate; }
+  public double getPrice () { return price; }
 
-  public double getAmount () { return amount; }
+  public int getProductCount () { return productCount; }
 
-  public void setAmount (double amount) { this.amount = amount; }
-
-  public int getCustomerId () { return customerId; }
-
-  public void setCustomerId (int customerId) { this.customerId = customerId; }
-
-  public int getProductId () { return productId; }
-
-  public void setProductId (int productId) { this.productId = productId; }
 }
 

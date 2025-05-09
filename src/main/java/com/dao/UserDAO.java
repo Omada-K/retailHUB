@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class UserDAO {
 
-  public static void insertUser (User user) throws SQLException {
-    String insertSql = "INSERT INTO USERS (name, email, user_password, is_admin) VALUES (?, ?, ?, ?)";
+  public static void createItem (User user) throws SQLException {
+    String insertSql = "INSERT INTO USERS (name, email, password, is_admin) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
@@ -30,7 +30,7 @@ public class UserDAO {
   }
 
   public static void updateItem (User user) throws SQLException {
-    String updateSql = "UPDATE users SET name = ?, email = ?, user_password = ?, is_admin = ? WHERE id = ?";
+    String updateSql = "UPDATE users SET name = ?, email = ?, password = ?, is_admin = ? WHERE user_id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, user.getName());
@@ -45,7 +45,7 @@ public class UserDAO {
   }
 
   public static void deleteItem (Object selectedUser) throws SQLException {
-    String deleteSql = "DELETE FROM users WHERE id = ?";
+    String deleteSql = "DELETE FROM users WHERE user_id = ?";
     User user = (User) selectedUser;
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
@@ -58,7 +58,7 @@ public class UserDAO {
 
   public static ArrayList<User> getData () throws SQLException {
     ArrayList<User> users = new ArrayList<User>();
-    String query = "select id, name, email, user_password, is_admin from users";
+    String query = "select user_id, name, email, password, is_admin from users";
     try (
             Connection conn = DataBaseConfig.getConnection();
             Statement statement = conn.createStatement();
@@ -67,10 +67,10 @@ public class UserDAO {
 
       while (result.next()) {
         User user = new User(
-                result.getInt("id"),
+                result.getInt("user_id"),
                 result.getString("name"),
                 result.getString("email"),
-                result.getString("user_password"),
+                result.getString("password"),
                 result.getBoolean("is_admin")
         );
         users.add(user);
