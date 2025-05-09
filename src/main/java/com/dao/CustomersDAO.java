@@ -15,17 +15,7 @@ public class CustomersDAO {
 
   public static ArrayList<Customer> getData () throws SQLException {
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    String query = """
-              SELECT c.customer_id,
-                c.name,
-                c.address,
-                c.phone,
-                c.email,
-                d.balance,
-                d.discount_percentage
-              FROM customers c
-              LEFT JOIN discounts d ON c.customer_id = d.customer_id
-            """;
+    String query = "SELECT customer_id, name,address,phone,email,balance,points FROM customers ";
     System.out.println("fetching customers from database");
     try (
             Connection conn = DataBaseConfig.getConnection();
@@ -40,7 +30,7 @@ public class CustomersDAO {
                 rs.getString("phone"),
                 rs.getString("email"),
                 rs.getDouble("balance"),
-                rs.getFloat("discount_percentage")
+                rs.getInt("points")
         );
         customers.add(c);
       }
@@ -52,7 +42,7 @@ public class CustomersDAO {
 
   //add customer
   public static int createItem (Customer customer) throws SQLException {
-    String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL) VALUES (?, ?, ?, ?)";
+    String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL,BALANCE,POINTS) VALUES (?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
@@ -60,14 +50,9 @@ public class CustomersDAO {
       insertStmt.setString(2, customer.getAddress());
       insertStmt.setString(3, customer.getPhone());
       insertStmt.setString(4, customer.getEmail());
+      insertStmt.setDouble(5, customer.getBalance());
+      insertStmt.setInt(6, customer.getPoints());
       insertStmt.executeUpdate();
-
-      ResultSet generatedKeys = insertStmt.getGeneratedKeys();
-      if (generatedKeys.next()) {
-        return generatedKeys.getInt(1); // ✅ return the generated customer_id
-      } else {
-        throw new SQLException("Creating customer failed, no ID obtained.");
-      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -76,14 +61,17 @@ public class CustomersDAO {
 
   //edit item
   public static void updateItem (Customer customer) throws SQLException {
-    String updateSql = "UPDATE CUSTOMERS SET NAME = ?, ADDRESS = ?, PHONE = ? , EMAIL = ? WHERE CUSTOMER_ID = ?";
+    String updateSql = "UPDATE CUSTOMERS SET NAME = ?, ADDRESS = ?, PHONE = ? , EMAIL = ?,BALANCE=?, POINTS =? WHERE " +
+            "CUSTOMER_ID = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, customer.getName());
       insertStmt.setString(2, customer.getAddress());
       insertStmt.setString(3, customer.getPhone());
       insertStmt.setString(4, customer.getEmail());
-      insertStmt.setInt(5, customer.getCustomerId());
+      insertStmt.setDouble(5, customer.getBalance());
+      insertStmt.setInt(6, customer.getPoints());
+      insertStmt.setInt(7, customer.getCustomerId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

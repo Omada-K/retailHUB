@@ -6,38 +6,27 @@ public class Customer {
   private String address;
   private String phone;
   private String email;
-  private double customerBalance;
-  private float discountPercentage;
+  private double balance;
+  private int points;
 
   //Constructors
-  public Customer (int customerId, String name, String address, String phone, String email) {
+  public Customer (int customerId, String name, String address, String phone, String email, double balance, int points) {
     this.customerId = customerId;
     this.name = name;
     this.address = address;
     this.phone = phone;
     this.email = email;
+    this.balance = balance;
+    this.points = points;
   }
 
-  public Customer (String name, String address, String phone, String email) {
+  public Customer (String name, String address, String phone, String email, double balance, int points) {
     this.name = name;
     this.address = address;
     this.phone = phone;
     this.email = email;
-  }
-
-  //Customer to display
-  public Customer (
-          int customerId, String name, String address, String phone, String email, double customerBalance,
-          float discountPercentage
-                  ) {
-    this.customerId = customerId;
-    this.name = name;
-    this.address = address;
-    this.phone = phone;
-    this.email = email;
-    this.customerBalance = customerBalance;
-    this.discountPercentage = discountPercentage;
-
+    this.balance = balance;
+    this.points = points;
   }
 
   //Getters & Setters
@@ -61,11 +50,11 @@ public class Customer {
 
   public void setEmail (String email) { this.email = email; }
 
-  public double getCustomerBalance () {
-    return customerBalance;
+  public double getBalance () {
+    return balance;
   }
 
-  public float getDiscountPercentage () {
-    return discountPercentage;
+  public int getPoints () {
+    return points;
   }
 }

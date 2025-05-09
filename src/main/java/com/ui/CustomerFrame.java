@@ -1,9 +1,7 @@
 package com.ui;
 
 import com.dao.CustomersDAO;
-import com.dao.DiscountDAO;
 import com.model.Customer;
-import com.model.Discount;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
@@ -19,7 +17,7 @@ public class CustomerFrame extends BaseFrame {
   private JTextField telephoneInput;
   private JTextField addressInput;
   private JTextField emailInput;
-  private JTextField discountTxtField;
+  private JTextField pointsInput;
   private JTextField balanceInput;
 
   //Edit form(needs user)
@@ -35,8 +33,8 @@ public class CustomerFrame extends BaseFrame {
     addressInput.setText(customer.getAddress());
     telephoneInput.setText(customer.getPhone());
     emailInput.setText(customer.getEmail());
-    discountTxtField.setText(String.valueOf(customer.getDiscountPercentage()));
-    balanceInput.setText(String.valueOf(customer.getCustomerBalance()));
+    pointsInput.setText(String.valueOf(customer.getPoints()));
+    balanceInput.setText(String.valueOf(customer.getBalance()));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
@@ -46,7 +44,7 @@ public class CustomerFrame extends BaseFrame {
                 addressInput.getText() != null &&
                 telephoneInput.getText() != null &&
                 emailInput.getText() != null &&
-                discountTxtField.getText() != null
+                pointsInput.getText() != null
         ) {
 
           Customer inputCustomer = new Customer(
@@ -54,16 +52,13 @@ public class CustomerFrame extends BaseFrame {
                   nameInput.getText(),
                   addressInput.getText(),
                   telephoneInput.getText(),
-                  emailInput.getText()
-          );
-          Discount discount = new Discount(
-                  id,
+                  emailInput.getText(),
                   Double.parseDouble(balanceInput.getText()),
-                  Float.parseFloat(discountTxtField.getText())
+                  Integer.parseInt(pointsInput.getText())
           );
+
           try {
             CustomersDAO.updateItem(inputCustomer);
-            DiscountDAO.updateItem(discount);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -95,15 +90,12 @@ public class CustomerFrame extends BaseFrame {
                   nameInput.getText(),
                   addressInput.getText(),
                   telephoneInput.getText(),
-                  emailInput.getText()
-          );
-          Discount discount = new Discount(
-                  Float.parseFloat(discountTxtField.getText()),
-                  Float.parseFloat(balanceInput.getText())
+                  emailInput.getText(),
+                  Double.parseDouble(balanceInput.getText()),
+                  Integer.parseInt(pointsInput.getText())
           );
           try {
-            int genId = CustomersDAO.createItem(inputCustomer);
-            DiscountDAO.createItem(discount, genId);
+            CustomersDAO.createItem(inputCustomer);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

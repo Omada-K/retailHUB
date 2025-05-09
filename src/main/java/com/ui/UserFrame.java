@@ -84,7 +84,7 @@ public class UserFrame extends BaseFrame {
                   passwordInput.getText(),
                   isManagerCheckBox.isSelected());
           try {
-            UserDAO.insertUser(inputUser);
+            UserDAO.createItem(inputUser);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);

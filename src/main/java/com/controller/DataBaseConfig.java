@@ -29,10 +29,10 @@ public class DataBaseConfig {
 
   public static void createUsersTable () throws SQLException {
     String createTableDdl = "CREATE TABLE IF NOT EXISTS users (" +
-            "id INTEGER IDENTITY PRIMARY KEY, " +
+            "user_id INTEGER IDENTITY PRIMARY KEY, " +
             "name VARCHAR(60) NOT NULL, " +
             "email VARCHAR(60) UNIQUE NOT NULL, " +
-            "user_password VARCHAR(60) NOT NULL, " +  // <-- comma, not closing the parenthesis
+            "password VARCHAR(60) NOT NULL, " +
             "is_admin BOOLEAN DEFAULT FALSE" +
             ")";
 
@@ -48,10 +48,12 @@ public class DataBaseConfig {
   public static void createCustomersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS customers (" +
             "customer_id INTEGER IDENTITY PRIMARY KEY, " +
-            "name VARCHAR(100) UNIQUE NOT NULL, " +
-            "address VARCHAR(200), " +
-            "phone VARCHAR(20) UNIQUE NOT NULL, " +
-            "email VARCHAR(100))";
+            "name VARCHAR(40) UNIQUE NOT NULL, " +
+            "address VARCHAR(100), " +
+            "phone VARCHAR(10) UNIQUE NOT NULL, " +
+            "email VARCHAR(40) UNIQUE NOT NULL, " +
+            "balance DOUBLE DEFAULT 0," +
+            "points INTEGER DEFAULT 0)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("customers table created.");
@@ -61,11 +63,10 @@ public class DataBaseConfig {
   public static void createProductsTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS products (" +
             "product_id INTEGER IDENTITY PRIMARY KEY, " +
-            "product_category VARCHAR(100), " +
-            "name VARCHAR(100) UNIQUE , " +
-            "description VARCHAR(300), " +
-            "price DOUBLE," +
-            "amount_in_stock INTEGER)";
+            "product_category VARCHAR(40), " +
+            "name VARCHAR(60) UNIQUE , " +
+            "inv_stock INTEGER," +
+            "item_price DOUBLE DEFAULT 0)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("products table created.");
@@ -75,10 +76,10 @@ public class DataBaseConfig {
   public static void createOrdersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS orders (" +
             "order_id INTEGER IDENTITY PRIMARY KEY, " +
-            "date DATE, " +
-            "customer_id INTEGER, " +
-            "product_id INTEGER," +
-            "FOREIGN KEY (customer_id) REFERENCES customers(customer_id))";
+            "created_at DATE, " +
+            "updated_at DATE, " +
+            "price DOUBLE default 0, " +
+            "product_count INTEGER default 0)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("orders table created.");
@@ -89,33 +90,21 @@ public class DataBaseConfig {
     String ddl = "CREATE TABLE IF NOT EXISTS orders_products (" +
             "order_id INTEGER, " +
             "product_id INTEGER," +
-            "quantity INTEGER," +
+            "amount_items INTEGER DEFAULT 0," +
             "PRIMARY KEY (order_id, product_id)," +
             "FOREIGN KEY (order_id) REFERENCES orders(order_id)," +
-            "FOREIGN KEY (product_id) REFERENCES products(product_id)" +
-            ")";
+            "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("orders table created.");
     }
   }
 
-  public static void createDiscountsTable () throws SQLException {
-    String ddl = "CREATE TABLE IF NOT EXISTS discounts (" +
-            "customer_id INTEGER PRIMARY KEY, " +
-            "balance DOUBLE, " +
-            "discount_percentage FLOAT," +
-            "FOREIGN KEY (customer_id) REFERENCES customers(customer_id))";
-    try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
-      stmt.executeUpdate(ddl);
-      System.out.println("discounts table created.");
-    }
-  }
-  public static void createCustomerOrdersTable() throws SQLException {
+  public static void createCustomerOrdersTable () throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS customerOrders (" +
-            "customer_id INTEGER,"+
-            "order_id INTEGER,"+
-            "PRIMARY KEY (customer_id, order_id),"+
+            "customer_id INTEGER," +
+            "order_id INTEGER," +
+            "PRIMARY KEY (customer_id, order_id)," +
             "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)," +
             "FOREIGN KEY (order_id) REFERENCES orders(order_id)" +
             ")";
@@ -123,9 +112,6 @@ public class DataBaseConfig {
       stmt.executeUpdate(ddl);
       System.out.println("Customer-Orders table created.");
     }
-
-
-
 
   }
 
@@ -135,7 +121,6 @@ public class DataBaseConfig {
     createCustomersTable();
     createProductsTable();
     createOrdersTable();
-    createDiscountsTable();
     createOrdersProductsTable();
     createCustomerOrdersTable();
 

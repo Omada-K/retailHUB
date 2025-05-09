@@ -1,31 +1,27 @@
 package com.model;
 
+import javax.swing.*;
+
 public class Product {
   private int productId;
   private String productCategory;
   private String productName;
-  private String productDescription;
+  private int amountInStock;
   private double productPrice;
 
   //Constructor
-  public Product (
-          int productId, String productCategory, String productName, String productDescription,
-          double productPrice, int amountInStock
-                 ) {
+  public Product (int productId, String category, String productName, int amountInStock, double productPrice) {
     this.productId = productId;
-    this.productCategory = productCategory;
+    this.productCategory = category;
     this.productName = productName;
-    this.productDescription = productDescription;
+    this.amountInStock = amountInStock;
     this.productPrice = productPrice;
   }
 
-  public Product (
-          String productCategory, String productName, String productDescription, double productPrice,
-          int amountInStock
-                 ) {
-    this.productCategory = productCategory;
+  public Product (String category, String productName, int amountInStock, double productPrice) {
+    this.productCategory = category;
     this.productName = productName;
-    this.productDescription = productDescription;
+    this.amountInStock = amountInStock;
     this.productPrice = productPrice;
   }
 
@@ -33,22 +29,18 @@ public class Product {
 
   public int getProductId () { return productId; }
 
-  public void setProductId (int productId) { this.productId = productId; }
+  public String getCategory () { return productCategory; }
 
-  public String getProductCategory () { return productCategory; }
+  public String getName () { return productName; }
 
-  public void setProductCategory (String productCategory) { this.productCategory = productCategory; }
+  public int getAmountInStock () {
+    //TODO needs improvement
+    if (amountInStock < 10) {
+      new JOptionPane("add more?");
+    }
+    return amountInStock;
+  }
 
-  public String getProductName () { return productName; }
-
-  public void setProductName (String productName) { this.productName = productName; }
-
-  public String getProductDescription () { return productDescription; }
-
-  public void setProductDescription (String productDescription) { this.productDescription = productDescription; }
-
-  public double getProductPrice () { return productPrice; }
-
-  public void setProductPrice (double productPrice) { this.productPrice = productPrice; }
+  public double getItemPrice () { return productPrice; }
 
 }

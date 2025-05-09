@@ -21,8 +21,6 @@ public class CustomerTableModel extends TableModel<Customer> {
       case 2 -> customer.getAddress();
       case 3 -> customer.getPhone();
       case 4 -> customer.getEmail();
-      case 5 -> customer.getCustomerBalance();
-      case 6 -> customer.getDiscountPercentage();
       default -> null;
     };
   }

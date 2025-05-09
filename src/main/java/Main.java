@@ -37,7 +37,7 @@ public class Main {
     // Initialize
     DataBaseConfig.createAllTables();
 
-    UserDAO.insertUser(new User("Christina", "test", "1234", true));
+    UserDAO.createItem(new User("Christina", "test", "1234", true));
 
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframe
