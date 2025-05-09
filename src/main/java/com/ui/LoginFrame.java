@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class LoginFrame extends BaseFrame {
   private JPanel loginPanel;
   private JTextField inputUsername;
-  private JTextField inputPassword;
+  private JPasswordField inputPassword;
   private JButton btnLogin;
   private JButton exitButton;
   private JLabel welcomeLabel;

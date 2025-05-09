@@ -26,7 +26,7 @@
           <text value="Password"/>
         </properties>
       </component>
-      <component id="d36ee" class="javax.swing.JTextField" binding="inputPassword">
+      <component id="d36ee" class="javax.swing.JPasswordField" binding="inputPassword">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="100" height="-1"/>
