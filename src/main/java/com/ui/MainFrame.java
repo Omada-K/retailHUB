@@ -8,6 +8,7 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.service.PythonRunner;
 import com.ui.tablemodel.CustomerTableModel;
 import com.ui.tablemodel.OrderTableModel;
 import com.ui.tablemodel.ProductTableModel;
@@ -136,8 +137,27 @@ public class MainFrame extends BaseFrame {
     });
     //python runner
     generateButton.addActionListener(new ActionListener() {
+      // Note: When multiple checkboxes are selected, the JavaMain frame becomes unresponsive.
+      // Each checkbox triggers a data visualization window, and the main frame remains frozen
+      // until all these windows are manually closed. This blocking behavior is likely due to
+      // the use of a GUI method (e.g., plt.show()) in Python, which halts Java execution
+      // until the plot window is closed. Consider switching to non-blocking visualization or
+      // saving plots to files instead.
+
       @Override
       public void actionPerformed (ActionEvent e) {
+        if (prediction1CheckBox.isSelected()) {
+          System.out.println("Clicked prediction1CheckBox");
+          PythonRunner.runScript("checkbox1.py");
+        }
+        if (prediction2CheckBox.isSelected()) {
+          System.out.println("Clicked prediction2CheckBox");
+          PythonRunner.runScript("checkbox2.py");
+        }
+        if (prediction3CheckBox.isSelected()) {
+          System.out.println("Clicked prediction3CheckBox");
+          PythonRunner.runScript("checkbox3.py");
+        }
 
       }
     });
