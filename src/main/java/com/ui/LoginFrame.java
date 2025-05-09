@@ -73,12 +73,14 @@ public class LoginFrame extends BaseFrame {
           new MainFrame(appState).setVisible(true);
           dispose();//this makes THIS frame not visible
         } else {
-          System.out.println("Wrong password");
+          JOptionPane.showMessageDialog(loginPanel, "Wrong password!");
+//          System.out.println("Wrong password");
         }
       }
     }
     if (!usermatch) {
-      System.out.println("User doesn't match");
+      JOptionPane.showMessageDialog(loginPanel, "User doesn't match!");
+//      System.out.println("User doesn't match");
     }
   }
 }
