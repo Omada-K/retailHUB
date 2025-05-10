@@ -44,9 +44,9 @@ public class MainFrame extends BaseFrame {
     setSize(800, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     //set name of loggein user to the label
-    welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
     Font currentFont = welcomeLabel.getFont();
     welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
+    welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
 
     //View customers OnClick event listener
     viewCustomersButton.addActionListener(new ActionListener() {

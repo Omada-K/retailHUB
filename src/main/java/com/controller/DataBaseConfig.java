@@ -116,7 +116,6 @@ public class DataBaseConfig {
   }
 
   public static void createAllTables () throws SQLException {
-
     //H seira dimiourgias ehei simasia
     createUsersTable();
     createOrdersTable();

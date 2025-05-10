@@ -25,6 +25,7 @@ public class TableFrame<T> extends BaseFrame {
   private JButton createButton;
   private JButton backButton;
   private JTextField queryField;
+  private JLabel descriptionLabel;
 
   private TableModel<T> content;
 
@@ -34,6 +35,10 @@ public class TableFrame<T> extends BaseFrame {
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setMinimumSize(new Dimension(800, 600));
+
+    Font currentFont = descriptionLabel.getFont();
+    descriptionLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 20));
+    descriptionLabel.setText("This is the available " + state.selectedTableType);
     this.content = content;
 
     mainTable.setModel(content);
