@@ -4,10 +4,11 @@ import com.dao.CustomersDAO;
 import com.dao.OrdersDAO;
 import com.dao.ProductsDAO;
 import com.dao.UserDAO;
+import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
-import com.ui.tablemodel.ProductTableModel;
-import com.ui.tablemodel.TableModel;
+import com.model.User;
+import com.ui.tablemodel.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TableFrame<T> extends BaseFrame {
   private JPanel tablePanel;
@@ -165,6 +167,32 @@ public class TableFrame<T> extends BaseFrame {
     });
 
     //search
-    //TODO
+    searchButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        String query = queryField.getText();
+
+        if (state.selectedTableType.equals(AppState.TableTypes.Users.name())) {
+          List<User> newList = (List<User>) content.search(query);
+          UserTableModel newContent = new UserTableModel(newList);
+          mainTable.setModel(newContent);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
+          List<Customer> newList = (List<Customer>) content.search(query);
+          CustomerTableModel newContent = new CustomerTableModel(newList);
+          mainTable.setModel(newContent);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
+          List<Order> newList = (List<Order>) content.search(query);
+          OrderTableModel newContent = new OrderTableModel(newList);
+          mainTable.setModel(newContent);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
+          List<Product> newList = (List<Product>) content.search(query);
+          ProductTableModel newContent = new ProductTableModel(newList);
+          mainTable.setModel(newContent);
+        }
+      }
+    });
   }
 }

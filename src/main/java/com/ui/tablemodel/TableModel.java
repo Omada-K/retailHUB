@@ -1,6 +1,7 @@
 package com.ui.tablemodel;
 
 import javax.swing.table.AbstractTableModel;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,31 @@ public abstract class TableModel<T> extends AbstractTableModel {
   public TableModel (List<T> data, String[] columnNames) {
     this.data = new ArrayList<>(data);
     this.columnNames = columnNames;
+  }
+
+  public List<T> search (String query) {
+    List<T> result = new ArrayList<>();
+    String lowerQuery = query.toLowerCase();
+
+    for (T item : data) {
+      for (Field field : item.getClass().getDeclaredFields()) {
+        field.setAccessible(true); // allow access to private fields
+        try {
+          Object value = field.get(item);
+          if (value != null) {
+            String stringValue = value.toString().toLowerCase();
+            if (stringValue.contains(lowerQuery)) {
+              result.add(item);
+              break; // move along
+            }
+          }
+        } catch (IllegalAccessException e) {
+          // Handle error appropriately in real applications
+          e.printStackTrace();
+        }
+      }
+    }
+    return result;
   }
 
   @Override
