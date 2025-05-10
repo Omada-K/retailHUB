@@ -4,10 +4,8 @@ import com.dao.CustomersDAO;
 import com.dao.OrdersDAO;
 import com.dao.ProductsDAO;
 import com.dao.UserDAO;
-import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
-import com.model.User;
 import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.TableModel;
 
@@ -44,6 +42,7 @@ public class TableFrame<T> extends BaseFrame {
     backButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
+        state.resetSelectedTableType();
         dispose();
       }
     });
@@ -66,19 +65,19 @@ public class TableFrame<T> extends BaseFrame {
                                                      );
           if (confirm == JOptionPane.YES_OPTION) {
             try {
-              if (selectedItem instanceof User) {
+              if (state.selectedTableType.equals(AppState.TableTypes.Users.name())) {
                 UserDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
-              if (selectedItem instanceof Customer) {
+              if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
                 CustomersDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
-              if (selectedItem instanceof Product) {
+              if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
                 ProductsDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
-              if (selectedItem instanceof Order) {
+              if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
                 OrdersDAO.deleteItem(selectedItem);
                 content.refreshTable();
               }
@@ -100,15 +99,20 @@ public class TableFrame<T> extends BaseFrame {
         int selectedRow = mainTable.getSelectedRow();
         if (selectedRow != -1) {
           T selectedItem = (T) content.getItem(selectedRow);
-          if (selectedItem instanceof User) {
+
+          //edit a user
+          if (state.selectedTableType.equals(AppState.TableTypes.Users.name())) {
             new UserFrame(content, selectedItem);
           }
-          if (selectedItem instanceof Customer) {
+
+          //editma customer
+          if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
             new CustomerFrame(content, selectedItem);
           }
 
           //Edit order
-          if (selectedItem instanceof Order) {
+          //TODO doublecheck this
+          if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
             Order selectedOrder = (Order) content.getItem(selectedRow);
             int id = selectedOrder.getOrderId();
             ArrayList<Product> products = new ArrayList<>();
@@ -124,7 +128,9 @@ public class TableFrame<T> extends BaseFrame {
             ProductTableModel t = new ProductTableModel(products);
             new OrderFrame(t, selectedItem);
           }
-          if (selectedItem instanceof Product) {
+
+          //edit a product
+          if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
             new ProductFrame(content, selectedItem);
           }
         } else {
@@ -137,23 +143,18 @@ public class TableFrame<T> extends BaseFrame {
     createButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        if (content.getRowCount() > 0) {
-          Object firstItem = content.getItem(0);
-          if (firstItem instanceof User) {
-            new UserFrame(content);
-          }
-          if (firstItem instanceof Customer) {
-            new CustomerFrame(content);
-          }
-          if (firstItem instanceof Order) {
-            new OrderFrame(content);
-          }
-          if (firstItem instanceof Product) {
-            new ProductFrame(content);
-          }
-        } else {
-          //if the sql returns null....
-          JOptionPane.showMessageDialog(TableFrame.this, "No existing data");
+
+        if (state.selectedTableType.equals(AppState.TableTypes.Users.name())) {
+          new UserFrame(content);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
+          new CustomerFrame(content);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
+          new OrderFrame(content);
+        }
+        if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
+          new ProductFrame(content);
         }
       }
     });

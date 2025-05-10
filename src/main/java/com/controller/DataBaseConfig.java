@@ -92,7 +92,7 @@ public class DataBaseConfig {
             "product_id INTEGER," +
             "amount_items INTEGER DEFAULT 0," +
             "PRIMARY KEY (order_id, product_id)," +
-            "FOREIGN KEY (order_id) REFERENCES orders(order_id)," +
+            "FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE," +
             "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
@@ -106,7 +106,7 @@ public class DataBaseConfig {
             "order_id INTEGER," +
             "PRIMARY KEY (customer_id, order_id)," +
             "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)," +
-            "FOREIGN KEY (order_id) REFERENCES orders(order_id)" +
+            "FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE" +
             ")";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
@@ -117,10 +117,11 @@ public class DataBaseConfig {
 
   public static void createAllTables () throws SQLException {
 
+    //H seira dimiourgias ehei simasia
     createUsersTable();
+    createOrdersTable();
     createCustomersTable();
     createProductsTable();
-    createOrdersTable();
     createOrdersProductsTable();
     createCustomerOrdersTable();
 

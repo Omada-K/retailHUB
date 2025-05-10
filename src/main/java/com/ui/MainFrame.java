@@ -55,6 +55,7 @@ public class MainFrame extends BaseFrame {
         try {
           List<Customer> customers = CustomersDAO.getData();
           CustomerTableModel model = new CustomerTableModel(customers);
+          state.selectedTableType = AppState.TableTypes.Customers.toString();
           new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
@@ -68,6 +69,7 @@ public class MainFrame extends BaseFrame {
         try {
           List<User> users = UserDAO.getData();
           UserTableModel model = new UserTableModel(users);
+          state.selectedTableType = AppState.TableTypes.Users.toString();
           new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
@@ -81,6 +83,7 @@ public class MainFrame extends BaseFrame {
         try {
           List<Order> orders = OrdersDAO.getData();
           OrderTableModel model = new OrderTableModel(orders);
+          state.selectedTableType = AppState.TableTypes.Orders.toString();
           new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
@@ -94,6 +97,7 @@ public class MainFrame extends BaseFrame {
         try {
           List<Product> products = ProductsDAO.getData();
           ProductTableModel model = new ProductTableModel(products);
+          state.selectedTableType = AppState.TableTypes.Products.toString();
           new TableFrame<>(state, model);
         } catch (SQLException ex) {
           throw new RuntimeException(ex);
@@ -119,12 +123,14 @@ public class MainFrame extends BaseFrame {
         //Hint look in /service
       }
     });
+    //About frame
     aboutButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
         new AboutFrame();
       }
     });
+    //generate outputs(python)
     generateSyntheticDataButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {

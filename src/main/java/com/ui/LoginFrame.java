@@ -46,6 +46,7 @@ public class LoginFrame extends BaseFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         dispose();
+        appState.resetState();
       }
     });
 
@@ -74,13 +75,13 @@ public class LoginFrame extends BaseFrame {
           dispose();//this makes THIS frame not visible
         } else {
           JOptionPane.showMessageDialog(loginPanel, "Wrong password!");
-//          System.out.println("Wrong password");
+          //          System.out.println("Wrong password");
         }
       }
     }
     if (!usermatch) {
       JOptionPane.showMessageDialog(loginPanel, "User doesn't match!");
-//      System.out.println("User doesn't match");
+      //      System.out.println("User doesn't match");
     }
   }
 }

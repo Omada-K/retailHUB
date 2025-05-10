@@ -14,11 +14,10 @@ public class ProductFrame extends BaseFrame {
   private JButton saveButton;
   private JButton cancelButton;
   private JTextField nameInput;
-  private JTextField descriptionInput;
   private JTextField priceInput;
   private JTextField inputStock;
   private String[] categories = {"Electronics", "Beauty", "Clothing", "Books", "Furniture", "Foods"};
-  private JComboBox categotyBox;
+  private JComboBox categoryBox;
 
   //Edit form(needs user)
   public ProductFrame (TableModel content, Object productInput) {
@@ -28,24 +27,25 @@ public class ProductFrame extends BaseFrame {
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     Product product = (Product) productInput; //force generic object to be customer
 
-    categotyBox.setModel(new DefaultComboBoxModel<>(categories));
-    categotyBox.setSelectedItem(product.getCategory());
+    categoryBox.setModel(new DefaultComboBoxModel<>(categories));
+    categoryBox.setSelectedItem(product.getCategory());
 
     int id = product.getProductId();
     nameInput.setText(product.getName());
     priceInput.setText(String.valueOf(product.getItemPrice()));
+    inputStock.setText(String.valueOf(product.getAmountInStock()));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
 
-        if (nameInput.getText() != null &&//validation
-                descriptionInput.getText() != null &&
-                priceInput.getText() != null
+        if (!nameInput.getText().isEmpty() &&//validation
+                !inputStock.getText().isEmpty() &&
+                !priceInput.getText().isEmpty()
         ) {
           Product inputProduct = new Product(
                   id,
-                  (String) categotyBox.getSelectedItem(),
+                  (String) categoryBox.getSelectedItem(),
                   nameInput.getText(),
                   Integer.parseInt(inputStock.getText()),
                   Double.parseDouble(priceInput.getText())
@@ -69,18 +69,18 @@ public class ProductFrame extends BaseFrame {
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-    categotyBox.setModel(new DefaultComboBoxModel<>(categories));
+    categoryBox.setModel(new DefaultComboBoxModel<>(categories));
 
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
 
-        if (nameInput.getText() != null &&//validation
-                descriptionInput.getText() != null &&
-                priceInput.getText() != null
+        if (!nameInput.getText().isEmpty() &&//validation
+                !inputStock.getText().isEmpty() &&
+                !priceInput.getText().isEmpty()
         ) {
           Product inputProduct = new Product(
-                  (String) categotyBox.getSelectedItem(),
+                  (String) categoryBox.getSelectedItem(),
                   nameInput.getText(),
                   Integer.parseInt(inputStock.getText()),
                   Double.parseDouble(priceInput.getText())
