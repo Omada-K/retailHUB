@@ -38,7 +38,7 @@ public class ProductsDAO {
     return products;
   }
 
-  public static void insertItem (Product product) throws SQLException {
+  public static void createItem (Product product) throws SQLException {
     String insertSql = "INSERT INTO PRODUCTS (PRODUCT_CATEGORY,NAME,INV_STOCK, ITEM_PRICE ) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();

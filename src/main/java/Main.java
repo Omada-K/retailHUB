@@ -1,11 +1,18 @@
 import com.controller.DataBaseConfig;
+import com.dao.CustomersDAO;
+import com.dao.OrdersDAO;
+import com.dao.ProductsDAO;
 import com.dao.UserDAO;
+import com.model.Customer;
+import com.model.Order;
+import com.model.Product;
 import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Main {
 
@@ -37,8 +44,20 @@ public class Main {
     // Initialize
     DataBaseConfig.createAllTables();
 
-    UserDAO.createItem(new User("Christina", "test", "1234", true));
+    UserDAO.createItem(new User("Krush Team", "test", "1234", true));
 
+    ProductsDAO.createItem(new Product("Electronics", "Headphones", 400, 22));
+    ProductsDAO.createItem(new Product("Electronics", "PC Keyboard", 75, 35.75));
+    ProductsDAO.createItem(new Product("Clothing", "T-shirt", 7000, 15.5));
+
+    CustomersDAO.createItem(new Customer(
+            "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
+            4500, 100));
+    CustomersDAO.createItem(new Customer(
+            "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
+            4500, 100));
+
+    OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframe
     new LoginFrame(uiState);

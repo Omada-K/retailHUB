@@ -41,6 +41,7 @@ public class TableFrame<T> extends BaseFrame {
     Font currentFont = descriptionLabel.getFont();
     descriptionLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 20));
     descriptionLabel.setText("This is the available " + state.selectedTableType);
+    getRootPane().setDefaultButton(searchButton);
     this.content = content;
 
     mainTable.setModel(content);

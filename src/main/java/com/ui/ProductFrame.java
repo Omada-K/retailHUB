@@ -86,7 +86,7 @@ public class ProductFrame extends BaseFrame {
                   Double.parseDouble(priceInput.getText())
           );
           try {
-            ProductsDAO.insertItem(inputProduct);
+            ProductsDAO.createItem(inputProduct);
             content.refreshTable();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
