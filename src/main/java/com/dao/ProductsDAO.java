@@ -72,7 +72,7 @@ public class ProductsDAO {
 
   //delete item
   public static void deleteItem (Object selectedProduct) throws SQLException {
-    String deleteSql = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
+    String deleteSql = "DELETE FROM PRODUCTS WHERE PRODUCT_ID = ?";
     Product product = (Product) selectedProduct;
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {

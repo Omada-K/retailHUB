@@ -54,12 +54,13 @@ public class Main {
             "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
             4500, 100));
     CustomersDAO.createItem(new Customer(
-            "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
-            4500, 100));
+            "Mirela AE", "Papanastasiou 12, Thessaloniki", "2310564588", "mirela@tismirelas.gr",
+            1200, 10));
 
     OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
     //GUI related stuff
-    AppState uiState = new AppState();//this is input for all Jframe
+    AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user
+    // etc...
     new LoginFrame(uiState);
   }
 }

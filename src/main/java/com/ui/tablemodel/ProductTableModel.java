@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductTableModel extends TableModel<Product> {
   public ProductTableModel (List<Product> products) {
-    super(products, new String[] {"ID", "Category", "Name", "Description", "Price", "Quantity"});
+    super(products, new String[] {"ID", "Category", "Name", "Price", "Quantity"});
   }
 
   @Override
