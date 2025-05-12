@@ -29,14 +29,6 @@
           <text value="Delete product"/>
         </properties>
       </component>
-      <component id="75bd0" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Product"/>
-        </properties>
-      </component>
       <component id="d754d" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -56,7 +48,7 @@
       </component>
       <component id="49a82" class="javax.swing.JComboBox" binding="comboProduct">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="180" height="-1"/>
           </grid>
         </constraints>
@@ -105,6 +97,14 @@
         </constraints>
         <properties>
           <text value="Add"/>
+        </properties>
+      </component>
+      <component id="75bd0" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Product"/>
         </properties>
       </component>
     </children>

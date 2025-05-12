@@ -122,9 +122,11 @@ public class TableFrame<T> extends BaseFrame {
           //TODO doublecheck this
           if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
             Order selectedOrder = (Order) content.getItem(selectedRow);
-            int id = selectedOrder.getOrderId();
             ArrayList<Product> products = new ArrayList<>();
+            ArrayList<Customer> availableCustomers = new ArrayList<>();
+
             try {
+              availableCustomers = CustomersDAO.getData();
               products = ProductsDAO.getData();
             } catch (SQLException ex) {
               JOptionPane.showMessageDialog(
@@ -134,7 +136,7 @@ public class TableFrame<T> extends BaseFrame {
                       JOptionPane.ERROR_MESSAGE);
             }
             ProductTableModel t = new ProductTableModel(products);
-            new OrderFrame(t, selectedItem);
+            new OrderFrame(t, selectedItem, availableCustomers);
           }
 
           //edit a product
@@ -158,8 +160,17 @@ public class TableFrame<T> extends BaseFrame {
         if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
           new CustomerFrame(content);
         }
+
         if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
-          new OrderFrame(content);
+          ArrayList<Customer> availableCustomers;
+          ArrayList<Product> availableProducts;
+          try {
+            availableCustomers = CustomersDAO.getData();
+            availableProducts = ProductsDAO.getData();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+          new OrderFrame(content, availableCustomers, availableProducts);
         }
         if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
           new ProductFrame(content);

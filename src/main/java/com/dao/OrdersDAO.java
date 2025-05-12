@@ -38,20 +38,27 @@ public class OrdersDAO {
     return orders;
   }
 
-  public static void createItem (Order order) throws SQLException {
+  public static int createItem (Order order) throws SQLException {
     String insertSql = "INSERT INTO ORDERS (CREATED_AT,UPDATED_AT, PRICE,PRODUCT_COUNT ) VALUES " +
             "(?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
       insertStmt.setDate(1, Date.valueOf(order.getCreatedAt()));
       insertStmt.setDate(2, Date.valueOf(order.getUpdateAt()));
       insertStmt.setDouble(3, order.getPrice());
       insertStmt.setInt(4, order.getProductCount());
       insertStmt.executeUpdate();
+
+      ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+      if (generatedKeys.next()) {
+        return generatedKeys.getInt(1); // Return the generated key
+      }
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return -1;
   }
 
   //edit item
@@ -82,6 +89,21 @@ public class OrdersDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  // create a product entry for an order
+  public static void createOrderProducts (int orderId, int productId, int amount) throws SQLException {
+    String insertSql = "INSERT INTO ORDERS_PRODUCTS (ORDER_ID, PRODUCT_ID,AMOUNT_ITEMS ) VALUES (?,?,?)";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+      insertStmt.setInt(1, orderId);
+      insertStmt.setInt(2, productId);
+      insertStmt.setInt(3, amount);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
   }
 
 }

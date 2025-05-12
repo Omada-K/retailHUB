@@ -41,11 +41,11 @@ public class CustomersDAO {
   }
 
   //add customer
-  public static int createItem (Customer customer) throws SQLException {
+  public static void createItem (Customer customer) throws SQLException {
     String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL,BALANCE,POINTS) VALUES (?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
       insertStmt.setString(1, customer.getName());
       insertStmt.setString(2, customer.getAddress());
       insertStmt.setString(3, customer.getPhone());
@@ -56,7 +56,7 @@ public class CustomersDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return -1;
+
   }
 
   //edit item
