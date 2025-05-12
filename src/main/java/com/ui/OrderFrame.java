@@ -21,6 +21,7 @@ public class OrderFrame extends BaseFrame {
   private JTable productsTable;
   private JComboBox comboCustomer;
   private JButton addButton;
+  private JButton editProductButton;
 
   // Edit form (requires an Order)
   public OrderFrame (ProductTableModel content, Object OrderInput, ArrayList<Customer> availableCustomers) {
