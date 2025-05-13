@@ -9,7 +9,7 @@ import com.model.Product;
 import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
-
+import com.service.DataGenerator;
 import javax.swing.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -50,17 +50,24 @@ public class Main {
     ProductsDAO.createItem(new Product("Electronics", "PC Keyboard", 75, 35.75));
     ProductsDAO.createItem(new Product("Clothing", "T-shirt", 7000, 15.5));
 
-    CustomersDAO.createItem(new Customer(
-            "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
-            4500, 100));
-    CustomersDAO.createItem(new Customer(
-            "Mirela AE", "Papanastasiou 12, Thessaloniki", "2310564588", "mirela@tismirelas.gr",
-            1200, 10));
+//    CustomersDAO.createItem(new Customer(
+//            "Mitsaras AE", "Solonos 43, Thessaloniki", "2310464488", "info@mitsaras.gr",
+//            4500, 100));
+//    CustomersDAO.createItem(new Customer(
+//            "Mirela AE", "Papanastasiou 12, Thessaloniki", "2310564588", "mirela@tismirelas.gr",
+//            1200, 10));
 
     OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
+
+    DataGenerator.createDummyCustomers();
+    DataGenerator.createDummyProducts();
+
+
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user
     // etc...
     new LoginFrame(uiState);
   }
+
+
 }

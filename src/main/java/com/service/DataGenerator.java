@@ -1,138 +1,93 @@
-//package com.service;
-//
-//import com.dao.CustomersDAO;
-//import com.dao.ProductsDAO;
-//import com.model.Customer;
-//import com.model.Product;
-//
-//import javax.swing.*;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Random;
-//
-//public class DataGenerator {
-//
-//  public static void createDummyCustomers () {
-//    CustomersDAO customersDAO = new CustomersDAO();
-//    ArrayList<Customer> customers = new ArrayList<>();
-//    Random rand = new Random();
-//
-//    String[] firstNames = {
-//            "Nikos", "Giorgos", "Kostas", "Dimitris", "Giannis",
-//            "Vasilis", "Andreas", "Marios", "Christos", "Panagiotis",
-//            "Maria", "Eleni", "Anna", "Sofia", "Georgia",
-//            "Katerina", "Vasiliki", "Stella", "Ioanna", "Despina"
-//    };
-//
-//    String[] lastNames = {
-//            "Papadopoulos", "Papanikolaou", "Georgiou", "Kostopoulos", "Nikolaidis",
-//            "Vasileiou", "Lazaridis", "Spanos", "Theodorou", "Alexiou",
-//            "Christou", "Panagiotou", "Makris", "Kotsis", "Tsoukalas",
-//            "Giannakos", "Economou", "Charalampidis", "Savvidis", "Antoniou"
-//    };
-//
-//    for (int i = 0; i < 50; i++) {
-//      String firstName = firstNames[rand.nextInt(firstNames.length)];
-//      String lastName = lastNames[rand.nextInt(lastNames.length)];
-//      String phone = "69" + String.format("%08d", i);
-//      String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + i + "@example.com";
-//
-//      //Customer customer = new Customer(firstName, lastName, phone, email);
-//      customers.add(customer);
-//    }
-//
-//    try {
-//      for (Customer c : customers) {
-//        CustomersDAO.createItem(c);
-//      }
-//    } catch (SQLException ex) {
-//      JOptionPane.showMessageDialog(
-//              null,
-//              "Error inserting dummy customers:\n" + ex.getMessage(),
-//              "Database Error",
-//              JOptionPane.ERROR_MESSAGE);
-//    }
-//  }
-//
-//  public static void createDummyProducts () {
-//    ProductsDAO productsDAO = new ProductsDAO();
-//    Random rand = new Random();
-//
-//    String[] categories = {"Electronics", "Beauty", "Clothing", "Books", "Furniture", "Foods"};
-//
-//    // Electronics
-//    ArrayList<String> electronicsDescriptions = new ArrayList<>(List.of(
-//            "Wireless", "Compact", "Durable", "Fast", "Smart"
-//                                                                       ));
-//    ArrayList<Double> electronicsPrices = new ArrayList<>(List.of(
-//            29.99, 49.99, 79.99, 99.99, 149.99
-//                                                                 ));
-//
-//    // Beauty
-//    ArrayList<String> beautyDescriptions = new ArrayList<>(List.of(
-//            "Hydrating", "Natural", "Fragrant", "Soothing", "Gentle"
-//                                                                  ));
-//    ArrayList<Double> beautyPrices = new ArrayList<>(List.of(
-//            9.99, 14.99, 19.99, 24.99, 29.99
-//                                                            ));
-//
-//    // Clothing
-//    ArrayList<String> clothingDescriptions = new ArrayList<>(List.of(
-//            "Stylish", "Comfortable", "Trendy", "Slim", "Cozy"
-//                                                                    ));
-//    ArrayList<Double> clothingPrices = new ArrayList<>(List.of(
-//            19.99, 24.99, 34.99, 44.99, 54.99
-//                                                              ));
-//
-//    for (int i = 0; i < 50; i++) {
-//      // Random category
-//      String category = categories[rand.nextInt(categories.length)];
-//
-//      // Creates name
-//      String baseName = switch (category) {
-//        case "Electronics" -> "Device";
-//        case "Beauty" -> "Cosmetic";
-//        case "Clothing" -> "Outfit";
-//        default -> "Product";
-//      };
-//      String productName = baseName + "_" + i; // όχι απαραίτητα unique στο DB, αλλά απλό
-//
-//      // Select appropriate description & price based on category
-//      String description;
-//      double price;
-//
-//      if (category.equals("Electronics")) {
-//        description = electronicsDescriptions.get(rand.nextInt(electronicsDescriptions.size()));
-//        price = electronicsPrices.get(rand.nextInt(electronicsPrices.size()));
-//      } else if (category.equals("Beauty")) {
-//        description = beautyDescriptions.get(rand.nextInt(beautyDescriptions.size()));
-//        price = beautyPrices.get(rand.nextInt(beautyPrices.size()));
-//      } else {
-//        description = clothingDescriptions.get(rand.nextInt(clothingDescriptions.size()));
-//        price = clothingPrices.get(rand.nextInt(clothingPrices.size()));
-//      }
-//
-//      // create and insert product
-//      Product product = new Product(category, productName, description, price, 100);
-//
-//      try {
-//        ProductsDAO.insertItem(product);
-//      } catch (SQLException ex) {
-//        JOptionPane.showMessageDialog(
-//                null,
-//                "Error inserting dummy product:\n" + ex.getMessage(),
-//                "Database Error",
-//                JOptionPane.ERROR_MESSAGE
-//                                     );
-//      }
-//    }
-//  }
-//}
-//
-/// /create dummy data
-/// / create  methods for each model that creates dummy data
-/// / and put it in the db using the DAO
-/// /tip: in the end create a static 'mega' method that calls all the
-/// /smaller methods -see createAllTables() by chris
-/// /all done 5/5/25
+package com.service;
+
+import com.dao.CustomersDAO;
+import com.dao.ProductsDAO;
+import com.model.Customer;
+import com.model.Product;
+
+import java.sql.SQLException;
+import java.util.Random;
+
+public class DataGenerator {
+
+  /**
+   * Generates 15 random customers using Greek-like personal information.
+   * Each customer includes: name, address, phone number, email, balance and discount.
+   * The generated customer is inserted into the database using CustomersDAO.
+   */
+  public static void createDummyCustomers () {
+    // Sample Greek male and female first names
+    String[] maleNames = {"Nikos", "Giorgos", "Kostas", "Dimitris", "Giannis", "Vasilis", "Andreas"};
+    String[] femaleNames = {"Maria", "Eleni", "Anna", "Sofia", "Georgia", "Katerina", "Vasiliki"};
+
+    // Common Greek last names
+    String[] lastNames = {"Papadopoulos", "Papanikolaou", "Georgiou", "Kostopoulos", "Nikolaidis"};
+
+    // Cities and street names in Greece for address generation
+    String[] cities = {"Athens", "Thessaloniki", "Patras", "Larisa", "Volos", "Heraklion", "Ioannina", "Kavala"};
+    String[] streets = {"Solonos", "Venizelou", "Tsimiski", "Papafi", "Egnatia", "Kountouriotou", "Agiou Dimitriou"};
+
+    Random rand = new Random();
+
+    for (int i = 0; i < 15; i++) {
+      // Randomly select first name and last name
+      String firstName = rand.nextBoolean()
+              ? maleNames[rand.nextInt(maleNames.length)]
+              : femaleNames[rand.nextInt(femaleNames.length)];
+      String lastName = lastNames[rand.nextInt(lastNames.length)];
+      String name = firstName + " " + lastName;
+
+      // Create a full address using street + number + city
+      String address = streets[rand.nextInt(streets.length)] + " " + ( 1 + rand.nextInt(100) ) + ", " +
+              cities[rand.nextInt(cities.length)];
+
+      // Generate a Greek mobile phone number starting with 69
+      String phone = "69" + ( 10000000 + rand.nextInt(89999999) );
+
+      // Construct a simple email based on the name
+      String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@example.com";
+
+      // Generate balance between €10 and €500, rounded to 2 decimal digits
+      double balance = Math.round(( 10 + rand.nextDouble() * 490 ) * 100.0) / 100.0;
+
+      // Random discount percentage between 0 and 20
+      int discount = rand.nextInt(21);
+
+      // Create Customer object and insert into the database
+      Customer customer = new Customer(name, address, phone, email, balance, discount);
+      try {
+        CustomersDAO.createItem(customer);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Generates 15 random products with realistic names, categories, prices, and quantities.
+   * Each product is inserted into the database using ProductsDAO.
+   */
+  public static void createDummyProducts () {
+    String[] categories = {"Electronics", "Books", "Clothing", "Home", "Toys"};
+    String[] productNames = {"Headphones", "PC Keyboard", "Notebook", "T-shirt", "Backpack", "Mug", "Mouse"};
+
+    Random rand = new Random();
+
+    for (int i = 0; i < 15; i++) {
+      String category = categories[rand.nextInt(categories.length)];
+      String name = productNames[rand.nextInt(productNames.length)] + " " + (char) ( 'A' + rand.nextInt(26) );
+
+      // Whole number price with 2 decimal places (e.g., 50.00)
+      double price = ( 5 + rand.nextInt(96) ) * 1.0;
+
+      int quantity = 10 + rand.nextInt(1000);
+
+      Product product = new Product(category, name, quantity, price);
+      try {
+        ProductsDAO.createItem(product);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
