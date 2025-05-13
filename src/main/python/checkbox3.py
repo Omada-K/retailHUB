@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
+
 # import plotly.express as px
 # import numpy as np
 # from sklearn.linear_model import LinearRegression
@@ -16,5 +18,11 @@ sns.displot(data.RM,
 plt.title(f'Distribution of Rooms in Boston. Average: {data.RM.mean():.2}')
 plt.xlabel('Average Number of Rooms')
 plt.ylabel('Nr. of Homes')
+print(" ") #IMPORTANT keep at least one print statement in this script
+#same with this one
+try:
+    raise ValueError("Nothing went wrong")
+except Exception as e:
+    print(f"Error: {e}", file=sys.stderr)
 
 plt.show()

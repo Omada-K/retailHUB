@@ -1,6 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
+
+
 # import plotly.express as px
 # import numpy as np
 # from sklearn.linear_model import LinearRegression
@@ -18,5 +21,15 @@ sns.displot(data['PRICE'],
 plt.title(f'1970s Home Values in Boston. Average: ${(1000*data.PRICE.mean()):.6}')
 plt.xlabel('Price in 2000s')
 plt.ylabel('Nr. of Homes')
+print(" ") #IMPORTANT keep at least one print statement in this script
+
+#same with this one
+try:
+    raise ValueError("Nothing went wrong")
+except Exception as e:
+    print(f"Error: {e}", file=sys.stderr)
 
 plt.show()
+
+
+
