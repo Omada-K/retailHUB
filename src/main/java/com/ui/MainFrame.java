@@ -157,14 +157,17 @@ public class MainFrame extends BaseFrame {
         if (prediction1CheckBox.isSelected()) {
           System.out.println("Clicked prediction1CheckBox");
           PythonRunner.runScript("checkbox1.py");
+          PythonRunner.showImageFrame("data/boston1.png");
         }
         if (prediction2CheckBox.isSelected()) {
           System.out.println("Clicked prediction2CheckBox");
           PythonRunner.runScript("checkbox2.py");
+          PythonRunner.showImageFrame("data/boston2.png");
         }
         if (prediction3CheckBox.isSelected()) {
           System.out.println("Clicked prediction3CheckBox");
           PythonRunner.runScript("checkbox3.py");
+          PythonRunner.showImageFrame("data/boston3.png");
         }
 
       }

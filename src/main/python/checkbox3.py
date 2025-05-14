@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -10,7 +11,9 @@ import seaborn as sns
 # from sklearn.model_selection import train_test_split
 
 pd.options.display.float_format = '{:,.2f}'.format
-data = pd.read_csv('../../../data/boston.csv', index_col=0)  # do not change the file path !
+file_path = Path(__file__).resolve().parents[3] / "data" / "boston.csv"
+data = pd.read_csv(file_path, index_col=0)
+
 sns.displot(data.RM,
             aspect=2,
             kde=True,
@@ -26,4 +29,9 @@ try:
 except Exception as e:
     print(f"Error: {e}", file=sys.stderr)
 
-plt.show()
+output_path = Path(__file__).resolve().parents[3] / "data" / "boston3.png"
+
+# Make sure the data directory exists (optional safety check)
+output_path.parent.mkdir(parents=True, exist_ok=True)
+plt.savefig(output_path)
+# plt.show()
