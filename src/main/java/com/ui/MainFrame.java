@@ -8,6 +8,7 @@ import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.model.User;
+import com.service.DataGenerator;
 import com.service.PythonRunner;
 import com.ui.tablemodel.CustomerTableModel;
 import com.ui.tablemodel.OrderTableModel;
@@ -135,9 +136,9 @@ public class MainFrame extends BaseFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         // Insert 50 randomly generated customers
-        //DataGenerator.createDummyCustomers();
+        DataGenerator.createDummyCustomers();
         System.out.println("50 random customers inserted successfully!");
-        //DataGenerator.createDummyProducts();
+        DataGenerator.createDummyProducts();
         System.out.println("Random Products Created");
       }
     });
