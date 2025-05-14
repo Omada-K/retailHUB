@@ -1,8 +1,8 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import sys
 
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 # import plotly.express as px
 # import numpy as np
@@ -10,7 +10,7 @@ import sys
 # from sklearn.model_selection import train_test_split
 
 pd.options.display.float_format = '{:,.2f}'.format
-data = pd.read_csv('data/boston.csv', index_col=0) #do not change the file path !
+data = pd.read_csv('../../../data/boston.csv', index_col=0)  # do not change the file path !
 
 sns.displot(data['PRICE'],
             bins=50,
@@ -18,18 +18,15 @@ sns.displot(data['PRICE'],
             kde=True,
             color='#2196f3')
 
-plt.title(f'1970s Home Values in Boston. Average: ${(1000*data.PRICE.mean()):.6}')
+plt.title(f'1970s Home Values in Boston. Average: ${(1000 * data.PRICE.mean()):.6}')
 plt.xlabel('Price in 2000s')
 plt.ylabel('Nr. of Homes')
-print(" ") #IMPORTANT keep at least one print statement in this script
+print(" ")  # IMPORTANT keep at least one print statement in this script
 
-#same with this one
+# same with this one
 try:
     raise ValueError("Nothing went wrong")
 except Exception as e:
     print(f"Error: {e}", file=sys.stderr)
 
 plt.show()
-
-
-

@@ -121,7 +121,8 @@ public class MainFrame extends BaseFrame {
     salvageDataFromOldButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //Hint look in /service
+
+        PythonRunner.runScript("get_api_data_script_main.py");
       }
     });
     //About frame

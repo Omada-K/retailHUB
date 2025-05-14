@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.dao.OrdersDAO;
+import com.dao.ProductsDAO;
 import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
@@ -90,8 +91,9 @@ public class OrderFrame extends BaseFrame {
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setSize(900, 680);
 
-    ArrayList<Product> productsInOrder = new ArrayList<>();
-    productsTable.setModel(new ProductsOrderTableModel(productsInOrder));
+    ArrayList<Product> productsInOrder = ProductsDAO.getOrderedProducts();
+    ProductsOrderTableModel contentModel = new ProductsOrderTableModel(productsInOrder);
+    productsTable.setModel(contentModel);
 
     int createOrderId = OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
     List<String> customerNamesList = new ArrayList<>();
@@ -118,6 +120,7 @@ public class OrderFrame extends BaseFrame {
             throw new RuntimeException(ex);
           }
         }
+        contentModel.refreshTable();
 
       }
     });

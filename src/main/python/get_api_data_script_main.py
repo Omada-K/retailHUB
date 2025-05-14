@@ -8,11 +8,11 @@ and saved as a local file for further analysis.
 '''
 # Ignore if you have red lines. try to run it. Packages are installed.
 import io
-import pandas as pd
-import requests
 
+import pandas as pd
 ## TASK1 use try-except block for api calls(post and/or get) --DONE
 import requests
+
 print("Date script starts")
 ## Παίρνουμε όλα τα δεδομένα από το API
 url = "http://egov.dai.uom.gr:5001/customers"
@@ -112,7 +112,7 @@ try:
     if second_response.status_code == 200:
         df = pd.read_csv(io.StringIO(second_response.text))
         print("Salesforce customers was successfully downloaded.")
-        print(df.head(:2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
+        print(df.head(2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
         print("Salesforce API returned an error. Status code: {second_response.status_code}")
 
