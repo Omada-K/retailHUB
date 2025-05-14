@@ -8,6 +8,7 @@ public class Product {
   private String productName;
   private int amountInStock;
   private double productPrice;
+  private int productInOrder;
 
   //Constructor
   public Product (int productId, String category, String productName, int amountInStock, double productPrice) {
@@ -25,6 +26,15 @@ public class Product {
     this.productPrice = productPrice;
   }
 
+  //Products when they are in an Order
+  public Product (String category, String productName, double productPrice, int productsInOrder, int amountInStock) {
+    this.productCategory = category;
+    this.productName = productName;
+    this.productPrice = productPrice;
+    this.productInOrder = productsInOrder;
+    this.amountInStock = amountInStock;
+  }
+
   //Getters & Setters
 
   public int getProductId () { return productId; }
@@ -32,6 +42,10 @@ public class Product {
   public String getCategory () { return productCategory; }
 
   public String getName () { return productName; }
+
+  public int getItemsInOrder () {
+    return productInOrder;
+  }
 
   public int getAmountInStock () {
     //TODO needs improvement

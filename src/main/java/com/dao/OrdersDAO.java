@@ -92,7 +92,7 @@ public class OrdersDAO {
   }
 
   // create a product entry for an order
-  public static void createOrderProducts (int orderId, int productId, int amount) throws SQLException {
+  public static void createOrderProduct (int orderId, int productId, int amount) throws SQLException {
     String insertSql = "INSERT INTO ORDERS_PRODUCTS (ORDER_ID, PRODUCT_ID,AMOUNT_ITEMS ) VALUES (?,?,?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
@@ -103,7 +103,19 @@ public class OrdersDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
 
+  // create a customer entry for an order
+  public static void createOrderCustomer (int orderId, int customerId) throws SQLException {
+    String insertSql = "INSERT INTO CUSTOMERORDERS (ORDER_ID, CUSTOMER_ID ) VALUES (?,?)";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+      insertStmt.setInt(1, orderId);
+      insertStmt.setInt(2, customerId);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
 }

@@ -1,14 +1,18 @@
 package com.ui;
 
+import com.dao.OrdersDAO;
 import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
 import com.ui.tablemodel.ProductTableModel;
+import com.ui.tablemodel.ProductsOrderTableModel;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,14 +77,23 @@ public class OrderFrame extends BaseFrame {
   }
 
   // Create form (for new orders)
-  public OrderFrame (TableModel content, ArrayList<Customer> availableCustomers, ArrayList<Product> availableProducts) {
+  public OrderFrame (
+          TableModel content,
+          ArrayList<Customer> availableCustomers,
+          ArrayList<Product> availableProducts
+                    ) throws SQLException {
+
     super();
     setContentPane(formPanel); // set the main panel
     setContentPane(formPanel);
     setupCancelButton(exitButton);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    setSize(900, 600);
+    setSize(900, 680);
 
+    ArrayList<Product> productsInOrder = new ArrayList<>();
+    productsTable.setModel(new ProductsOrderTableModel(productsInOrder));
+
+    int createOrderId = OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
     List<String> customerNamesList = new ArrayList<>();
     for (Customer customer : availableCustomers) {
       customerNamesList.add(customer.getName());
@@ -97,7 +110,15 @@ public class OrderFrame extends BaseFrame {
     addButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        //save product to order
+        if (!inputQuantity.getText().isEmpty()) {
+          try {
+            OrdersDAO.createOrderProduct(createOrderId, comboProduct.getSelectedIndex(), Integer.parseInt(inputQuantity.getText()));
+            // OrdersDAO.createOrderCustomer(1, comboProduct.getSelectedIndex());
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+        }
+
       }
     });
 

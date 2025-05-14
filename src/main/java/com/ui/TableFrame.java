@@ -160,17 +160,17 @@ public class TableFrame<T> extends BaseFrame {
         if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
           new CustomerFrame(content);
         }
-
+        //Orders
         if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
           ArrayList<Customer> availableCustomers;
           ArrayList<Product> availableProducts;
           try {
             availableCustomers = CustomersDAO.getData();
             availableProducts = ProductsDAO.getData();
+            new OrderFrame(content, availableCustomers, availableProducts);
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
-          new OrderFrame(content, availableCustomers, availableProducts);
         }
         if (state.selectedTableType.equals(AppState.TableTypes.Products.name())) {
           new ProductFrame(content);
