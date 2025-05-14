@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
+
 # import plotly.express as px
 # import numpy as np
 # from sklearn.linear_model import LinearRegression
@@ -18,5 +20,10 @@ sns.displot(data.DIS,
 plt.title(f'Distance to Employment Centres. Average: {(data.DIS.mean()):.2}')
 plt.xlabel('Weighted Distance to 5 Boston Employment Centres')
 plt.ylabel('Nr. of Homes')
-
+print(" ") #IMPORTANT keep at least one print statement in this script
+#same with this one
+try:
+    raise ValueError("Nothing went wrong")
+except Exception as e:
+    print(f"Error: {e}", file=sys.stderr)
 plt.show()
