@@ -13,14 +13,14 @@ public class PythonRunner {
     //python script runner
     try {
       //is the python my local python or the venv python?
-      ProcessBuilder pb = new ProcessBuilder(".venv/bin/python", "src/main/python/" + scriptName);
+      ProcessBuilder pb = new ProcessBuilder("venv/bin/python", "src/main/python/" + scriptName);
       Process process = pb.start();
       BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-      String firsterror = errorReader.readLine();
-      System.out.println(firsterror);
+      String firstError = errorReader.readLine();
+      System.out.println(firstError);
       // python error printer
       String errLine;
-      if (!Objects.equals(firsterror, "Error: Nothing went wrong")) {
+      if (!Objects.equals(firstError, "Error: Nothing went wrong")) {
         while (( errLine = errorReader.readLine() ) != null) {
           System.err.println(errLine);
         }

@@ -9,7 +9,7 @@ import java.util.List;
 public class CustomerTableModel extends TableModel<Customer> {
 
   public CustomerTableModel (List<Customer> customers) {
-    super(customers, new String[] {"ID", "Name", "Address", "Phone", "Email", "Balance", "Discount"});
+    super(customers, new String[] {"ID", "Name", "Address", "Phone", "Email", "Balance", "Discount Points"});
   }
 
   @Override

@@ -54,7 +54,7 @@ __pycache__/
 
 # Data
 salvage/
-data/
+data/*.png
 database/
 *.csv
 *.log
