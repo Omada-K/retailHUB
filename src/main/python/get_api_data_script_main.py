@@ -25,7 +25,7 @@ try:
         print("all customers was successfully downloaded.")
         print(customers[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
-        print("API returned an error. Status code: {response.status_code}")
+        print(f"API returned an error. Status code: {response.status_code}")
 
 except requests.exceptions.RequestException as e:
     print("Connection or response error from API:", e)
@@ -99,7 +99,7 @@ access_token = customers['access_token']  # takes the authentication token from 
 instance_url = customers['instance_url']  # takes the URL to access the next API
 
 ###second api
-second_api_URL = f"{instance_url}/services/apexrest/salesforce-sales-customers/"  # using url from the first API
+second_api_URL = f"{instance_url}/services/apexrest/capstone/"  # using url from the first API
 
 # same
 second_api_header = {
@@ -125,6 +125,6 @@ df = pd.read_csv(io.StringIO(
     second_response.text))  # StringIO:creates an in-memory file-like object from that string - pandas reads the CSV
 print(df)  # prints the customers for validation
 
-df.to_csv("../../../salvage/raw_data_salesforce.csv")  # creates a csv file with our customers
+df.to_csv("../../../data/raw_data_salesforce.csv")  # creates a csv file with our customers
 
 print("Data script is done !")
