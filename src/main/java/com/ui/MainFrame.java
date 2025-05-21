@@ -48,6 +48,7 @@ public class MainFrame extends BaseFrame {
     Font currentFont = welcomeLabel.getFont();
     welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
     welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
+    generateSyntheticDataButton.setEnabled(state.isUserManager);
 
     //View customers OnClick event listener
     viewCustomersButton.addActionListener(new ActionListener() {
