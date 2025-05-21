@@ -82,4 +82,30 @@ public class ProductsDAO {
       e.printStackTrace();
     }
   }
+
+  public static ArrayList<Product> getOrderedProducts () throws SQLException {
+    ArrayList<Product> orderedProducts = new ArrayList<>();
+
+    String query = "SELECT p.product_category, p.name, p.item_price, p.inv_stock, op.amount_items " +
+            "FROM products p " +
+            "JOIN orders_products op ON p.product_id = op.product_id";
+
+    try (Connection conn = DataBaseConfig.getConnection();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+      while (rs.next()) {
+        String category = rs.getString("product_category");
+        String name = rs.getString("name");
+        double price = rs.getDouble("item_price");
+        int itemsInOrder = rs.getInt("amount_items");
+        int stock = rs.getInt("inv_stock");
+
+        Product product = new Product(category, name, price, itemsInOrder, stock);
+        orderedProducts.add(product);
+      }
+    }
+
+    return orderedProducts;
+  }
 }

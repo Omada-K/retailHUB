@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="formPanel" layout-manager="GridLayoutManager" row-count="8" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="8" vgap="2">
     <margin top="30" left="30" bottom="30" right="30"/>
     <constraints>
-      <xy x="20" y="20" width="864" height="892"/>
+      <xy x="20" y="20" width="937" height="892"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -57,7 +57,7 @@
       <scrollpane id="f02a6">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="6" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="800" height="600"/>
+            <minimum-size width="600" height="400"/>
           </grid>
         </constraints>
         <properties/>

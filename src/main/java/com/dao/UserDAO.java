@@ -30,7 +30,7 @@ public class UserDAO {
   }
 
   public static void updateItem (User user) throws SQLException {
-    String updateSql = "UPDATE users SET name = ?, email = ?, password = ?, is_admin = ? WHERE user_id = ?";
+    String updateSql = "UPDATE users SET name = ? , email = ?, password = ?, is_admin = ? WHERE user_id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, user.getName());

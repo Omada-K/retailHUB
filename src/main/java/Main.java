@@ -45,16 +45,8 @@ public class Main {
     if (users.isEmpty()) {
       UserDAO.createItem(new User("Krush Team", "test", "1234", true));
     }
-    //
-    //    ProductsDAO.createItem(new Product("Electronics", "Headphones", 400, 22));
-    //    ProductsDAO.createItem(new Product("Electronics", "PC Keyboard", 75, 35.75));
-    //    ProductsDAO.createItem(new Product("Clothing", "T-shirt", 7000, 15.5));
-    //
 
     OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
-
-    //    DataGenerator.createDummyCustomers();
-    //    DataGenerator.createDummyProducts();
 
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user

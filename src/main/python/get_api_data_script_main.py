@@ -8,11 +8,11 @@ and saved as a local file for further analysis.
 '''
 # Ignore if you have red lines. try to run it. Packages are installed.
 import io
-import pandas as pd
-import requests
 
+import pandas as pd
 ## TASK1 use try-except block for api calls(post and/or get) --DONE
 import requests
+
 print("Date script starts")
 ## Παίρνουμε όλα τα δεδομένα από το API
 url = "http://egov.dai.uom.gr:5001/customers"
@@ -25,7 +25,7 @@ try:
         print("all customers was successfully downloaded.")
         print(customers[:2])  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
-        print("API returned an error. Status code: {response.status_code}")
+        print(f"API returned an error. Status code: {response.status_code}")
 
 except requests.exceptions.RequestException as e:
     print("Connection or response error from API:", e)
@@ -99,7 +99,7 @@ access_token = customers['access_token']  # takes the authentication token from 
 instance_url = customers['instance_url']  # takes the URL to access the next API
 
 ###second api
-second_api_URL = f"{instance_url}/services/apexrest/salesforce-sales-customers/"  # using url from the first API
+second_api_URL = f"{instance_url}/services/apexrest/capstone/"  # using url from the first API
 
 # same
 second_api_header = {
@@ -112,7 +112,7 @@ try:
     if second_response.status_code == 200:
         df = pd.read_csv(io.StringIO(second_response.text))
         print("Salesforce customers was successfully downloaded.")
-        print(df.head(:2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
+        print(df.head(2))  ## δείξε τα 2 πρώτα για προεπισκόπηση
     else:
         print("Salesforce API returned an error. Status code: {second_response.status_code}")
 
@@ -125,6 +125,6 @@ df = pd.read_csv(io.StringIO(
     second_response.text))  # StringIO:creates an in-memory file-like object from that string - pandas reads the CSV
 print(df)  # prints the customers for validation
 
-df.to_csv("../../../salvage/raw_data_salesforce.csv")  # creates a csv file with our customers
+df.to_csv("../../../data/raw_data_salesforce.csv")  # creates a csv file with our customers
 
 print("Data script is done !")
