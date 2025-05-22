@@ -7,7 +7,6 @@ import com.model.Order;
 import com.model.Product;
 import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.ProductsOrderTableModel;
-import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -78,7 +77,6 @@ public class OrderFrame extends BaseFrame {
 
   // Create form (for new orders)
   public OrderFrame (
-          TableModel content,
           ArrayList<Customer> availableCustomers,
           ArrayList<Product> availableProducts
                     ) throws SQLException {
@@ -113,8 +111,9 @@ public class OrderFrame extends BaseFrame {
       public void actionPerformed (ActionEvent e) {
         if (!inputQuantity.getText().isEmpty()) {
           try {
-            Product selectedProduct = (Product) comboProduct.getSelectedItem();
-            OrdersDAO.createOrderProduct(createOrderId, selectedProduct.getProductId(), Integer.parseInt(inputQuantity.getText()));
+            int selectedProductId = comboProduct.getSelectedIndex();
+            System.out.println(selectedProductId);
+            OrdersDAO.createOrderProduct(createOrderId, selectedProductId, Integer.parseInt(inputQuantity.getText()));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }

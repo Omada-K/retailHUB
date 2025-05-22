@@ -28,7 +28,7 @@ public class ProductsOrderTableModel extends TableModel<Product> {
   @Override
   public void refreshTable () {
     try {
-      List<Product> updateData = ProductsDAO.getData();
+      List<Product> updateData = ProductsDAO.getOrderedProducts();
       data.clear();
       data.addAll(updateData);
       fireTableDataChanged();

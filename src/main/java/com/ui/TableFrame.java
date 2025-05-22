@@ -167,7 +167,7 @@ public class TableFrame<T> extends BaseFrame {
           try {
             availableCustomers = CustomersDAO.getData();
             availableProducts = ProductsDAO.getData();
-            new OrderFrame(content, availableCustomers, availableProducts);
+            new OrderFrame(availableCustomers, availableProducts);
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
