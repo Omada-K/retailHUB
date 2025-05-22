@@ -54,7 +54,6 @@ public class OrderFrame extends BaseFrame {
         int selectedRow = productsTable.getSelectedRow();
         if (selectedRow != -1) {
           Product selectedItem = content.getItem(selectedRow);
-
           int confirm = JOptionPane.showConfirmDialog(
                   OrderFrame.this,
                   "Are you sure you want to delete this row?",
@@ -114,8 +113,8 @@ public class OrderFrame extends BaseFrame {
       public void actionPerformed (ActionEvent e) {
         if (!inputQuantity.getText().isEmpty()) {
           try {
-            OrdersDAO.createOrderProduct(createOrderId, comboProduct.getSelectedIndex(), Integer.parseInt(inputQuantity.getText()));
-            // OrdersDAO.createOrderCustomer(1, comboProduct.getSelectedIndex());
+            Product selectedProduct = (Product) comboProduct.getSelectedItem();
+            OrdersDAO.createOrderProduct(createOrderId, selectedProduct.getProductId(), Integer.parseInt(inputQuantity.getText()));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
