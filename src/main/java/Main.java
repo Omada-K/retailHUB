@@ -1,6 +1,8 @@
 import com.controller.DataBaseConfig;
 import com.dao.OrdersDAO;
 import com.dao.UserDAO;
+import com.dao.ProductCategoryDAO; // added for category insert
+import com.model.ProductCategory; // added for category insert
 import com.model.Order;
 import com.model.User;
 import com.ui.AppState;
@@ -13,9 +15,9 @@ import java.util.ArrayList;
 
 public class Main {
 
-  public static void main (String[] args) throws SQLException {
+  public static void main(String[] args) throws SQLException {
     System.out.println("Starting application...");
-    //set the theme of windows
+    // set the theme of windows
     try {
       // Set Nimbus Look and Feel
       for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -28,16 +30,16 @@ public class Main {
       e.printStackTrace(); // If Nimbus is not available, fallback to default
     }
 
-    //this shuts the db down before exiting
+    // this shuts the db down before exiting
     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
       @Override
-      public void run () {
+      public void run() {
         DataBaseConfig.shutdownDatabase();
         System.out.println("Database shutdown successfully.");
       }
     }));
 
-    //Database related stuff
+    // Database related stuff
     // Initialize
     DataBaseConfig.createAllTables();
 
@@ -48,10 +50,17 @@ public class Main {
 
     OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
 
-    //GUI related stuff
-    AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user
-    // etc...
+   // insert predefined product categories if not exist
+    ProductCategoryDAO categoryDAO = new ProductCategoryDAO(); // added to manage categories
+    ArrayList<ProductCategory> existingCategories = categoryDAO.getData(); // fetch all current categories
+    if (existingCategories.isEmpty()) {
+      ProductCategoryDAO.createItem(new ProductCategory("Electronics")); // insert default category
+      ProductCategoryDAO.createItem(new ProductCategory("Beauty")); // insert default category
+      ProductCategoryDAO.createItem(new ProductCategory("Clothing")); // insert default category
+    }
+
+    // GUI related stuff
+    AppState uiState = new AppState(); // this is input for all Jframes, it has info about the app name of login user
     new LoginFrame(uiState);
   }
-
 }
