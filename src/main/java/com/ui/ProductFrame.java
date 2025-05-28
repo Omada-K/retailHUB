@@ -28,7 +28,7 @@ public class ProductFrame extends BaseFrame {
     Product product = (Product) productInput; //force generic object to be customer
 
     categoryBox.setModel(new DefaultComboBoxModel<>(categories));
-    categoryBox.setSelectedItem(product.getCategory());
+    categoryBox.setSelectedItem(product.getCategoryId());
 
     int id = product.getProductId();
     nameInput.setText(product.getName());
@@ -80,7 +80,7 @@ public class ProductFrame extends BaseFrame {
                 !priceInput.getText().isEmpty()
         ) {
           Product inputProduct = new Product(
-                  (String) categoryBox.getSelectedItem(),
+                  (int) categoryBox.getSelectedItem(),
                   nameInput.getText(),
                   Integer.parseInt(inputStock.getText()),
                   Double.parseDouble(priceInput.getText())

@@ -29,7 +29,7 @@ public class ProductTableModel extends TableModel<Product> {
     }
     return switch (columnIndex) {
       case 0 -> product.getProductId();
-      case 1 -> product.getCategory();
+      case 1 -> product.getCategoryId();
       case 2 -> product.getName();
       case 3 -> product.getItemPrice();
       case 4 -> product.getAmountInStock();

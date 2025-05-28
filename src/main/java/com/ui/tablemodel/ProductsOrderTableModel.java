@@ -15,7 +15,7 @@ public class ProductsOrderTableModel extends TableModel<Product> {
 
     Product product = data.get(rowIndex);
     return switch (columnIndex) {
-      case 0 -> product.getCategory();
+      case 0 -> product.getCategoryId();
       case 1 -> product.getName();
       case 2 -> product.getItemPrice();
       case 3 -> product.getItemsInOrder();
