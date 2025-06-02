@@ -76,6 +76,7 @@ public class OrderFrame extends BaseFrame {
   }
 
   // Create form (for new orders)
+  //Create
   public OrderFrame (
           ArrayList<Customer> availableCustomers,
           ArrayList<Product> availableProducts
@@ -87,23 +88,24 @@ public class OrderFrame extends BaseFrame {
     setupCancelButton(exitButton);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setSize(900, 680);
+    int createdOrderId = OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
 
-    ArrayList<Product> productsInOrder = ProductsDAO.getOrderedProducts();
+    ArrayList<Product> productsInOrder = ProductsDAO.getOrderedProducts(createdOrderId);
     ProductsOrderTableModel contentModel = new ProductsOrderTableModel(productsInOrder);
     productsTable.setModel(contentModel);
 
-    int createOrderId = OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
+    //setting the dropdown list
     List<String> customerNamesList = new ArrayList<>();
     for (Customer customer : availableCustomers) {
       customerNamesList.add(customer.getName());
     }
     comboCustomer.setModel(new DefaultComboBoxModel<>(customerNamesList.toArray(new String[0])));
 
-    List<String> productsNamesList = new ArrayList<>();
+    DefaultComboBoxModel<Product> productModel = new DefaultComboBoxModel<>();
     for (Product product : availableProducts) {
-      productsNamesList.add(product.getName());
+      productModel.addElement(product);
     }
-    comboProduct.setModel(new DefaultComboBoxModel<>(productsNamesList.toArray(new String[0])));
+    comboProduct.setModel(productModel);
     comboProduct.setSelectedIndex(0);
 
     addButton.addActionListener(new ActionListener() {
@@ -111,14 +113,18 @@ public class OrderFrame extends BaseFrame {
       public void actionPerformed (ActionEvent e) {
         if (!inputQuantity.getText().isEmpty()) {
           try {
-            int selectedProductId = comboProduct.getSelectedIndex();
-            System.out.println(selectedProductId);
-            OrdersDAO.createOrderProduct(createOrderId, selectedProductId, Integer.parseInt(inputQuantity.getText()));
+            Product selectedProduct = (Product) comboProduct.getSelectedItem();
+            int selectedProductId = selectedProduct.getProductId();
+            int quantity = Integer.parseInt(inputQuantity.getText());
+
+            OrdersDAO.createOrderProduct(createdOrderId, selectedProductId, quantity);
+            ArrayList<Product> newProducts = ProductsDAO.getOrderedProducts(createdOrderId);
+            productsTable.setModel(new ProductsOrderTableModel(newProducts));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
         }
-        contentModel.refreshTable();
+        //contentModel.refreshTableWithOrder(createdOrderId);
 
       }
     });

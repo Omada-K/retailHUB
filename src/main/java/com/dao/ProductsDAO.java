@@ -83,29 +83,32 @@ public class ProductsDAO {
     }
   }
 
-  public static ArrayList<Product> getOrderedProducts () throws SQLException {
+  public static ArrayList<Product> getOrderedProducts (int orderId) throws SQLException {
     ArrayList<Product> orderedProducts = new ArrayList<>();
 
     String query = "SELECT p.product_category, p.name, p.item_price, p.inv_stock, op.amount_items " +
             "FROM products p " +
-            "JOIN orders_products op ON p.product_id = op.product_id";
+            "JOIN orders_products op ON p.product_id = op.product_id " +
+            "WHERE op.order_id = ?";
 
     try (Connection conn = DataBaseConfig.getConnection();
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(query)) {
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+      pstmt.setInt(1, orderId);  // Set the orderId in the query
+      try (ResultSet rs = pstmt.executeQuery()) {
+        while (rs.next()) {
+          String category = rs.getString("product_category");
+          String name = rs.getString("name");
+          double price = rs.getDouble("item_price");
+          int stock = rs.getInt("inv_stock");
+          int itemsInOrder = rs.getInt("amount_items");
 
-      while (rs.next()) {
-        String category = rs.getString("product_category");
-        String name = rs.getString("name");
-        double price = rs.getDouble("item_price");
-        int itemsInOrder = rs.getInt("amount_items");
-        int stock = rs.getInt("inv_stock");
-
-        Product product = new Product(category, name, price, itemsInOrder, stock);
-        orderedProducts.add(product);
+          Product product = new Product(category, name, price, itemsInOrder, stock);
+          orderedProducts.add(product);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
-
     return orderedProducts;
   }
 }

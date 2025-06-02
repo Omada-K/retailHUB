@@ -57,4 +57,8 @@ public class Product {
 
   public double getItemPrice () { return productPrice; }
 
+  @Override
+  public String toString () {
+    return this.productName;
+  }
 }

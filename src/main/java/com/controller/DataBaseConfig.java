@@ -96,7 +96,7 @@ public class DataBaseConfig {
             "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("orders table created.");
+      System.out.println("order product table created.");
     }
   }
 
