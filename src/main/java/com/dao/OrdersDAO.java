@@ -94,7 +94,6 @@ public class OrdersDAO {
   // create a product entry for an order
   public static void createOrderProduct (int orderId, int productId, int amount) throws SQLException {
     String insertSql = "INSERT INTO ORDERS_PRODUCTS (ORDER_ID, PRODUCT_ID,AMOUNT_ITEMS ) VALUES (?,?,?)";
-
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
       insertStmt.setInt(1, orderId);

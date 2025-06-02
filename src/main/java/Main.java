@@ -1,14 +1,11 @@
 import com.controller.DataBaseConfig;
-import com.dao.OrdersDAO;
 import com.dao.UserDAO;
-import com.model.Order;
 import com.model.User;
 import com.ui.AppState;
 import com.ui.LoginFrame;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Main {
@@ -46,7 +43,7 @@ public class Main {
       UserDAO.createItem(new User("Krush Team", "test", "1234", true));
     }
 
-    OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
+    //OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
 
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user

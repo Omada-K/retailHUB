@@ -88,7 +88,7 @@ public class ProductsDAO {
 
     String query = "SELECT p.product_category, p.name, p.item_price, p.inv_stock, op.amount_items " +
             "FROM products p " +
-            "JOIN orders_products op ON p.product_id = op.product_id " +
+            "JOIN orders_products op ON p.PRODUCT_ID = op.PRODUCT_ID " +
             "WHERE op.order_id = ?";
 
     try (Connection conn = DataBaseConfig.getConnection();

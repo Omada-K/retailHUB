@@ -91,7 +91,6 @@ public class DataBaseConfig {
             "order_id INTEGER, " +
             "product_id INTEGER," +
             "amount_items INTEGER DEFAULT 0," +
-            "PRIMARY KEY (order_id, product_id)," +
             "FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE," +
             "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
