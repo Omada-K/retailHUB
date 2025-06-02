@@ -99,8 +99,20 @@ public class OrdersDAO {
       insertStmt.setInt(1, orderId);
       insertStmt.setInt(2, productId);
       insertStmt.setInt(3, amount);
+      insertStmt.executeUpdate();
+
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+  }
+
+  //delete a product from an order
+  public static void deleteOrderProduct (int orderId, int productId) throws SQLException {
+    String deleteSql = "delete from ORDERS_PRODUCTS where ORDER_ID = ?";
+    try (Connection conn = DataBaseConfig.getConnection();
+         PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
+      insertStmt.setInt(1, orderId);
+      insertStmt.executeUpdate();
     }
   }
 

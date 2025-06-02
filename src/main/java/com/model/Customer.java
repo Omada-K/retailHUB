@@ -57,4 +57,9 @@ public class Customer {
   public int getPoints () {
     return points;
   }
+
+  @Override
+  public String toString () {
+    return this.name;
+  }
 }

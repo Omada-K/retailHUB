@@ -95,11 +95,12 @@ public class OrderFrame extends BaseFrame {
     productsTable.setModel(contentModel);
 
     //setting the dropdown list
-    List<String> customerNamesList = new ArrayList<>();
+    DefaultComboBoxModel<Customer> customerModel = new DefaultComboBoxModel<>();
     for (Customer customer : availableCustomers) {
-      customerNamesList.add(customer.getName());
+      customerModel.addElement(customer);
     }
-    comboCustomer.setModel(new DefaultComboBoxModel<>(customerNamesList.toArray(new String[0])));
+    comboCustomer.setModel(customerModel);
+    comboCustomer.setSelectedIndex(0);
 
     DefaultComboBoxModel<Product> productModel = new DefaultComboBoxModel<>();
     for (Product product : availableProducts) {
@@ -116,15 +117,17 @@ public class OrderFrame extends BaseFrame {
             Product selectedProduct = (Product) comboProduct.getSelectedItem();
             int selectedProductId = selectedProduct.getProductId();
             int quantity = Integer.parseInt(inputQuantity.getText());
-
+            //debug...
+            System.out.println("Order id " + createdOrderId);
+            System.out.println("Product id " + selectedProductId);
             OrdersDAO.createOrderProduct(createdOrderId, selectedProductId, quantity);
-            ArrayList<Product> newProducts = ProductsDAO.getOrderedProducts(createdOrderId);
-            productsTable.setModel(new ProductsOrderTableModel(newProducts));
+            //            ArrayList<Product> newProducts = ProductsDAO.getOrderedProducts(createdOrderId);
+            //            productsTable.setModel(new ProductsOrderTableModel(newProducts));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
         }
-        //contentModel.refreshTableWithOrder(createdOrderId);
+        contentModel.refreshTableWithOrder(createdOrderId);
 
       }
     });
@@ -132,7 +135,25 @@ public class OrderFrame extends BaseFrame {
     deleteButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-        // Similar deletion logic could go here
+        int selectedProductId = productsTable.getSelectedRow();
+        if (selectedProductId != -1) {
+          int confirm = JOptionPane.showConfirmDialog(
+                  OrderFrame.this,
+                  "Are you sure you want to delete this row?",
+                  "Confirm Delete",
+                  JOptionPane.YES_NO_OPTION
+                                                     );
+          if (confirm == JOptionPane.YES_OPTION) {
+            try {
+              OrdersDAO.deleteOrderProduct(createdOrderId, selectedProductId);
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
+          }
+
+        } else {
+          JOptionPane.showMessageDialog(null, "Please select a product first");
+        }
       }
     });
   }
