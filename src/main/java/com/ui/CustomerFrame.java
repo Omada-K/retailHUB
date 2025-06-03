@@ -19,6 +19,7 @@ public class CustomerFrame extends BaseFrame {
   private JTextField emailInput;
   private JTextField pointsInput;
   private JTextField balanceInput;
+  private JTextField dateOfBirthInput; // added @Themi des to UI na to emfanisei
 
   //Edit form(needs user)
   public CustomerFrame (TableModel content, Object customerInput) {
@@ -26,7 +27,7 @@ public class CustomerFrame extends BaseFrame {
     setupCancelButton(cancelButton);
     setContentPane(formPanel);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-    Customer customer = (Customer) customerInput; //force generic object to be customer
+    Customer customer = (Customer) customerInput;
 
     int id = customer.getCustomerId();
     nameInput.setText(customer.getName());
@@ -35,17 +36,23 @@ public class CustomerFrame extends BaseFrame {
     emailInput.setText(customer.getEmail());
     pointsInput.setText(String.valueOf(customer.getPoints()));
     balanceInput.setText(String.valueOf(customer.getBalance()));
+    dateOfBirthInput.setText(customer.getDateOfBirth() != null ? customer.getDateOfBirth().toString() : ""); // ADDED
 
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-
-        if (nameInput.getText() != null &&//validation
+        if (nameInput.getText() != null &&
                 addressInput.getText() != null &&
                 telephoneInput.getText() != null &&
                 emailInput.getText() != null &&
-                pointsInput.getText() != null
-        ) {
+                pointsInput.getText() != null) {
+
+          java.sql.Date dateOfBirth = null; // ADDED
+          try { // ADDED
+            dateOfBirth = java.sql.Date.valueOf(dateOfBirthInput.getText());
+          } catch (Exception ex) {
+            // Optional: Show error to user
+          }
 
           Customer inputCustomer = new Customer(
                   id,
@@ -54,7 +61,8 @@ public class CustomerFrame extends BaseFrame {
                   telephoneInput.getText(),
                   emailInput.getText(),
                   Double.parseDouble(balanceInput.getText()),
-                  Integer.parseInt(pointsInput.getText())
+                  Integer.parseInt(pointsInput.getText()),
+                  dateOfBirth // ADDED
           );
 
           try {
@@ -79,12 +87,17 @@ public class CustomerFrame extends BaseFrame {
     saveButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
-
-        if (nameInput.getText() != null &&//validation
+        if (nameInput.getText() != null &&
                 addressInput.getText() != null &&
                 telephoneInput.getText() != null &&
-                emailInput.getText() != null
-        ) {
+                emailInput.getText() != null) {
+
+          java.sql.Date dateOfBirth = null; // ADDED
+          try { // ADDED
+            dateOfBirth = java.sql.Date.valueOf(dateOfBirthInput.getText());
+          } catch (Exception ex) {
+            // Optional: Show error to user
+          }
 
           Customer inputCustomer = new Customer(
                   nameInput.getText(),
@@ -92,7 +105,8 @@ public class CustomerFrame extends BaseFrame {
                   telephoneInput.getText(),
                   emailInput.getText(),
                   Double.parseDouble(balanceInput.getText()),
-                  Integer.parseInt(pointsInput.getText())
+                  Integer.parseInt(pointsInput.getText()),
+                  dateOfBirth // ADDED
           );
           try {
             CustomersDAO.createItem(inputCustomer);

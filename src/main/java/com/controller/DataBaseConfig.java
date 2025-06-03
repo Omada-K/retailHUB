@@ -51,8 +51,10 @@ public class DataBaseConfig {
             "address VARCHAR(100), " +
             "phone VARCHAR(10) UNIQUE NOT NULL, " +
             "email VARCHAR(40) UNIQUE NOT NULL, " +
-            "balance DOUBLE DEFAULT 0," +
-            "points INTEGER DEFAULT 0)";
+            "balance DOUBLE DEFAULT 0, " +
+            "points INTEGER DEFAULT 0, " +
+            "date_of_birth DATE" +           // added
+            ")";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
       System.out.println("customers table created.");
@@ -66,11 +68,11 @@ public class DataBaseConfig {
     try (Connection conn = getConnection();
          Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("product_category table created successfully."); // changed message
+      System.out.println("product_category table created successfully.");
     }
   }
 
-  // Changed: Corrected products_in_order definition (removed *) and comma usage
+  // products_in_order definition (removed * and fixed comma usage)
   public static void createProductsTable() throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS products (" +
             "product_id INTEGER IDENTITY PRIMARY KEY, " +
@@ -78,13 +80,13 @@ public class DataBaseConfig {
             "name VARCHAR(60) UNIQUE, " +
             "inv_stock INTEGER, " +
             "item_price DOUBLE DEFAULT 0, " +
-            "products_in_order INTEGER DEFAULT 0, " + // changed: removed * and fixed comma
+            "products_in_order INTEGER DEFAULT 0, " +
             "FOREIGN KEY (category_id) REFERENCES product_category(category_id)" +
             ")";
     try (Connection conn = getConnection();
          Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("products table created successfully"); // changed message
+      System.out.println("products table created successfully");
     }
   }
 
@@ -97,7 +99,7 @@ public class DataBaseConfig {
             "product_count INTEGER default 0)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("orders table created successfully."); // changed message
+      System.out.println("orders table created successfully.");
     }
   }
 
@@ -111,7 +113,7 @@ public class DataBaseConfig {
             "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("orders_products table created."); // changed message
+      System.out.println("orders_products table created.");
     }
   }
 
@@ -132,7 +134,7 @@ public class DataBaseConfig {
   public static void createAllTables () throws SQLException {
     // The order matters here: referenced tables must exist before referenced by FK
     createUsersTable();
-    createProductCategoryTable(); // changed: this must come before products
+    createProductCategoryTable();
     createProductsTable();
     createCustomersTable();
     createOrdersTable();

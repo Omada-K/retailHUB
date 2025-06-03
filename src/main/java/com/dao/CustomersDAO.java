@@ -15,7 +15,7 @@ public class CustomersDAO {
 
   public static ArrayList<Customer> getData () throws SQLException {
     ArrayList<Customer> customers = new ArrayList<Customer>();
-    String query = "SELECT customer_id, name,address,phone,email,balance,points FROM customers ";
+    String query = "SELECT customer_id, name, address, phone, email, balance, points, date_of_birth FROM customers"; // added date_of_birth
     System.out.println("fetching customers from database");
     try (
             Connection conn = DataBaseConfig.getConnection();
@@ -30,7 +30,8 @@ public class CustomersDAO {
                 rs.getString("phone"),
                 rs.getString("email"),
                 rs.getDouble("balance"),
-                rs.getInt("points")
+                rs.getInt("points"),
+                rs.getDate("date_of_birth") // added
         );
         customers.add(c);
       }
@@ -40,9 +41,9 @@ public class CustomersDAO {
     return customers;
   }
 
-  //add customer
+  // add customer
   public static void createItem (Customer customer) throws SQLException {
-    String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL,BALANCE,POINTS) VALUES (?, ?, ?, ?, ?, ?)";
+    String insertSql = "INSERT INTO CUSTOMERS (NAME, ADDRESS, PHONE, EMAIL, BALANCE, POINTS, DATE_OF_BIRTH) VALUES (?, ?, ?, ?, ?, ?, ?)"; // added DATE_OF_BIRTH
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
@@ -52,17 +53,16 @@ public class CustomersDAO {
       insertStmt.setString(4, customer.getEmail());
       insertStmt.setDouble(5, customer.getBalance());
       insertStmt.setInt(6, customer.getPoints());
+      insertStmt.setDate(7, customer.getDateOfBirth()); // added
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
   }
 
-  //edit item
+  // edit item
   public static void updateItem (Customer customer) throws SQLException {
-    String updateSql = "UPDATE CUSTOMERS SET NAME = ?, ADDRESS = ?, PHONE = ? , EMAIL = ?,BALANCE=?, POINTS =? WHERE " +
-            "CUSTOMER_ID = ?";
+    String updateSql = "UPDATE CUSTOMERS SET NAME = ?, ADDRESS = ?, PHONE = ?, EMAIL = ?, BALANCE = ?, POINTS = ?, DATE_OF_BIRTH = ? WHERE CUSTOMER_ID = ?"; // added DATE_OF_BIRTH
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
       insertStmt.setString(1, customer.getName());
@@ -71,14 +71,15 @@ public class CustomersDAO {
       insertStmt.setString(4, customer.getEmail());
       insertStmt.setDouble(5, customer.getBalance());
       insertStmt.setInt(6, customer.getPoints());
-      insertStmt.setInt(7, customer.getCustomerId());
+      insertStmt.setDate(7, customer.getDateOfBirth()); // added
+      insertStmt.setInt(8, customer.getCustomerId());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  //delete item
+  // delete item
   public static void deleteItem (Object selectedCustomer) throws SQLException {
     String deleteSql = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
     Customer customer = (Customer) selectedCustomer;
