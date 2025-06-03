@@ -35,7 +35,6 @@ public class DataBaseConfig {
             "password VARCHAR(60) NOT NULL, " +
             "is_admin BOOLEAN DEFAULT FALSE" +
             ")";
-
     try (Connection conn = getConnection();
          Statement statement = conn.createStatement()) {
       statement.executeUpdate(createTableDdl);
@@ -60,31 +59,33 @@ public class DataBaseConfig {
     }
   }
 
-  public static void createProductsTable () throws SQLException {
-    String ddl = "CREATE TABLE IF NOT EXISTS products (" +
-            "product_id INTEGER IDENTITY PRIMARY KEY, " +
-            "category_id INTEGER, " + // changed from product_category
-            "name VARCHAR(60) UNIQUE , " +
-            "inv_stock INTEGER," +
-            "item_price DOUBLE DEFAULT 0, " +
-            "FOREIGN KEY (category_id) REFERENCES product_category(category_id)" +
-            ")";
-    try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
-      stmt.executeUpdate(ddl);
-      System.out.println("products table created.");
-    }
-  }
-
-
   public static void createProductCategoryTable() throws SQLException {
     String ddl = "CREATE TABLE IF NOT EXISTS product_category (" +
             "category_id INTEGER IDENTITY PRIMARY KEY, " +
             "category_name VARCHAR(100) NOT NULL UNIQUE)";
     try (Connection conn = getConnection();
-      Statement stmt = conn.createStatement()) {
+         Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("product_category table created.");
-      }
+      System.out.println("product_category table created successfully."); // changed message
+    }
+  }
+
+  // Changed: Corrected products_in_order definition (removed *) and comma usage
+  public static void createProductsTable() throws SQLException {
+    String ddl = "CREATE TABLE IF NOT EXISTS products (" +
+            "product_id INTEGER IDENTITY PRIMARY KEY, " +
+            "category_id INTEGER, " +
+            "name VARCHAR(60) UNIQUE, " +
+            "inv_stock INTEGER, " +
+            "item_price DOUBLE DEFAULT 0, " +
+            "products_in_order INTEGER DEFAULT 0, " + // changed: removed * and fixed comma
+            "FOREIGN KEY (category_id) REFERENCES product_category(category_id)" +
+            ")";
+    try (Connection conn = getConnection();
+         Statement stmt = conn.createStatement()) {
+      stmt.executeUpdate(ddl);
+      System.out.println("products table created successfully"); // changed message
+    }
   }
 
   public static void createOrdersTable () throws SQLException {
@@ -96,7 +97,7 @@ public class DataBaseConfig {
             "product_count INTEGER default 0)";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("orders table created.");
+      System.out.println("orders table created successfully."); // changed message
     }
   }
 
@@ -110,7 +111,7 @@ public class DataBaseConfig {
             "FOREIGN KEY (product_id) REFERENCES products(product_id))";
     try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
       stmt.executeUpdate(ddl);
-      System.out.println("orders table created.");
+      System.out.println("orders_products table created."); // changed message
     }
   }
 
@@ -126,16 +127,15 @@ public class DataBaseConfig {
       stmt.executeUpdate(ddl);
       System.out.println("Customer-Orders table created.");
     }
-
   }
 
   public static void createAllTables () throws SQLException {
-    //H seira dimiourgias ehei simasia
+    // The order matters here: referenced tables must exist before referenced by FK
     createUsersTable();
-    createOrdersTable();
-    createCustomersTable();
-    createProductCategoryTable();
+    createProductCategoryTable(); // changed: this must come before products
     createProductsTable();
+    createCustomersTable();
+    createOrdersTable();
     createOrdersProductsTable();
     createCustomerOrdersTable();
 

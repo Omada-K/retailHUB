@@ -1,25 +1,35 @@
 package com.model;
 
+/**
+ * Model class for product_category table.
+ */
 public class ProductCategory {
+  // Unique identifier for each category
   private int categoryId;
-  private String category;
 
+  // Name of the category
+  private String categoryName;
 
-  public ProductCategory (int categoryId, String category){
+  // Constructor
+  public ProductCategory(int categoryId, String categoryName) {
     this.categoryId = categoryId;
-    this.category = category;
-
+    this.categoryName = categoryName;
   }
 
-  public int getCategoryId () {
+  // Getters & Setters
+  public int getCategoryId() {
     return categoryId;
   }
 
-  public String getCategory () {
-    return category;
+  public void setCategoryId(int categoryId) {
+    this.categoryId = categoryId;
   }
 
-  public ProductCategory (String category){
-    this.category = category;
+  public String getCategoryName() {
+    return categoryName;
+  }
+
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
   }
 }

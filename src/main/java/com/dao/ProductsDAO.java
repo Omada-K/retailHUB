@@ -17,13 +17,11 @@ public class ProductsDAO {
    * @return list of Products
    * @throws SQLException if database access error occurs
    */
-  public static ArrayList<Product> getData () throws SQLException {
+  public static ArrayList<Product> getData() throws SQLException {
     ArrayList<Product> products = new ArrayList<>();
-    //updated sql query, applied join method ;)
 
-    String query = "SELECT p.product_id, c.category_name, p.name, p.inv_stock, p.item_price " +
-            "FROM products p " +
-            "LEFT JOIN product_category c ON p.category_id = c.category_id";
+    String query = "SELECT product_id, category_id, name, inv_stock, item_price, products_in_order " +
+            "FROM products";
 
     try (Connection conn = DataBaseConfig.getConnection();
          Statement stmt = conn.createStatement();
@@ -32,86 +30,109 @@ public class ProductsDAO {
       while (rs.next()) {
         products.add(new Product(
                 rs.getInt("product_id"),
-                rs.getString("category_name"),
+                rs.getInt("category_id"),
                 rs.getString("name"),
                 rs.getInt("inv_stock"),
-                rs.getDouble("item_price")
+                rs.getDouble("item_price"),
+                rs.getInt("products_in_order")
         ));
       }
     }
     return products;
   }
 
-  public static void createItem (Product product) throws SQLException {
-    String insertSql = "INSERT INTO PRODUCTS (CATEGORY_ID,NAME,INV_STOCK, ITEM_PRICE ) VALUES (?, ?, ?, ?)";
+  /**
+   * Inserts a new product record.
+   *
+   * @param product the Product to insert
+   * @throws SQLException if database access error occurs
+   */
+  public static void createItem(Product product) throws SQLException {
+    String insertSql = "INSERT INTO products (category_id, name, inv_stock, item_price, products_in_order) VALUES (?, ?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
       insertStmt.setInt(1, product.getCategoryId());
-      insertStmt.setString(2, product.getName());
+      insertStmt.setString(2, product.getProductName());
       insertStmt.setInt(3, product.getAmountInStock());
-      insertStmt.setDouble(4, product.getItemPrice());
+      insertStmt.setDouble(4, product.getProductPrice());
+      insertStmt.setInt(5, product.getProductInOrder());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  //edit item
-  public static void updateItem (Product product) throws SQLException {
-    String updateSql = "UPDATE PRODUCTS SET CATEGORY_ID = ?, NAME = ?, INV_STOCK = ?, ITEM_PRICE = ? " +
-            "WHERE PRODUCT_ID = ?";
+  /**
+   * Updates an existing product record.
+   *
+   * @param product the Product to update
+   * @throws SQLException if database access error occurs
+   */
+  public static void updateItem(Product product) throws SQLException {
+    String updateSql = "UPDATE products SET category_id = ?, name = ?, inv_stock = ?, item_price = ?, products_in_order = ? " +
+            "WHERE product_id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement insertStmt = conn.prepareStatement(updateSql)) {
-      insertStmt.setInt(1, product.getCategoryId());
-      insertStmt.setString(2, product.getName());
-      insertStmt.setInt(3, product.getAmountInStock());
-      insertStmt.setDouble(4, product.getItemPrice());
-      insertStmt.setInt(5, product.getProductId());
-      insertStmt.executeUpdate();
+         PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+      updateStmt.setInt(1, product.getCategoryId());
+      updateStmt.setString(2, product.getProductName());
+      updateStmt.setInt(3, product.getAmountInStock());
+      updateStmt.setDouble(4, product.getProductPrice());
+      updateStmt.setInt(5, product.getProductInOrder());
+      updateStmt.setInt(6, product.getProductId());
+      updateStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  //delete item
-  public static void deleteItem (Object selectedProduct) throws SQLException {
-    String deleteSql = "DELETE FROM PRODUCTS WHERE PRODUCT_ID = ?";
+  /**
+   * Deletes a product record.
+   *
+   * @param selectedProduct the Product to delete
+   * @throws SQLException if database access error occurs
+   */
+  public static void deleteItem(Object selectedProduct) throws SQLException {
+    String deleteSql = "DELETE FROM products WHERE product_id = ?";
     Product product = (Product) selectedProduct;
     try (Connection conn = DataBaseConfig.getConnection();
-         PreparedStatement insertStmt = conn.prepareStatement(deleteSql)) {
-      insertStmt.setInt(1, product.getProductId());
-      insertStmt.executeUpdate();
+         PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+      deleteStmt.setInt(1, product.getProductId());
+      deleteStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  public static ArrayList<Product> getOrderedProducts () throws SQLException {
+  /**
+   * Fetches products included in orders.
+   *
+   * @return list of Products in orders
+   * @throws SQLException if database access error occurs
+   */
+  public static ArrayList<Product> getOrderedProducts() throws SQLException {
     ArrayList<Product> orderedProducts = new ArrayList<>();
 
-    String query = "SELECT c.category_name, p.name, p.item_price, p.inv_stock, op.amount_items " +
+    String query = "SELECT p.product_id, p.category_id, p.name, p.item_price, p.inv_stock, op.amount_items AS products_in_order " +
             "FROM products p " +
-            "JOIN orders_products op ON p.product_id = op.product_id " +
-            "LEFT JOIN product_category c ON p.category_id = c.category_id";
+            "JOIN orders_products op ON p.product_id = op.product_id";
 
     try (Connection conn = DataBaseConfig.getConnection();
          Statement stmt = conn.createStatement();
          ResultSet rs = stmt.executeQuery(query)) {
 
       while (rs.next()) {
-        String category = rs.getString("category_name");
-        String name = rs.getString("name");
-        double price = rs.getDouble("item_price");
-        int itemsInOrder = rs.getInt("amount_items");
-        int stock = rs.getInt("inv_stock");
-
-        Product product = new Product(category, name, price, itemsInOrder, stock);
-
+        Product product = new Product(
+                rs.getInt("product_id"),
+                rs.getInt("category_id"),
+                rs.getString("name"),
+                rs.getInt("inv_stock"),
+                rs.getDouble("item_price"),
+                rs.getInt("products_in_order")
+        );
         orderedProducts.add(product);
       }
-
-      return orderedProducts;
     }
+    return orderedProducts;
   }
 }

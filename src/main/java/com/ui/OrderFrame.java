@@ -103,7 +103,7 @@ public class OrderFrame extends BaseFrame {
 
     List<String> productsNamesList = new ArrayList<>();
     for (Product product : availableProducts) {
-      productsNamesList.add(product.getName());
+      productsNamesList.add(product.getProductName());
     }
     comboProduct.setModel(new DefaultComboBoxModel<>(productsNamesList.toArray(new String[0])));
     comboProduct.setSelectedIndex(0);
