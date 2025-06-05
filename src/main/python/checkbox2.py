@@ -35,4 +35,4 @@ output_path = Path(__file__).resolve().parents[3] / "data" / "boston2.png"
 # Make sure the data directory exists (optional safety check)
 output_path.parent.mkdir(parents=True, exist_ok=True)
 plt.savefig(output_path)
-plt.show()
+# plt.show()
