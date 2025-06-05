@@ -16,29 +16,26 @@ public class Product {
   // Price per product
   private double productPrice;
 
-  // Number of products included in an order
-  private int productInOrder;
+  // === Constructors ===
 
-  // Full constructor with all fields
-  public Product(int productId, int categoryId, String productName, int amountInStock, double productPrice, int productInOrder) {
+  // Full constructor with all fields (για selects/updates)
+  public Product(int productId, int categoryId, String productName, int amountInStock, double productPrice) {
     this.productId = productId;
     this.categoryId = categoryId;
     this.productName = productName;
     this.amountInStock = amountInStock;
     this.productPrice = productPrice;
-    this.productInOrder = productInOrder;
   }
 
-  // Constructor without productId (e.g., for inserts where id is auto-generated)
-  public Product(int categoryId, String productName, int amountInStock, double productPrice, int productInOrder) {
+  // Constructor χωρίς productId (για inserts με auto-increment)
+  public Product(int categoryId, String productName, int amountInStock, double productPrice) {
     this.categoryId = categoryId;
     this.productName = productName;
     this.amountInStock = amountInStock;
     this.productPrice = productPrice;
-    this.productInOrder = productInOrder;
   }
 
-  // Getters & Setters
+  // === Getters & Setters ===
 
   public int getProductId() { return productId; }
   public void setProductId(int productId) { this.productId = productId; }
@@ -55,6 +52,14 @@ public class Product {
   public double getProductPrice() { return productPrice; }
   public void setProductPrice(double productPrice) { this.productPrice = productPrice; }
 
-  public int getProductInOrder() { return productInOrder; }
-  public void setProductInOrder(int productInOrder) { this.productInOrder = productInOrder; }
+  @Override
+  public String toString() {
+    return productName + " (" + amountInStock + " in stock, €" + productPrice + ")";
+  }
+
+  //**    return productInOrder;
+  //  }
+  //
+  //  public int getAmountInStock () {
+
 }

@@ -11,25 +11,26 @@ public class ProductCategory {
   private String categoryName;
 
   // Constructor
+  //for inserting products WITHOUT id
+  public ProductCategory(String categoryName) {
+        this.categoryName = categoryName;
+  }
+
+  //for FETCHING products from db WITH id
   public ProductCategory(int categoryId, String categoryName) {
     this.categoryId = categoryId;
     this.categoryName = categoryName;
   }
 
   // Getters & Setters
-  public int getCategoryId() {
-    return categoryId;
-  }
 
-  public void setCategoryId(int categoryId) {
-    this.categoryId = categoryId;
-  }
+  public int getCategoryId() { return categoryId; }
+  public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+  public String getCategoryName() { return categoryName; }
+  public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 
-  public String getCategoryName() {
+  @Override
+  public String toString() {
     return categoryName;
-  }
-
-  public void setCategoryName(String categoryName) {
-    this.categoryName = categoryName;
   }
 }

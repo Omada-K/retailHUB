@@ -1,6 +1,6 @@
 package com.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Customer {
   private int customerId;
@@ -10,10 +10,10 @@ public class Customer {
   private String email;
   private double balance;
   private int points;
-  private Date dateOfBirth; // added
+  private LocalDate dateOfBirth; // Changed: Use LocalDate instead of java.sql.Date
 
   // Full constructor (with customerId)
-  public Customer(int customerId, String name, String address, String phone, String email, double balance, int points, Date dateOfBirth) {
+  public Customer(int customerId, String name, String address, String phone, String email, double balance, int points, LocalDate dateOfBirth) {
     this.customerId = customerId;
     this.name = name;
     this.address = address;
@@ -24,8 +24,8 @@ public class Customer {
     this.dateOfBirth = dateOfBirth;
   }
 
-  // Constructor without customerId (e.g. for inserts)
-  public Customer(String name, String address, String phone, String email, double balance, int points, Date dateOfBirth) {
+  // Constructor without customerId (for inserts)
+  public Customer(String name, String address, String phone, String email, double balance, int points, LocalDate dateOfBirth) {
     this.name = name;
     this.address = address;
     this.phone = phone;
@@ -57,6 +57,12 @@ public class Customer {
   public int getPoints() { return points; }
   public void setPoints(int points) { this.points = points; }
 
-  public Date getDateOfBirth() { return dateOfBirth; }
-  public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+  public LocalDate getDateOfBirth() { return dateOfBirth; } // Changed: Returns LocalDate
+  public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; } // Changed: Takes LocalDate
+
+  // Helper: returns java.sql.Date for DB operations if needed
+  // Use this when preparing statements for the database
+  public java.sql.Date getSqlDateOfBirth() {
+    return (dateOfBirth != null) ? java.sql.Date.valueOf(dateOfBirth) : null;
+  }
 }

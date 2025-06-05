@@ -4,7 +4,7 @@ import com.dao.ProductsDAO;
 import com.model.Product;
 import com.dao.ProductCategoryDAO;
 import com.model.ProductCategory;
-
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import java.util.List;
@@ -22,10 +22,18 @@ public class ProductTableModel extends TableModel<Product> {
       case 1:
         // Lookup category name by categoryId, catching SQLException since getCategoryNameById throws
         try {
-          return ProductCategoryDAO.getCategoryNameById(product.getCategoryId());
+          ArrayList<ProductCategory> categories = ProductCategoryDAO.getData();
+          int searchId = product.getCategoryId();
+          for (ProductCategory cat: categories) {
+            if (cat.getCategoryId() == searchId) {
+              return cat.getCategoryName();
+            }
+          }
+          return "Unknown";
         } catch (SQLException e) {
           e.printStackTrace();
           return "Unknown";
+
         }
       case 2: return product.getProductName();
       case 3: return product.getProductPrice();

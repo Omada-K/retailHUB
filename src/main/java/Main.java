@@ -53,9 +53,9 @@ public class Main {
     // Insert predefined product categories if not exist
     ArrayList<ProductCategory> existingCategories = ProductCategoryDAO.getData(); // STATIC method
     if (existingCategories.isEmpty()) {
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Electronics")); // id=0, DB will autoincrement
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Beauty"));
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Clothing"));
+      ProductCategoryDAO.createItem(new ProductCategory("Electronics")); // id=0, DB will autoincrement
+      ProductCategoryDAO.createItem(new ProductCategory("Beauty"));
+      ProductCategoryDAO.createItem(new ProductCategory("Clothing"));
     }
 
     // GUI related stuff

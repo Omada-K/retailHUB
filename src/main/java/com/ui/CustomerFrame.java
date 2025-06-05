@@ -62,7 +62,7 @@ public class CustomerFrame extends BaseFrame {
                   emailInput.getText(),
                   Double.parseDouble(balanceInput.getText()),
                   Integer.parseInt(pointsInput.getText()),
-                  dateOfBirth // ADDED
+                  dateOfBirth.toLocalDate() // ADDED
           );
 
           try {
@@ -106,7 +106,7 @@ public class CustomerFrame extends BaseFrame {
                   emailInput.getText(),
                   Double.parseDouble(balanceInput.getText()),
                   Integer.parseInt(pointsInput.getText()),
-                  dateOfBirth // ADDED
+                  dateOfBirth.toLocalDate() // ADDED
           );
           try {
             CustomersDAO.createItem(inputCustomer);

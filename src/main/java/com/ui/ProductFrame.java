@@ -4,11 +4,11 @@ import com.dao.ProductsDAO;
 import com.dao.ProductCategoryDAO;
 import com.model.Product;
 import com.ui.tablemodel.TableModel;
-
+import com.model.ProductCategory;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ProductFrame extends BaseFrame {
   private JPanel formPanel;
@@ -30,9 +30,14 @@ public class ProductFrame extends BaseFrame {
 
     categoryBox.setModel(new DefaultComboBoxModel<>(categories));
     // Set selected category name in combo box (lookup name from categoryId)
-    String categoryName = ""; // CHANGED: Find name from id
+    String categoryName = ""; //altered
     try {
-      categoryName = ProductCategoryDAO.getCategoryNameById(product.getCategoryId());
+      for (ProductCategory c : ProductCategoryDAO.getData()) {
+        if (c.getCategoryId() == product.getCategoryId()) {
+          categoryName = c.getCategoryName();
+          break;
+        }
+      }
     } catch (Exception ignored) {}
     categoryBox.setSelectedItem(categoryName);
 
@@ -48,14 +53,24 @@ public class ProductFrame extends BaseFrame {
                 !inputStock.getText().isEmpty() &&
                 !priceInput.getText().isEmpty()) {
 
-          // Get selected category name from combo box, then lookup id
+          // Get selected category name from combo box, then lookup id using SQL //fixed
           String selectedCategoryName = (String) categoryBox.getSelectedItem();
-          int categoryId = -1; // CHANGED: Declare and init to invalid id
-          try {
-            categoryId = ProductCategoryDAO.getCategoryIdByName(selectedCategoryName); // CHANGED: Catch SQLException
+          int categoryId = -1; //fixed
+          try (Connection conn = com.controller.DataBaseConfig.getConnection();
+               PreparedStatement stmt = conn.prepareStatement(
+                       "SELECT category_id FROM product_category WHERE LOWER(category_name) = LOWER(?) LIMIT 1"
+                                                             )) {
+            stmt.setString(1, selectedCategoryName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+              categoryId = rs.getInt("category_id");
+            } else {
+              JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE); // CHANGED: Optional user message
+            JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
           }
 
@@ -64,9 +79,8 @@ public class ProductFrame extends BaseFrame {
                   categoryId,
                   nameInput.getText(),
                   Integer.parseInt(inputStock.getText()),
-                  Double.parseDouble(priceInput.getText()),
-                  0 // default value for productInOrder
-          );
+                  Double.parseDouble(priceInput.getText())
+                            );
           try {
             ProductsDAO.updateItem(inputProduct);
             content.refreshTable();
@@ -95,14 +109,24 @@ public class ProductFrame extends BaseFrame {
                 !inputStock.getText().isEmpty() &&
                 !priceInput.getText().isEmpty()) {
 
-          // Get selected category name from combo box, then lookup id
+          // Get selected category name from combo box, then lookup id using SQL //fixed
           String selectedCategoryName = (String) categoryBox.getSelectedItem();
-          int categoryId = -1; // CHANGED: Declare and init to invalid id
-          try {
-            categoryId = ProductCategoryDAO.getCategoryIdByName(selectedCategoryName); // CHANGED: Catch SQLException
+          int categoryId = -1; //fixed
+          try (Connection conn = com.controller.DataBaseConfig.getConnection();
+               PreparedStatement stmt = conn.prepareStatement(
+                       "SELECT category_id FROM product_category WHERE LOWER(category_name) = LOWER(?) LIMIT 1"
+                                                             )) {
+            stmt.setString(1, selectedCategoryName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+              categoryId = rs.getInt("category_id");
+            } else {
+              JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE); // CHANGED: Optional user message
+            JOptionPane.showMessageDialog(ProductFrame.this, "Could not find category in database!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
           }
 
@@ -110,8 +134,8 @@ public class ProductFrame extends BaseFrame {
                   categoryId,
                   nameInput.getText(),
                   Integer.parseInt(inputStock.getText()),
-                  Double.parseDouble(priceInput.getText()),
-                  0 // default value for productInOrder
+                  Double.parseDouble(priceInput.getText())
+                  //0 // default value for productInOrder
           );
           try {
             ProductsDAO.createItem(inputProduct);

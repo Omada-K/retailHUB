@@ -50,7 +50,7 @@ public class DataGenerator {
       int points = rand.nextInt(21);
       java.sql.Date dateOfBirth = randomDateOfBirth();
 
-      Customer customer = new Customer(name, address, phone, email, balance, points, dateOfBirth);
+      Customer customer = new Customer(name, address, phone, email, balance, points, dateOfBirth.toLocalDate());
       try {
         CustomersDAO.createItem(customer);
       } catch (SQLException e) {
@@ -60,52 +60,40 @@ public class DataGenerator {
   }
 
   public static void createDummyProducts() {
-    // Insert default categories if not already in DB
-    try {
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Electronics"));
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Beauty"));
-      ProductCategoryDAO.createItem(new ProductCategory(0, "Clothing"));
-    } catch (SQLException ignored) {
-      // ignore duplicate insert errors
-    }
-
-    String[] categories = {"Electronics", "Beauty", "Clothing"};
-    String[] productNames = {"Headphones", "PC Keyboard", "Notebook", "T-shirt", "Backpack", "Mug", "Mouse"};
-
-    Random rand = new Random();
-
-    // Fetch existing product categories from DB
+    // Get all valid categories from DB (do not insert/modify)
     ArrayList<ProductCategory> existingCategories = new ArrayList<>();
     try {
-      existingCategories = ProductCategoryDAO.getData(); // static method
+      existingCategories = ProductCategoryDAO.getData();
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
-    for (int i = 1; i < 16; i++) {
-      String categoryName = categories[rand.nextInt(categories.length)];
+    // If no categories exist, don't proceed (optional safety)
+    if (existingCategories.isEmpty()) {
+      System.out.println("No categories found in DB. Please add some first!");
+      return;
+    }
+
+    String[] productNames = {"Headphones", "PC Keyboard", "Notebook", "T-shirt", "Backpack", "Mug", "Mouse"};
+    Random rand = new Random();
+
+    for (int i = 0; i < 15; i++) {
+      // Always pick a category ONLY from valid DB categories
+      ProductCategory randomCategory = existingCategories.get(rand.nextInt(existingCategories.size()));
+      int categoryId = randomCategory.getCategoryId();
+
       String name = productNames[rand.nextInt(productNames.length)] + " " + rand.nextInt(26);
       double price = (5 + rand.nextInt(96)) * 1.0;
       int quantity = 10 + rand.nextInt(1000);
 
-      // Map categoryName to categoryId from existing DB list
-      int categoryId = -1;
-      for (ProductCategory cat : existingCategories) {
-        if (cat.getCategoryName().equalsIgnoreCase(categoryName)) { // FIX: use getCategoryName()
-          categoryId = cat.getCategoryId();
-          break;
-        }
-      }
-
-      // Only create product if categoryId is valid
-      if (categoryId != -1) {
-        Product product = new Product(categoryId, name, quantity, price, 0);
-        try {
-          ProductsDAO.createItem(product);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+      Product product = new Product(categoryId, name, quantity, price);
+      try {
+        ProductsDAO.createItem(product);
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
     }
   }
+
+
 }

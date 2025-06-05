@@ -20,8 +20,8 @@ public class ProductsDAO {
   public static ArrayList<Product> getData() throws SQLException {
     ArrayList<Product> products = new ArrayList<>();
 
-    String query = "SELECT product_id, category_id, name, inv_stock, item_price, products_in_order " +
-            "FROM products";
+    String query = "SELECT product_id, category_id, name, inv_stock, item_price" +
+            " FROM products";
 
     try (Connection conn = DataBaseConfig.getConnection();
          Statement stmt = conn.createStatement();
@@ -33,9 +33,8 @@ public class ProductsDAO {
                 rs.getInt("category_id"),
                 rs.getString("name"),
                 rs.getInt("inv_stock"),
-                rs.getDouble("item_price"),
-                rs.getInt("products_in_order")
-        ));
+                rs.getDouble("item_price"))
+                    );
       }
     }
     return products;
@@ -48,7 +47,7 @@ public class ProductsDAO {
    * @throws SQLException if database access error occurs
    */
   public static void createItem(Product product) throws SQLException {
-    String insertSql = "INSERT INTO products (category_id, name, inv_stock, item_price, products_in_order) VALUES (?, ?, ?, ?, ?)";
+    String insertSql = "INSERT INTO products (category_id, name, inv_stock, item_price) VALUES (?, ?, ?, ?)";
 
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
@@ -56,7 +55,6 @@ public class ProductsDAO {
       insertStmt.setString(2, product.getProductName());
       insertStmt.setInt(3, product.getAmountInStock());
       insertStmt.setDouble(4, product.getProductPrice());
-      insertStmt.setInt(5, product.getProductInOrder());
       insertStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -70,7 +68,7 @@ public class ProductsDAO {
    * @throws SQLException if database access error occurs
    */
   public static void updateItem(Product product) throws SQLException {
-    String updateSql = "UPDATE products SET category_id = ?, name = ?, inv_stock = ?, item_price = ?, products_in_order = ? " +
+    String updateSql = "UPDATE products SET category_id = ?, name = ?, inv_stock = ?, item_price = ?" +
             "WHERE product_id = ?";
     try (Connection conn = DataBaseConfig.getConnection();
          PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
@@ -78,8 +76,7 @@ public class ProductsDAO {
       updateStmt.setString(2, product.getProductName());
       updateStmt.setInt(3, product.getAmountInStock());
       updateStmt.setDouble(4, product.getProductPrice());
-      updateStmt.setInt(5, product.getProductInOrder());
-      updateStmt.setInt(6, product.getProductId());
+      updateStmt.setInt(5, product.getProductId());
       updateStmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -113,26 +110,22 @@ public class ProductsDAO {
   public static ArrayList<Product> getOrderedProducts() throws SQLException {
     ArrayList<Product> orderedProducts = new ArrayList<>();
 
-    String query = "SELECT p.product_id, p.category_id, p.name, p.item_price, p.inv_stock, op.amount_items AS products_in_order " +
-            "FROM products p " +
-            "JOIN orders_products op ON p.product_id = op.product_id";
-
-    try (Connection conn = DataBaseConfig.getConnection();
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery(query)) {
-
+    String query = "SELECT p.product_id, p.category_id, p.name, p.inv_stock,p.item_price FROM products p "+
+                    "JOIN orders_products op ON p.product_id = op.product_id";
+    try(Connection conn = DataBaseConfig.getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query)) {
       while (rs.next()) {
         Product product = new Product(
                 rs.getInt("product_id"),
                 rs.getInt("category_id"),
                 rs.getString("name"),
                 rs.getInt("inv_stock"),
-                rs.getDouble("item_price"),
-                rs.getInt("products_in_order")
+                rs.getDouble("item_price")
         );
         orderedProducts.add(product);
+        }
       }
-    }
     return orderedProducts;
   }
 }
