@@ -5,6 +5,7 @@ import com.dao.ProductsDAO;
 import com.model.Customer;
 import com.model.Order;
 import com.model.Product;
+import com.ui.tablemodel.OrderTableModel;
 import com.ui.tablemodel.ProductTableModel;
 import com.ui.tablemodel.ProductsOrderTableModel;
 
@@ -28,7 +29,7 @@ public class OrderFrame extends BaseFrame {
   private JButton editProductButton;
 
   // Edit form (requires an Order)
-  public OrderFrame (ProductTableModel content, Object OrderInput, ArrayList<Customer> availableCustomers) {
+  public OrderFrame (ProductTableModel content, Object OrderInput, ArrayList<Customer> availableCustomers, AppState state) {
     super();
     setContentPane(formPanel); // set the main panel
     setupCancelButton(exitButton);
@@ -73,13 +74,27 @@ public class OrderFrame extends BaseFrame {
         //save product to order
       }
     });
+    exitButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        try {
+          List<Order> orders = OrdersDAO.getData();
+          OrderTableModel model = new OrderTableModel(orders);
+          state.selectedTableType = AppState.TableTypes.Orders.toString();
+          new TableFrame<>(state, model);
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
   }
 
   // Create form (for new orders)
   //Create
   public OrderFrame (
           ArrayList<Customer> availableCustomers,
-          ArrayList<Product> availableProducts
+          ArrayList<Product> availableProducts,
+          AppState state
                     ) throws SQLException {
 
     super();
@@ -153,6 +168,20 @@ public class OrderFrame extends BaseFrame {
 
         } else {
           JOptionPane.showMessageDialog(null, "Please select a product first");
+        }
+      }
+    });
+
+    exitButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed (ActionEvent e) {
+        try {
+          List<Order> orders = OrdersDAO.getData();
+          OrderTableModel model = new OrderTableModel(orders);
+          state.selectedTableType = AppState.TableTypes.Orders.toString();
+          new TableFrame<>(state, model);
+        } catch (SQLException ex) {
+          throw new RuntimeException(ex);
         }
       }
     });

@@ -136,7 +136,7 @@ public class TableFrame<T> extends BaseFrame {
                       JOptionPane.ERROR_MESSAGE);
             }
             ProductTableModel t = new ProductTableModel(products);
-            new OrderFrame(t, selectedItem, availableCustomers);
+            new OrderFrame(t, selectedItem, availableCustomers, state);
           }
 
           //edit a product
@@ -167,7 +167,8 @@ public class TableFrame<T> extends BaseFrame {
           try {
             availableCustomers = CustomersDAO.getData();
             availableProducts = ProductsDAO.getData();
-            new OrderFrame(availableCustomers, availableProducts);
+            new OrderFrame(availableCustomers, availableProducts, state);
+            dispose();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
