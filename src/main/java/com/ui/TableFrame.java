@@ -119,15 +119,16 @@ public class TableFrame<T> extends BaseFrame {
           }
 
           //Edit order
-          //TODO doublecheck this
           if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
             Order selectedOrder = (Order) content.getItem(selectedRow);
-            ArrayList<Product> products = new ArrayList<>();
-            ArrayList<Customer> availableCustomers = new ArrayList<>();
+            ArrayList<Product> availableProducts;
+            ArrayList<Customer> availableCustomers;
 
             try {
               availableCustomers = CustomersDAO.getData();
-              products = ProductsDAO.getData();
+              availableProducts = ProductsDAO.getData();
+              new OrderFrame(selectedOrder, availableCustomers, availableProducts, state);
+              dispose();
             } catch (SQLException ex) {
               JOptionPane.showMessageDialog(
                       null,
@@ -135,8 +136,6 @@ public class TableFrame<T> extends BaseFrame {
                       "Error",
                       JOptionPane.ERROR_MESSAGE);
             }
-            ProductTableModel t = new ProductTableModel(products);
-            new OrderFrame(t, selectedItem, availableCustomers, state);
           }
 
           //edit a product

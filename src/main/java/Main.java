@@ -43,8 +43,6 @@ public class Main {
       UserDAO.createItem(new User("Krush Team", "test", "1234", true));
     }
 
-    //OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
-
     //GUI related stuff
     AppState uiState = new AppState();//this is input for all Jframes, it has info about the app name of login user
     // etc...
