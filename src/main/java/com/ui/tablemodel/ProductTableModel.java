@@ -2,6 +2,10 @@ package com.ui.tablemodel;
 
 import com.dao.ProductsDAO;
 import com.model.Product;
+import com.dao.ProductCategoryDAO;
+import com.model.ProductCategory;
+
+import java.sql.SQLException;
 
 import java.util.List;
 
@@ -11,17 +15,23 @@ public class ProductTableModel extends TableModel<Product> {
   }
 
   @Override
-  public Object getValueAt (int rowIndex, int columnIndex) {
-
+  public Object getValueAt(int rowIndex, int columnIndex) {
     Product product = data.get(rowIndex);
-    return switch (columnIndex) {
-      case 0 -> product.getProductId();
-      case 1 -> product.getCategoryId();
-      case 2 -> product.getName();
-      case 3 -> product.getItemPrice();
-      case 4 -> product.getAmountInStock();
-      default -> null;
-    };
+    switch (columnIndex) {
+      case 0: return product.getProductId();
+      case 1:
+        // Lookup category name by categoryId, catching SQLException since getCategoryNameById throws
+        try {
+          return ProductCategoryDAO.getCategoryNameById(product.getCategoryId());
+        } catch (SQLException e) {
+          e.printStackTrace();
+          return "Unknown";
+        }
+      case 2: return product.getProductName();
+      case 3: return product.getProductPrice();
+      case 4: return product.getAmountInStock();
+      default: return null;
+    }
   }
 
   @Override
