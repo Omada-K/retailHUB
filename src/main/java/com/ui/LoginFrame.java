@@ -70,6 +70,7 @@ public class LoginFrame extends BaseFrame {
       if (user.getEmail().equals(userEmail)) {
         usermatch = true;
         if (user.getUserPassword().equals(password)) {
+          appState.isUserManager = true;
           appState.loggedInUserName = user.getName();
           new MainFrame(appState).setVisible(true);
           dispose();//this makes THIS frame not visible
