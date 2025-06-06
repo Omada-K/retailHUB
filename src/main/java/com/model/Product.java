@@ -1,32 +1,33 @@
 package com.model;
 
-import javax.swing.*;
-
 public class Product {
+  // Unique identifier for each product
   private int productId;
+
+  // Foreign key: references ProductCategory
   private int categoryId;
-  private String categoryName;
+
+  // Product name
   private String productName;
+
+  // Amount of product in stock
   private int amountInStock;
+
+  // Price per product
   private double productPrice;
-  private int productInOrder;
 
-  //Constructor
-  public Product(int productId, String categoryName, String productName, int amountInStock, double productPrice) {
+  // === Constructors ===
+
+  // Full constructor with all fields (για selects/updates)
+  public Product(int productId, int categoryId, String productName, int amountInStock, double productPrice) {
     this.productId = productId;
-    this.categoryName = categoryName;
+    this.categoryId = categoryId;
     this.productName = productName;
     this.amountInStock = amountInStock;
     this.productPrice = productPrice;
   }
 
-  public Product(String categoryName, String productName, double productPrice, int productsInOrder, int amountInStock) {
-    this.categoryName = categoryName;
-    this.productName = productName;
-    this.productPrice = productPrice;
-    this.productInOrder = productsInOrder;
-    this.amountInStock = amountInStock;
-  }
+  // Constructor χωρίς productId (για inserts με auto-increment)
   public Product(int categoryId, String productName, int amountInStock, double productPrice) {
     this.categoryId = categoryId;
     this.productName = productName;
@@ -34,40 +35,31 @@ public class Product {
     this.productPrice = productPrice;
   }
 
+  // === Getters & Setters ===
 
-  //Products when they are in an Order
-  public Product (int categoryId, String productName, double productPrice, int productsInOrder, int amountInStock) {
-    this.productId = productId;
-    this.productName = productName;
-    this.productPrice = productPrice;
-    this.productInOrder = productsInOrder;
-    this.amountInStock = amountInStock;
+  public int getProductId() { return productId; }
+  public void setProductId(int productId) { this.productId = productId; }
+
+  public int getCategoryId() { return categoryId; }
+  public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+
+  public String getProductName() { return productName; }
+  public void setProductName(String productName) { this.productName = productName; }
+
+  public int getAmountInStock() { return amountInStock; }
+  public void setAmountInStock(int amountInStock) { this.amountInStock = amountInStock; }
+
+  public double getProductPrice() { return productPrice; }
+  public void setProductPrice(double productPrice) { this.productPrice = productPrice; }
+
+  @Override
+  public String toString() {
+    return productName + " (" + amountInStock + " in stock, €" + productPrice + ")";
   }
 
-
-
-  //Getters & Setters
-
-  public int getProductId () { return productId; }
-
-  public int getCategoryId () { return categoryId; }
-
-  public String getCategoryName(){ return categoryName; }
-
-  public String getName () { return productName; }
-
-  public int getItemsInOrder () {
-    return productInOrder;
-  }
-
-  public int getAmountInStock () {
-    //TODO needs improvement
-    if (amountInStock < 10) {
-      new JOptionPane("add more?");
-    }
-    return amountInStock;
-  }
-
-  public double getItemPrice () { return productPrice; }
+  //**    return productInOrder;
+  //  }
+  //
+  //  public int getAmountInStock () {
 
 }

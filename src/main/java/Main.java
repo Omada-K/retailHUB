@@ -1,8 +1,8 @@
 import com.controller.DataBaseConfig;
 import com.dao.OrdersDAO;
 import com.dao.UserDAO;
-import com.dao.ProductCategoryDAO; // added for category insert
-import com.model.ProductCategory; // added for category insert
+import com.dao.ProductCategoryDAO;
+import com.model.ProductCategory;
 import com.model.Order;
 import com.model.User;
 import com.ui.AppState;
@@ -50,13 +50,12 @@ public class Main {
 
     OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
 
-   // insert predefined product categories if not exist
-    ProductCategoryDAO categoryDAO = new ProductCategoryDAO(); // added to manage categories
-    ArrayList<ProductCategory> existingCategories = categoryDAO.getData(); // fetch all current categories
+    // Insert predefined product categories if not exist
+    ArrayList<ProductCategory> existingCategories = ProductCategoryDAO.getData(); // STATIC method
     if (existingCategories.isEmpty()) {
-      ProductCategoryDAO.createItem(new ProductCategory("Electronics")); // insert default category
-      ProductCategoryDAO.createItem(new ProductCategory("Beauty")); // insert default category
-      ProductCategoryDAO.createItem(new ProductCategory("Clothing")); // insert default category
+      ProductCategoryDAO.createItem(new ProductCategory("Electronics")); // id=0, DB will autoincrement
+      ProductCategoryDAO.createItem(new ProductCategory("Beauty"));
+      ProductCategoryDAO.createItem(new ProductCategory("Clothing"));
     }
 
     // GUI related stuff
