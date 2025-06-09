@@ -110,6 +110,9 @@ public class OrderFrame extends BaseFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         try {
+          if (order.getProductCount() < 1) {
+            OrdersDAO.deleteItem(order.getOrderId());
+          }
           List<Order> orders = OrdersDAO.getData();
           OrderTableModel model = new OrderTableModel(orders);
           state.selectedTableType = AppState.TableTypes.Orders.toString();
@@ -204,7 +207,12 @@ public class OrderFrame extends BaseFrame {
     exitButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed (ActionEvent e) {
+
         try {
+          Order order = OrdersDAO.getOrderById(createdOrderId);
+          if (order.getProductCount() < 1) {
+            OrdersDAO.deleteItem(createdOrderId);
+          }
           List<Order> orders = OrdersDAO.getData();
           OrderTableModel model = new OrderTableModel(orders);
           state.selectedTableType = AppState.TableTypes.Orders.toString();

@@ -86,7 +86,8 @@ public class TableFrame<T> extends BaseFrame {
                 content.refreshTable();
               }
               if (state.selectedTableType.equals(AppState.TableTypes.Orders.name())) {
-                OrdersDAO.deleteItem(selectedItem);
+                Order selectedOrder = (Order) selectedItem;
+                OrdersDAO.deleteItem(selectedOrder.getOrderId());
                 content.refreshTable();
               }
             } catch (SQLException ex) {
