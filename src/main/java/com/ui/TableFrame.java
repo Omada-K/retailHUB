@@ -113,7 +113,7 @@ public class TableFrame<T> extends BaseFrame {
             new UserFrame(content, selectedItem);
           }
 
-          //editma customer
+          //edit customer
           if (state.selectedTableType.equals(AppState.TableTypes.Customers.name())) {
             new CustomerFrame(content, selectedItem);
           }
