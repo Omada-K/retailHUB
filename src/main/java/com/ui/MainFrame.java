@@ -38,6 +38,7 @@ public class MainFrame extends BaseFrame {
   private JButton aboutButton;
   private JButton generateSyntheticDataButton;
   private JLabel welcomeLabel;
+  private JLabel adminRightsLabel;
 
   public MainFrame (AppState state) {
     super();
@@ -48,6 +49,9 @@ public class MainFrame extends BaseFrame {
     Font currentFont = welcomeLabel.getFont();
     welcomeLabel.setFont(new Font(currentFont.getName(), currentFont.getStyle(), 24));
     welcomeLabel.setText("Welcome to RetailHub " + state.loggedInUserName);
+    salvageDataFromOldButton.setEnabled(state.loggedInUserIsAdmin);
+    generateSyntheticDataButton.setEnabled(state.loggedInUserIsAdmin);
+    adminRightsLabel.setText(state.loggedInUserIsAdmin ? "You have Admin Rights" : "Users Rights");
 
     //View customers OnClick event listener
     viewCustomersButton.addActionListener(new ActionListener() {

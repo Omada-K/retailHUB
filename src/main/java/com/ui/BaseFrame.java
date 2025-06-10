@@ -7,13 +7,13 @@ import java.util.Objects;
 
 public abstract class BaseFrame extends JFrame {
   public BaseFrame () {
-    setVisible(true);
     setResizable(true);
-    setSize(480, 320);
-    setLocationRelativeTo(null);
+    setSize(500, 420);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     ImageIcon logoIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/logo-small.png")));
     setIconImage(logoIcon.getImage());
+    setLocationRelativeTo(null);
+    setVisible(true);
   }
 
   protected void setupCancelButton (JButton cancelButton) {
