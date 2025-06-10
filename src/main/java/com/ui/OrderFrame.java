@@ -137,7 +137,10 @@ public class OrderFrame extends BaseFrame {
     setupCancelButton(exitButton);
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     setSize(900, 680);
-    int createdOrderId = OrdersDAO.createItem(new Order(LocalDate.now(), LocalDate.now(), 0, 0));
+    int tempPrice = 0;
+    int tempQuantity = 0;
+    Order orderInput = new Order(LocalDate.now(), LocalDate.now(), tempPrice, tempQuantity);
+    int createdOrderId = OrdersDAO.createItem(orderInput);
 
     ArrayList<Product> productsInOrder = ProductsDAO.getOrderedProducts(createdOrderId);
     ProductsOrderTableModel contentModel = new ProductsOrderTableModel(productsInOrder);
@@ -162,14 +165,16 @@ public class OrderFrame extends BaseFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         if (!inputQuantity.getText().isEmpty()) {
+          orderInput.setProductCount(orderInput.getProductCount() + Integer.parseInt(inputQuantity.getText()));
           try {
             Product selectedProduct = (Product) comboProduct.getSelectedItem();
+            Customer selectedCustomer = (Customer) comboCustomer.getSelectedItem();
+            int selectedCustomerId = selectedCustomer.getCustomerId();
             int selectedProductId = selectedProduct.getProductId();
             int quantity = Integer.parseInt(inputQuantity.getText());
-            //debug...
-            System.out.println("Order id " + createdOrderId);
-            System.out.println("Product id " + selectedProductId);
-            OrdersDAO.createOrderProduct(createdOrderId, selectedProductId, quantity);
+
+            OrdersDAO.createOrderProduct(createdOrderId, selectedProductId, orderInput.getProductCount());
+            OrdersDAO.createOrderCustomer(createdOrderId, selectedCustomerId);
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }

@@ -82,7 +82,7 @@ public class MainFrame extends BaseFrame {
       @Override
       public void actionPerformed (ActionEvent e) {
         try {
-          List<Order> orders = OrdersDAO.getData();
+          List<Order> orders = OrdersDAO.getDataToDisplay();
           OrderTableModel model = new OrderTableModel(orders);
           state.selectedTableType = AppState.TableTypes.Orders.toString();
           new TableFrame<>(state, model);
