@@ -276,7 +276,6 @@ public class OrderFrame extends BaseFrame {
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
     gbc.gridy = 2;
-    gbc.gridwidth = 2;
     gbc.weightx = 1.0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -303,7 +302,6 @@ public class OrderFrame extends BaseFrame {
     gbc = new GridBagConstraints();
     gbc.gridx = 2;
     gbc.gridy = 0;
-    gbc.gridwidth = 2;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     formPanel.add(comboCustomer, gbc);
