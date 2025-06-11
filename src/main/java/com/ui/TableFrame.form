@@ -2,10 +2,12 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.ui.TableFrame">
   <grid id="27dc6" binding="tablePanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="30" width="1731" height="796"/>
+      <xy x="178" y="34" width="616" height="330"/>
     </constraints>
     <properties/>
-    <border type="none"/>
+    <border type="empty">
+      <size top="30" left="30" bottom="30" right="30"/>
+    </border>
     <children>
       <component id="24cac" class="javax.swing.JButton" binding="searchButton" default-binding="true">
         <constraints>

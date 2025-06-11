@@ -5,6 +5,7 @@ import com.model.Customer;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,6 +125,7 @@ public class CustomerFrame extends BaseFrame {
   private void $$$setupUI$$$ () {
     formPanel = new JPanel();
     formPanel.setLayout(new GridBagLayout());
+    formPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     saveButton = new JButton();
     saveButton.setText("Save");
     GridBagConstraints gbc;

@@ -4,6 +4,7 @@ import com.dao.UserDAO;
 import com.model.User;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,6 +105,7 @@ public class LoginFrame extends BaseFrame {
   private void $$$setupUI$$$ () {
     loginPanel = new JPanel();
     loginPanel.setLayout(new GridBagLayout());
+    loginPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     final JLabel label1 = new JLabel();
     label1.setText("Username");
     GridBagConstraints gbc;
@@ -171,5 +173,6 @@ public class LoginFrame extends BaseFrame {
    * @noinspection ALL
    */
   public JComponent $$$getRootComponent$$$ () { return loginPanel; }
+
 }
 

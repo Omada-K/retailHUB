@@ -50,7 +50,7 @@ public class MainFrame extends BaseFrame {
   public MainFrame (AppState state) {
     super();
     setContentPane(mainFramePanel);// don't forget this, the window will be empty
-    setSize(800, 600);
+    setSize(720, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     //set name of loggein user to the label
     Font currentFont = welcomeLabel.getFont();
@@ -337,6 +337,25 @@ public class MainFrame extends BaseFrame {
     gbc.gridy = 1;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     mainFramePanel.add(aboutButton, gbc);
+    adminRightsLabel = new JLabel();
+    adminRightsLabel.setText("Label");
+    gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.anchor = GridBagConstraints.WEST;
+    mainFramePanel.add(adminRightsLabel, gbc);
+    final JPanel spacer1 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    mainFramePanel.add(spacer1, gbc);
+    final JPanel spacer2 = new JPanel();
+    gbc = new GridBagConstraints();
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    mainFramePanel.add(spacer2, gbc);
   }
 
   /**

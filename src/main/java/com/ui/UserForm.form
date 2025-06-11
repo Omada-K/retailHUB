@@ -8,7 +8,9 @@
       <minimumSize width="480" height="320"/>
       <preferredSize width="480" height="234"/>
     </properties>
-    <border type="none"/>
+    <border type="empty">
+      <size top="30" left="30" bottom="30" right="30"/>
+    </border>
     <children>
       <component id="4ee21" class="javax.swing.JButton" binding="cancelButton" default-binding="true">
         <constraints>

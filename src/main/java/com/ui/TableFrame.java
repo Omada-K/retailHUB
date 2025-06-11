@@ -11,6 +11,7 @@ import com.model.User;
 import com.ui.tablemodel.*;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -226,6 +227,7 @@ public class TableFrame<T> extends BaseFrame {
   private void $$$setupUI$$$ () {
     tablePanel = new JPanel();
     tablePanel.setLayout(new GridBagLayout());
+    tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     searchButton = new JButton();
     searchButton.setText("Search");
     GridBagConstraints gbc;

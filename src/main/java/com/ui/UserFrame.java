@@ -5,6 +5,7 @@ import com.model.User;
 import com.ui.tablemodel.TableModel;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,6 +116,7 @@ public class UserFrame extends BaseFrame {
     formPanel.setLayout(new GridBagLayout());
     formPanel.setMinimumSize(new Dimension(480, 320));
     formPanel.setPreferredSize(new Dimension(480, 234));
+    formPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     cancelButton = new JButton();
     cancelButton.setText("Cancel");
     GridBagConstraints gbc;

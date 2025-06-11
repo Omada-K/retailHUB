@@ -1,6 +1,7 @@
 package com.ui;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,7 @@ public class AboutFrame extends BaseFrame {
   private void $$$setupUI$$$ () {
     aboutPanel = new JPanel();
     aboutPanel.setLayout(new GridBagLayout());
+    aboutPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     logo = new JLabel();
     logo.setText("");
     GridBagConstraints gbc;

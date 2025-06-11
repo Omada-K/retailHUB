@@ -9,6 +9,7 @@ import com.ui.tablemodel.OrderTableModel;
 import com.ui.tablemodel.ProductsOrderTableModel;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -247,6 +248,7 @@ public class OrderFrame extends BaseFrame {
   private void $$$setupUI$$$ () {
     formPanel = new JPanel();
     formPanel.setLayout(new GridBagLayout());
+    formPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
     exitButton = new JButton();
     exitButton.setText("Exit");
     GridBagConstraints gbc;
@@ -293,6 +295,7 @@ public class OrderFrame extends BaseFrame {
     gbc.gridwidth = 6;
     gbc.weighty = 1.0;
     gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(30, 30, 30, 30);
     formPanel.add(scrollPane1, gbc);
     productsTable = new JTable();
     scrollPane1.setViewportView(productsTable);
@@ -301,7 +304,6 @@ public class OrderFrame extends BaseFrame {
     gbc.gridx = 2;
     gbc.gridy = 0;
     gbc.gridwidth = 2;
-    gbc.weightx = 1.0;
     gbc.anchor = GridBagConstraints.WEST;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     formPanel.add(comboCustomer, gbc);
