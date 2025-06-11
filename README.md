@@ -3,21 +3,28 @@
 
 ![tutorial1](assets/logo.jpeg)
 
-## Our tech stack:
+## Our crew:
+- [Antonia Gkanatsa](mailto:john.doe@example.com) - Project Manager
+- [Christos Bartzialis](mailto:) - Data Analyst & Database Administrator
+- [Themistoklis Darelis](mailto:esd25006@uom.gr) - Software Developer
+- [Alexis Stamelos](mailto:) - Software Developer
+- [Paraskevi Katidou](mailto:) - Business Analyst
+- [Aggeliki alexiadou](mailto:) - Business Analyst
+## Goal:
 
+## Our tech stack:
 ### Database:
-- Portable solution
 - Hyper SQL
 - JDBC Driver
 ### Python module:
-- Data Analyses
-- Model visualisation
 - Pandas
+- Jupyter
+- Voila
 ### Java module:
-- App interface
+- Maven to set up project
 - GUI with Swing
-- Database visualisation
-## To compile this app follow these steps:
+- reflect lib for search
+## To work on this app follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/Omada-K/retailHUB.git
@@ -49,7 +56,14 @@ Wait for installation to finish. You can close the console.
 - On the right panel select
   ![tutorial3](assets/tutorial3.png)
 - Apply the changes.
-## Pulling from dev.
+
+4. Install dependencies with Maven:
+
+- Double click on install.
+  ![tutorial4](assets/maven-install-deps.png)
+## Appendix
+
+### Pulling from dev.
 
 This step happens every time we want to download the latest "dev" to start working. Switch to dev, create an empty dev branch:
 ```bash
@@ -61,7 +75,7 @@ Download and 'fill' the local dev branch with customers from github.
 ```
 Now we see the latest state of the dev branch.
 
-## Creating a new branch.
+### Creating a new branch.
 
 This step happens when we want upload our code to git hub.
 ```bash
@@ -86,7 +100,7 @@ git commit -m 'message of what we did'
 ```bash
 git push
 ```
-## Usefull commands
+### Usefull commands
 ```bash
 git status 
 ```
