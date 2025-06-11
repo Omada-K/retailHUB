@@ -4,12 +4,12 @@
 ![tutorial1](assets/logo.jpeg)
 
 ## Our crew:
-- [Antonia Gkanatsa](mailto:john.doe@example.com) - Project Manager
-- [Christos Bartzialis](mailto:) - Data Analyst & Database Administrator
+- [Antonia Gkanatsa](mailto:esd25004@uom.gr) - Project Manager
+- [Christos Bartzialis](mailto:esd25024@uom.gr) - Data Analyst & Database Administrator
 - [Themistoklis Darelis](mailto:esd25006@uom.gr) - Software Developer
-- [Alexis Stamelos](mailto:) - Software Developer
-- [Paraskevi Katidou](mailto:) - Business Analyst
-- [Aggeliki alexiadou](mailto:) - Business Analyst
+- [Alexis Stamelos](mailto:esd25032@uom.gr) - Software Developer
+- [Paraskevi Katidou](mailto:esd25017@uom.gr) - Business Analyst
+- [Aggeliki alexiadou](mailto:esd25001@uom.gr) - Business Analyst
 ## Goal:
 
 ## Our tech stack:
@@ -19,7 +19,7 @@
 ### Python module:
 - Pandas
 - Jupyter
-- Voila
+- and more see requirements.txt
 ### Java module:
 - Maven to set up project
 - GUI with Swing
