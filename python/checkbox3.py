@@ -1,9 +1,8 @@
-import sys
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import sys
+from pathlib import Path
 
 # import plotly.express as px
 # import numpy as np
@@ -11,7 +10,11 @@ import seaborn as sns
 # from sklearn.model_selection import train_test_split
 
 pd.options.display.float_format = '{:,.2f}'.format
-file_path = Path(__file__).resolve().parents[3] / "data" / "boston.csv"
+# paths
+base_dir = Path(__file__).resolve().parent.parent
+file_path = base_dir / "data" / "boston.csv"
+output_path = base_dir / "data" / "boston3.png"
+
 data = pd.read_csv(file_path, index_col=0)
 
 sns.displot(data.RM,
@@ -28,8 +31,6 @@ try:
     raise ValueError("Nothing went wrong")
 except Exception as e:
     print(f"Error: {e}", file=sys.stderr)
-
-output_path = Path(__file__).resolve().parents[3] / "data" / "boston3.png"
 
 # Make sure the data directory exists (optional safety check)
 output_path.parent.mkdir(parents=True, exist_ok=True)

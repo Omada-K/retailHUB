@@ -55,7 +55,7 @@ __pycache__/
 # Data
 salvage/
 data/*.png
-data/*.csv
+!data/boston.csv
 
 database/
 *.csv

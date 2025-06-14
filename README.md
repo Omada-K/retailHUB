@@ -33,12 +33,29 @@
    cd <your location>/retailHUB
    ```
 
-2. Activate python
+2. Activate python environment(Windows)
    ```bash
    python -m venv venv
    ```
    ```bash
    venv\Scripts\activate
+   ```
+   ```bash
+   pip install --upgrade pip setuptools wheel
+   ```
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Activate python environment(Linux)
+   ```bash
+   python3 -m venv venv
+   ```
+   ```bash
+   source venv/bin/activate
+   ```
+   ```bash
+   pip install --upgrade pip setuptools wheel
    ```
    ```bash
    pip install -r requirements.txt

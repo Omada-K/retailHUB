@@ -13,7 +13,10 @@ public class PythonRunner {
     //python script runner
     try {
       //is the python my local python or the venv python?
-      ProcessBuilder pb = new ProcessBuilder("venv/Scripts/python", "src/main/python/" + scriptName);
+      String pythonExec = System.getProperty("os.name").toLowerCase().contains("win")
+              ? "venv\\Scripts\\python.exe"
+              : "venv/bin/python";
+      ProcessBuilder pb = new ProcessBuilder(pythonExec, "python/" + scriptName);
       Process process = pb.start();
       BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
       String firstError = errorReader.readLine();
