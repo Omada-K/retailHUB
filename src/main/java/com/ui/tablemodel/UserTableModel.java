@@ -11,33 +11,33 @@ import java.util.List;
  */
 public class UserTableModel extends TableModel<User> {
 
-  public UserTableModel (List<User> users) {
-    super(users, new String[] {"ID", "Name", "Email", "Password", "Is Administrator"});
-  }
-
-  @Override
-  public Object getValueAt (int rowIndex, int columnIndex) {
-    User user = data.get(rowIndex);
-    return switch (columnIndex) {
-      case 0 -> user.getId();
-      case 1 -> user.getName();
-      case 2 -> user.getEmail();
-      case 3 -> user.getUserPassword();
-      case 4 -> user.getIsAdmin();
-      default -> null;
-    };
-  }
-
-  @Override
-  public void refreshTable () {
-    try {
-      List<User> updatedData = UserDAO.getData();
-      data.clear();
-      data.addAll(updatedData);
-      fireTableDataChanged();
-    } catch (SQLException e) {
-      throw new RuntimeException("Failed to refresh user table", e);
+    public UserTableModel(List<User> users) {
+        super(users, new String[]{"ID", "Name", "Email", "Password", "Is Administrator"});
     }
-  }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        User user = data.get(rowIndex);
+        return switch (columnIndex) {
+            case 0 -> user.getId();
+            case 1 -> user.getName();
+            case 2 -> user.getEmail();
+            case 3 -> user.getUserPassword();
+            case 4 -> user.getIsAdmin();
+            default -> null;
+        };
+    }
+
+    @Override
+    public void refreshTable() {
+        try {
+            List<User> updatedData = UserDAO.getData();
+            data.clear();
+            data.addAll(updatedData);
+            fireTableDataChanged();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to refresh user table", e);
+        }
+    }
 
 }
