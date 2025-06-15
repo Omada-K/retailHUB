@@ -10,60 +10,60 @@ import java.util.List;
  */
 public abstract class TableModel<T> extends AbstractTableModel {
 
-  protected List<T> data;
-  protected String[] columnNames;
+    protected List<T> data;
+    protected String[] columnNames;
 
-  public TableModel (List<T> data, String[] columnNames) {
-    this.data = new ArrayList<>(data);
-    this.columnNames = columnNames;
-  }
-
-  public List<T> search (String query) {
-    List<T> result = new ArrayList<>();
-    String lowerQuery = query.toLowerCase();
-
-    for (T item : data) {
-      for (Field field : item.getClass().getDeclaredFields()) {
-        field.setAccessible(true); // allow access to private fields
-        try {
-          Object value = field.get(item);
-          if (value != null) {
-            String stringValue = value.toString().toLowerCase();
-            if (stringValue.contains(lowerQuery)) {
-              result.add(item);
-              break; // move along
-            }
-          }
-        } catch (IllegalAccessException e) {
-          // Handle error appropriately in real applications
-          e.printStackTrace();
-        }
-      }
+    public TableModel(List<T> data, String[] columnNames) {
+        this.data = new ArrayList<>(data);
+        this.columnNames = columnNames;
     }
-    return result;
-  }
 
-  @Override
-  public int getRowCount () {
-    return data.size();
-  }
+    public List<T> search(String query) {
+        List<T> result = new ArrayList<>();
+        String lowerQuery = query.toLowerCase();
 
-  @Override
-  public int getColumnCount () {
-    return columnNames.length;
-  }
+        for (T item : data) {
+            for (Field field : item.getClass().getDeclaredFields()) {
+                field.setAccessible(true); // allow access to private fields
+                try {
+                    Object value = field.get(item);
+                    if (value != null) {
+                        String stringValue = value.toString().toLowerCase();
+                        if (stringValue.contains(lowerQuery)) {
+                            result.add(item);
+                            break; // move along
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    // Handle error appropriately in real applications
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
 
-  @Override
-  public String getColumnName (int column) {
-    return columnNames[column];
-  }
+    @Override
+    public int getRowCount() {
+        return data.size();
+    }
 
-  @Override
-  public abstract Object getValueAt (int rowIndex, int columnIndex);
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
 
-  public T getItem (int rowIndex) {
-    return data.get(rowIndex);
-  }
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
 
-  public abstract void refreshTable ();
+    @Override
+    public abstract Object getValueAt(int rowIndex, int columnIndex);
+
+    public T getItem(int rowIndex) {
+        return data.get(rowIndex);
+    }
+
+    public abstract void refreshTable();
 }
